@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
@@ -7,30 +6,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class rolemiddleware
+class roleMiddleware
 {
     /**
      * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        // Check if the user is authenticated and has the 'admin' role
-        if (Auth::check() && Auth::user()->role === 'admin') {
+        if (!Auth::check()) {
+            return redirect('/')->with('error', 'Please login to access this page.');
+        }
+
+        $userRole = Auth::user()->role;
+
+        if (in_array($userRole, $roles)) {
             return $next($request);
         }
-        elseif (Auth::check() && Auth::user()->role === 'user') {
-            return $next($request);
-        }
-        elseif (Auth::check() && Auth::user()->role === 'company') {
-            return $next($request);
-        }
-      else
-    {
-    // If not, redirect to a different page or show an error
+
         return redirect('/')->with('error', 'You do not have access.');
     }
-    }
-    }
-
+}

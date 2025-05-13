@@ -10,10 +10,12 @@ Route::get('/', function () {
 });
 
 
-Route::middleware('auth')->group(function () {
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-});
+Route::middleware('role:admin')->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
+
+
+    // Category Routes
 
 Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
 Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
@@ -22,6 +24,10 @@ Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('ca
 Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 Route::post('/category/status-toggle/{categoryId}', [CategoryController::class, 'updateToggle'])->name('category.status-toggle');
+
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
