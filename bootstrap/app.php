@@ -11,7 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->aliasMiddleware('rolemiddleware', \App\Http\Middleware\rolemiddleware::class);
+        $middleware->alias(['rolemiddleware' => \App\Http\Middleware\rolemiddleware::class]);
 
         
     })
