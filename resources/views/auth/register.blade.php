@@ -1,52 +1,89 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Portal Registration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+  <div class="w-full max-w-3xl bg-white p-6 rounded-xl shadow-md">
+    <!-- Toggle Titles -->
+    <div class="flex justify-center mb-6">
+      <button id="companyBtn" class="title-btn active border-b-4 border-blue-600 text-blue-600 font-semibold px-6 py-2 text-lg focus:outline-none">
+        As a Company
+      </button>
+      <button id="userBtn" class="title-btn border-b-4 border-transparent text-gray-600 font-semibold px-6 py-2 text-lg hover:text-blue-600 focus:outline-none">
+        As a User
+      </button>
+    </div>
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+    <!-- Company Form -->
+    <form id="companyForm" class="space-y-4">
+      <div>
+        <label class="block text-gray-700">Company Name</label>
+        <input type="text" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label class="block text-gray-700">Email</label>
+        <input type="email" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label class="block text-gray-700">Password</label>
+        <input type="password" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label class="block text-gray-700">Company Website</label>
+        <input type="url" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Register as Company</button>
     </form>
-</x-guest-layout>
+
+    <!-- User Form -->
+    <form id="userForm" class="space-y-4 hidden">
+      <div>
+        <label class="block text-gray-700">Full Name</label>
+        <input type="text" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label class="block text-gray-700">Email</label>
+        <input type="email" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label class="block text-gray-700">Password</label>
+        <input type="password" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div>
+        <label class="block text-gray-700">Resume (URL)</label>
+        <input type="url" class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Register as User</button>
+    </form>
+  </div>
+
+  <script>
+    const companyBtn = document.getElementById('companyBtn');
+    const userBtn = document.getElementById('userBtn');
+    const companyForm = document.getElementById('companyForm');
+    const userForm = document.getElementById('userForm');
+
+    companyBtn.addEventListener('click', () => {
+      companyForm.classList.remove('hidden');
+      userForm.classList.add('hidden');
+      companyBtn.classList.add('border-blue-600', 'text-blue-600');
+      userBtn.classList.remove('border-blue-600', 'text-blue-600');
+      companyBtn.classList.remove('text-gray-600');
+      userBtn.classList.add('text-gray-600');
+    });
+
+    userBtn.addEventListener('click', () => {
+      userForm.classList.remove('hidden');
+      companyForm.classList.add('hidden');
+      userBtn.classList.add('border-blue-600', 'text-blue-600');
+      companyBtn.classList.remove('border-blue-600', 'text-blue-600');
+      userBtn.classList.remove('text-gray-600');
+      companyBtn.classList.add('text-gray-600');
+    });
+  </script>
+</body>
+</html>
