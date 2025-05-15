@@ -64,13 +64,11 @@ class CategoryController extends Controller
         // Retrieve the food item by ID from the database
         $category = Category::findOrFail($categoryId);
 
-        // Update the status field with the new value
-        $category->status = $request->state; // 'state' is 1 (checked) or 0 (unchecked)
+        $category->status = $request->state; 
 
-        // Save the updated food item back to the database
+       
         $category->save();
 
-        // Return a JSON response indicating success
         return response()->json(['success' => true]);
     }
 
