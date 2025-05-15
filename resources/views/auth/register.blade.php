@@ -13,7 +13,7 @@
     <div class="min-h-screen py-12 xl:px-16 lg:px-12 sm:px-8 px-4 flex items-center justify-center">
         <div class="xl:max-w-6xl w-full mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <img class="w-full h-[40rem] lg:h-full lg:w-full hidden lg:block object-contain lg:object-cover rounded-lg"
+                <img class="w-full h-[40rem] lg:h-full lg:w-full hidden lg:block object-cover lg:object-cover rounded-lg"
                     src="images/signup.svg" alt="Register Image" />
 
                 <!-- Toggle Titles -->
@@ -93,16 +93,30 @@
                             <input type="text"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
-                        <div>
-                            <label class="block text-gray-700">Password</label>
-                            <input type="password"
-                                class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                        </div>
-                        <div>
-                            <label class="block text-gray-700">Confirm Password</label>
-                            <input type="password"
-                                class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                        </div>
+    <div>
+        <label class="block text-gray-700">Password</label>
+        <div class="relative">
+            <input type="password" id="user-password"
+                class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" />
+            <button type="button" onclick="togglePassword('user-password', this)"
+                class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600">
+                <i class="ri-eye-fill"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mt-4">
+        <label class="block text-gray-700">Confirm Password</label>
+        <div class="relative">
+            <input type="password" id="user-confirm-password"
+                class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" />
+            <button type="button" onclick="togglePassword('user-confirm-password', this)"
+                class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600">
+                <i class="ri-eye-fill"></i>
+            </button>
+        </div>
+    </div>
 
                         <button type="submit"
                             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Register</button>
