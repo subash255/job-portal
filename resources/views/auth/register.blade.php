@@ -73,6 +73,14 @@
                             </div>
                         </div>
 
+                        <!-- Terms and Conditions -->
+    <div class="flex items-start space-x-2">
+        <input type="checkbox" id="terms" name="terms" required class="mt-1">
+        <label for="terms" class="text-gray-700 text-sm">
+            I agree to the <a href="#" class="text-blue-600 hover:underline">Terms and Conditions</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>.
+        </label>
+    </div>
+
                         <button type="submit"
                             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Register</button>
                     </form>
@@ -119,10 +127,28 @@
                                 </button>
                             </div>
                         </div>
+                        
+                                                <!-- Terms and Conditions -->
+    <div class="flex items-start space-x-2">
+        <input type="checkbox" id="terms" name="terms" required class="mt-1">
+        <label for="terms" class="text-gray-700 text-sm">
+            I agree to the <a href="#" class="text-blue-600 hover:underline">Terms and Conditions</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>.
+        </label>
+    </div>
 
                         <button type="submit"
                             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Register</button>
                     </form>
+                    <div class="flex items-center gap-x-4 mt-4">
+                            <p class="border-b-2 w-full border-gray-300"></p>
+                            <p class="text-quaternary text-base">OR</p>
+                            <p class="border-b-2 w-full border-gray-300"></p>
+                        </div>
+
+                        <div class="mt-4 text-center">
+                            <p class="text-base">Already have an account? <a href="{{ route('login') }}"
+                                    class="hover:underline font-semibold text-blue-600">Login</a></p>
+                        </div>
                 </div>
             </div>
         </div>
