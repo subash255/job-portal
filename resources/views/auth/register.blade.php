@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration Page</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="min-h-screen py-12 xl:px-16 lg:px-12 sm:px-8 px-4 flex items-center justify-center">
+    <div class="bg-gradient-to-b from-purple-500 via-purple-300 to-purple-100 min-h-screen py-12 xl:px-16 lg:px-12 sm:px-8 px-4 flex items-center justify-center">
         <div class="xl:max-w-6xl w-full mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <img class="w-full h-[40rem] lg:h-full lg:w-full hidden lg:block object-cover lg:object-cover rounded-lg"
@@ -31,20 +30,20 @@
                     </div>
 
                     <!-- Company Form -->
-                    <form id="companyForm" class="space-y-4">
+                    <form id="companyForm" action="#" method="POST" class="space-y-4">
                         @csrf
                         <div>
-                            <label class="block text-gray-700">Company Name</label>
+                            <label class="block text-gray-700" id="cname">Company Name</label>
                             <input type="text"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
                         <div>
-                            <label class="block text-gray-700">Email Address</label>
+                            <label class="block text-gray-700" id="cemail">Email Address</label>
                             <input type="email"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
                         <div>
-                            <label class="block text-gray-700">Contact Number</label>
+                            <label class="block text-gray-700" id="cnumber">Contact Number</label>
                             <input type="text"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
@@ -79,20 +78,20 @@
                     </form>
 
                     <!-- User Form -->
-                    <form id="userForm" class="space-y-4 hidden">
+                    <form id="userForm" action="#" method="POST" class="space-y-4 hidden">
                         @csrf
                         <div>
-                            <label class="block text-gray-700">Full Name</label>
+                            <label class="block text-gray-700" id="uname">Full Name</label>
                             <input type="text"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
                         <div>
-                            <label class="block text-gray-700">Email Address</label>
+                            <label class="block text-gray-700" id="uemail">Email Address</label>
                             <input type="email"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
                         <div>
-                            <label class="block text-gray-700">Contact Number</label>
+                            <label class="block text-gray-700" id="unumber">Contact Number</label>
                             <input type="text"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                         </div>
