@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registration Page</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-</head>
-
-<body>
+@extends('layouts.master')
+@section('content')
     <div class="bg-gradient-to-b from-purple-500 via-purple-300 to-purple-100 min-h-screen py-12 xl:px-16 lg:px-12 sm:px-8 px-4 flex items-center justify-center">
         <div class="xl:max-w-6xl w-full mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <img class="w-full h-[40rem] lg:h-full lg:w-full hidden lg:block object-cover lg:object-cover rounded-lg"
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <img class="w-full h-[40rem] hidden lg:block object-cover"
                     src="images/signup.svg" alt="Register Image" />
 
                 <!-- Toggle Titles -->
-                <div class="bg-gray-100 py-12 px-8 sm:px-16 rounded-md w-full lg:col-span-2">
+                <div class="bg-gray-100 py-12 px-8 sm:px-16 rounded-md w-full">
                     <div class="flex justify-center gap-4 mb-6 border-b border-gray-200">
                         <button id="companyBtn"
                             class="tab-btn active border-b-4 border-blue-600 text-blue-600 font-semibold px-6 py-2 text-lg focus:outline-none transition-all duration-200">
@@ -195,6 +185,5 @@
                 }
             }
         </script>
-</body>
 
-</html>
+@endsection
