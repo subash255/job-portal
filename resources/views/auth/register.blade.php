@@ -1,10 +1,10 @@
 @extends('layouts.master')
 @section('content')
-    <div class="bg-gradient-to-b from-purple-500 via-purple-300 to-purple-100 min-h-screen py-12 xl:px-16 lg:px-12 sm:px-8 px-4 flex items-center justify-center">
+    <div
+        class="bg-gradient-to-b from-purple-500 via-purple-300 to-purple-100 min-h-screen py-12 xl:px-16 lg:px-12 sm:px-8 px-4 flex items-center justify-center">
         <div class="xl:max-w-6xl w-full mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <img class="w-full h-[40rem] hidden lg:block object-cover"
-                    src="images/signup.svg" alt="Register Image" />
+                <img class="w-full h-[40rem] hidden lg:block object-cover" src="images/signup.svg" alt="Register Image" />
 
                 <!-- Toggle Titles -->
                 <div class="bg-gray-100 py-12 px-8 sm:px-16 rounded-md w-full">
@@ -64,12 +64,14 @@
                         </div>
 
                         <!-- Terms and Conditions -->
-    <div class="flex items-start space-x-2">
-        <input type="checkbox" id="terms" name="terms" required class="mt-1">
-        <label for="terms" class="text-gray-700 text-sm">
-            I agree to the <a href="#" class="text-blue-600 hover:underline">Terms and Conditions</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>.
-        </label>
-    </div>
+                        <div class="flex items-start space-x-2">
+                            <input type="checkbox" id="terms" name="terms" required class="mt-1">
+                            <label for="terms" class="text-gray-700 text-sm">
+                                I agree to the <a href="#" class="text-blue-600 hover:underline">Terms and
+                                    Conditions</a> and <a href="#" class="text-blue-600 hover:underline">Privacy
+                                    Policy</a>.
+                            </label>
+                        </div>
 
                         <button type="submit"
                             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Register</button>
@@ -117,28 +119,30 @@
                                 </button>
                             </div>
                         </div>
-                        
-                                                <!-- Terms and Conditions -->
-    <div class="flex items-start space-x-2">
-        <input type="checkbox" id="terms" name="terms" required class="mt-1">
-        <label for="terms" class="text-gray-700 text-sm">
-            I agree to the <a href="#" class="text-blue-600 hover:underline">Terms and Conditions</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>.
-        </label>
-    </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="flex items-start space-x-2">
+                            <input type="checkbox" id="terms" name="terms" required class="mt-1">
+                            <label for="terms" class="text-gray-700 text-sm">
+                                I agree to the <a href="#" class="text-blue-600 hover:underline">Terms and
+                                    Conditions</a> and <a href="#" class="text-blue-600 hover:underline">Privacy
+                                    Policy</a>.
+                            </label>
+                        </div>
 
                         <button type="submit"
                             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Register</button>
                     </form>
                     <div class="flex items-center gap-x-4 mt-4">
-                            <p class="border-b-2 w-full border-gray-300"></p>
-                            <p class="text-quaternary text-base">OR</p>
-                            <p class="border-b-2 w-full border-gray-300"></p>
-                        </div>
+                        <p class="border-b-2 w-full border-gray-300"></p>
+                        <p class="text-quaternary text-base">OR</p>
+                        <p class="border-b-2 w-full border-gray-300"></p>
+                    </div>
 
-                        <div class="mt-4 text-center">
-                            <p class="text-base">Already have an account? <a href="{{ route('login') }}"
-                                    class="hover:underline font-semibold text-blue-600">Login</a></p>
-                        </div>
+                    <div class="mt-4 text-center">
+                        <p class="text-base">Already have an account? <a href="{{ route('login') }}"
+                                class="hover:underline font-semibold text-blue-600">Login</a></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -185,5 +189,4 @@
                 }
             }
         </script>
-
-@endsection
+    @endsection
