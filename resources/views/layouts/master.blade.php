@@ -9,29 +9,18 @@
 
 </head>
 
-<body class="bg-gray-100 text-gray-800">
+  <body class="bg-gradient-to-br from-gray-100 to-white text-gray-800">
 
-    <!-- Header -->
-    <header class="bg-blue-600 text-white">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center p-6">
-            <!-- Logo / Title -->
-            <h1 class="text-3xl font-bold mb-4 md:mb-0">Job Portal</h1>
-
-            <!-- Navigation Links -->
-            <nav class="flex space-x-4 text-white font-medium mb-4 md:mb-0">
-                <a href="/" class="hover:underline">Home</a>
-                <a href="#about" class="hover:underline">About</a>
-                <a href="#jobs" class="hover:underline">Jobs</a>
-                <a href="{{ 'login' }}" class="hover:underline">Login</a>
-                <a href="{{ 'register' }}" class="hover:underline">Register</a>
-            </nav>
-
-            <!-- Search Input -->
-            <div class="w-full md:w-auto">
-                <input type="text" placeholder="Search for jobs..."
-                    class="w-full md:w-64 px-4 py-2 rounded-md text-black" />
-            </div>
-        </div>
+    <!-- Navbar -->
+    <header class="bg-white shadow-md">
+      <div class="container mx-auto flex justify-between items-center p-4">
+        <h1 class="text-xl font-bold text-blue-600">JobPortal</h1>
+        <nav class="flex space-x-4">
+          <a href="#" class="px-4 py-2 text-gray-700 hover:text-blue-600">Jobs</a>
+          <a href="#" class="px-4 py-2 text-sm border rounded-md hover:bg-gray-100">Login</a>
+          <a href="#" class="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700">Register</a>
+        </nav>
+      </div>
     </header>
     <main>
         @yield('content')
