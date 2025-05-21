@@ -17,8 +17,8 @@
         <h1 class="text-xl font-bold text-blue-600">JobPortal</h1>
         <nav class="flex space-x-4">
           <a href="#" class="px-4 py-2 text-gray-700 hover:text-blue-600">Jobs</a>
-          <a href="#" class="px-4 py-2 text-sm border rounded-md hover:bg-gray-100">Login</a>
-          <a href="#" class="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700">Register</a>
+          <a href="{{route('login')}}" class="px-4 py-2 text-sm border rounded-md hover:bg-gray-100">Login</a>
+          <a href="{{route('register')}}" class="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700">Register</a>
         </nav>
       </div>
     </header>
