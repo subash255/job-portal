@@ -15,7 +15,7 @@
                         </h2>
                     </div>
                     <div class="mt-6">
-                        <form action="#" class="space-y-6" method="POST">
+                        <form action="{{route('login')}}" class="space-y-6" method="POST">
                             @csrf
                             <div>
                                 <label for="email" class="text-base font-medium text-gray-700">Email</label>
