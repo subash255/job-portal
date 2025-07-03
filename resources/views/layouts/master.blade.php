@@ -9,24 +9,66 @@
 
 </head>
 
-  <body class="bg-gradient-to-br from-gray-100 to-white text-gray-800">
+ <body class="bg-gradient-to-br from-gray-100 to-white text-gray-800">
 
-    <!-- Navbar -->
-    <header class="bg-white shadow-md">
-      <div class="container mx-auto flex justify-between items-center p-4">
-        <h1 class="text-xl font-bold text-blue-600">JobPortal</h1>
-        <nav class="flex space-x-4">
-          <a href="#" class="px-4 py-2 text-gray-700 hover:text-blue-600">Jobs</a>
-          <a href="{{route('login')}}" class="px-4 py-2 text-sm border rounded-md hover:bg-gray-100">Login</a>
-          <a href="{{route('register')}}" class="px-4 py-2 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700">Register</a>
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 backdrop-blur shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <h1 class="text-xl font-bold text-white">JobPortal</h1>
+        </div>
+
+        <!-- Desktop Nav Links -->
+        <nav class="hidden md:flex space-x-4 items-center font-semibold">
+          <a href="{{route('welcome')}}" class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Home</a>
+          <a href="{{route('about')}}" class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">About Us</a>
+          <a href="#" class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Jobs</a>
+          <a href="{{route('contact')}}" class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Contact</a>
+          <a href="{{route('login')}}" class="px-4 py-2 text-sm border-2 border-white text-white rounded-md hover:bg-white hover:text-indigo-600 transition-all duration-200">Login</a>
+          <a href="{{route('register')}}" class="px-4 py-2 text-sm bg-yellow-400 text-indigo-800 rounded-md hover:bg-yellow-300 font-semibold transition-all duration-200">Register</a>
         </nav>
+
+        <!-- Mobile Hamburger -->
+        <div class="md:hidden">
+          <button id="mobile-menu-button" class="text-white focus:outline-none hover:text-yellow-300 transition-colors duration-200">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
       </div>
-    </header>
-    <main>
-        @yield('content')
-    </main>
-    
+    </div>
+
+    <!-- Mobile Nav Menu (overlay, hidden by default) -->
+    <nav id="mobile-menu" class="absolute top-full left-0 right-0 z-50 bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 shadow-lg md:hidden hidden px-4 pb-4 space-y-2 transition-all duration-300 ease-in-out font-semibold">
+      <a href="{{route('welcome')}}" class="block px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Home</a>
+      <a href="{{route('about')}}" class="block px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">About Us</a>
+      <a href="#" class="block px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Jobs</a>
+      <a href="{{route('contact')}}" class="block px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Contact</a>
+      <a href="{{route('login')}}" class="block px-4 py-2 border-2 border-white text-white rounded-md hover:bg-white hover:text-indigo-600 text-sm transition-all duration-200">Login</a>
+      <a href="{{route('register')}}" class="block px-4 py-2 bg-yellow-400 text-indigo-800 rounded-md hover:bg-yellow-300 text-sm font-semibold transition-all duration-200">Register</a>
+    </nav>
+  </header>
+
+  <main>
+    @yield('content')
+  </main>
+
+  <script>
+    // Vanilla JS to toggle mobile menu
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
 
 </body>
+
 
 </html>

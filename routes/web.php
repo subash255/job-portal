@@ -2,12 +2,17 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [HomepageController::class, 'index'])->name('welcome');
+Route::get('/about',[HomepageController::class, 'about'])->name('about');
+Route::get('/contact',[HomepageController::class, 'contact'])->name('contact');
 
 
 Route::middleware('role:admin')->group(function () {
@@ -15,7 +20,7 @@ Route::middleware('role:admin')->group(function () {
 
 
 
-    // Category Routes
+// Category Routes
 
 Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
 Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
