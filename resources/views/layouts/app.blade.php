@@ -98,6 +98,20 @@
                     <span class="ml-4 font-semibold">Category</span>
                 </a>
                 
+                 <a href="{{ route('jobs.index') }}"
+                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobs.index', 'admin.jobs.edit') ? 'bg-red-600 text-white' : 'hover:bg-red-500 hover:text-white' }} transition-colors duration-200">
+                    <i class="ri-grid-line"></i>
+                    <span class="ml-4 font-semibold">Jobs</span>
+                </a>
+                <a href=""
+                    class="sidebar-link flex items-center px-6 py-4 transition-colors duration-200">
+                    <i class="ri-grid-line"></i>
+                    <span class="ml-4 font-semibold">Company</span>
+                </a>
+                <a href=""
+                    class="sidebar-link flex items-center px-6 py-4 transition-colors duration-200">
+                    <i class="ri-user-line"></i>
+                    <span class="ml-4 font-semibold">Users</span>
 
             </nav>
         </aside>

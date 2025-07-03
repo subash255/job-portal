@@ -15,7 +15,7 @@ class WorkController extends Controller
         $works = Work::with('category')->get();
 
         // Return the view with the works data
-        return view('works.index', compact('works'));
+        return view('jobs.index', compact('works'));
     }
     public function create()
     {
