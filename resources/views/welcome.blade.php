@@ -43,6 +43,52 @@
       </div>
     </section>
 
+    <!-- Featured Jobs Section -->
+    <section class="bg-white py-8">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-2xl font-semibold mb-6 border-b-4 border-indigo-400 inline-block">Featured Jobs</h2>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      
+      <!-- Card -->
+      <div class="bg-indigo-50 rounded-lg shadow p-5 flex flex-col justify-between">
+        <div class="flex items-center mb-3">
+          <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-12 h-12 rounded mr-3">
+          <div>
+            <h3 class="font-semibold text-lg">Executive Assistant To Director</h3>
+            <p class="text-gray-500 text-sm">We Care Health Center</p>
+            <p class="text-gray-500 text-sm">Naxal, Bhagwatibahal</p>
+          </div>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="bg-indigo-100 text-indigo-600 text-xs px-2 py-1 rounded-full">Full Time</span>
+          <span class="bg-indigo-100 text-indigo-600 text-xs px-2 py-1 rounded-full">Mid Level</span>
+        </div>
+      </div>
+      
+      <!-- Repeat above card for other featured jobs -->
+      <div class="bg-indigo-50 rounded-lg shadow p-5 flex flex-col justify-between">
+        <div class="flex items-center mb-3">
+          <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-12 h-12 rounded mr-3">
+          <div>
+            <h3 class="font-semibold text-lg">Office Secretary</h3>
+            <p class="text-gray-500 text-sm">EG Group of Companies</p>
+            <p class="text-gray-500 text-sm">Lazimpath</p>
+          </div>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="bg-indigo-100 text-indigo-600 text-xs px-2 py-1 rounded-full">Full Time</span>
+          <span class="bg-indigo-100 text-indigo-600 text-xs px-2 py-1 rounded-full">Senior Level</span>
+        </div>
+      </div>
+      
+      <!-- Add more cards as needed -->
+
+    </div>
+  </div>
+</section>
+
+
+
     <!-- Features Section -->
 <section class="max-w-7xl mx-auto px-4 py-16">
   <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
@@ -85,5 +131,60 @@
   </div>
 </section>
 
+
+        <!-- Jobs Section -->
+    <section class="bg-indigo-50 py-8">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-2xl font-semibold mb-6 border-b-4 border-indigo-400 inline-block">Job Vacancy In Nepal</h2>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      
+      <!-- Card -->
+      <div class="bg-white rounded-lg shadow p-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center mb-3">
+            <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-12 h-12 rounded mr-3">
+            <div>
+              <h3 class="font-semibold text-lg">Finance Technical Writer/Designer</h3>
+              <p class="text-gray-500 text-sm">Appharu Pvt Ltd</p>
+            </div>
+          </div>
+          <div class="text-gray-600 text-sm space-y-1">
+            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">work_outline</span> Fresher</div>
+            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">place</span> Mid Baneshwor</div>
+            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">attach_money</span> Nrs. 30K-40K</div>
+          </div>
+        </div>
+        <div class="flex justify-between items-center mt-4">
+          <span class="text-sm text-gray-500">14 days left</span>
+          <a href="#" class="text-indigo-500 hover:underline font-medium">View Detail</a>
+        </div>
+      </div>
+      
+
+      <div class="bg-white rounded-lg shadow p-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center mb-3">
+            <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-12 h-12 rounded mr-3">
+            <div>
+              <h3 class="font-semibold text-lg">Senior Barista</h3>
+              <p class="text-gray-500 text-sm">Seven to Nine Coffee</p>
+            </div>
+          </div>
+          <div class="text-gray-600 text-sm space-y-1">
+            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">work</span> 2+ years</div>
+            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">place</span> Hattisar</div>
+            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">attach_money</span> Nrs. Monthly</div>
+          </div>
+        </div>
+        <div class="flex justify-between items-center mt-4">
+          <span class="text-sm text-gray-500">14 days left</span>
+          <a href="#" class="text-indigo-500 hover:underline font-medium">View Detail</a>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+</section>
 
 @endsection
