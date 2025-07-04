@@ -18,4 +18,8 @@ class HomepageController extends Controller
     {
         return view('contact');
     }
+    public function job()
+    {
+        return view('job');
+    }
 }

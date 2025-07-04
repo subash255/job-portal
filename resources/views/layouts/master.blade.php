@@ -29,7 +29,7 @@
                         class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Home</a>
                     <a href="{{ route('about') }}"
                         class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">About Us</a>
-                    <a href="#"
+                    <a href="{{ route('job') }}"
                         class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Jobs</a>
                     <a href="{{ route('contact') }}"
                         class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Contact</a>
@@ -59,7 +59,7 @@
                 class="block px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Home</a>
             <a href="{{ route('about') }}"
                 class="block px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">About Us</a>
-            <a href="#"
+            <a href="{{ route('job') }}"
                 class="block px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Jobs</a>
             <a href="{{ route('contact') }}"
                 class="block px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Contact</a>
