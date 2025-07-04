@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Portal</title>
+    <title>Job Point</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;300;400;600;700&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 </head>
 
@@ -20,7 +21,9 @@
 
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <h1 class="text-xl font-bold text-white">JobPortal</h1>
+                    <h1 class="text-2xl md:text-3xl font-bold text-center text-white">
+                        Job<span class="text-orange-300">Point</span>
+                    </h1>
                 </div>
 
                 <!-- Desktop Nav Links -->
@@ -80,13 +83,9 @@
             <!-- Logo + Description -->
             <div>
                 <div class="flex items-center mb-4 space-x-2 font-semibold">
-                    <!-- Replace with your logo if needed -->
-                    <svg class="h-8 w-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v.5M8 6V4m0 2v.5m0 0V21l4-3 4 3V6.5" />
-                    </svg>
-                    <h2 class="text-2xl font-bold text-indigo-400">JobPortal</h2>
-                </div>
+    <img src="/images/logoo.png" alt="JobPortal Logo" class="h-20 w-auto rounded-lg">
+</div>
+
                 <p class="text-sm text-gray-300 mb-4">
                     Your trusted platform for connecting top employers and talented job seekers worldwide.
                 </p>
@@ -118,8 +117,9 @@
                             class="hover:text-indigo-300 transition-colors duration-200">Home</a></li>
                     <li><a href="{{ route('about') }}"
                             class="hover:text-indigo-300 transition-colors duration-200">About Us</a></li>
-                    <li><a href="#" class="hover:text-indigo-300 transition-colors duration-200">Jobs</a></li>
-                    
+                    <li><a href="{{ route('job') }}"
+                            class="hover:text-indigo-300 transition-colors duration-200">Jobs</a></li>
+
                     <li><a href="{{ route('contact') }}"
                             class="hover:text-indigo-300 transition-colors duration-200">Contact Us</a></li>
                 </ul>
@@ -130,40 +130,24 @@
                 <h3 class="text-lg font-semibold text-indigo-400 mb-4">Contact Details</h3>
                 <ul class="space-y-3 text-gray-300 text-sm font-semibold">
                     <li class="flex items-center space-x-2">
-                        <svg class="h-5 w-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <span>Gaindakot-05,Nawalpur</span>
+                        <i class="ri-map-pin-line text-indigo-400 text-lg"></i>
+                        <span>Gaindakot-05, Nawalpur</span>
                     </li>
                     <li class="flex items-center space-x-2">
-                        <svg class="h-5 w-5 text-indigo-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
+                        <i class="ri-mail-line text-indigo-400 text-lg"></i>
                         <span>jobportal@gmail.com</span>
                     </li>
                     <li class="flex items-center space-x-2">
-                        <svg class="h-5 w-5 text-indigo-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
+                        <i class="ri-phone-line text-indigo-400 text-lg"></i>
                         <span>+977 9812211443</span>
                     </li>
                     <li class="flex items-center space-x-2">
-                        <svg class="h-5 w-5 text-indigo-400" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        <i class="ri-time-line text-indigo-400 text-lg"></i>
                         <span>9 AM - 5 PM, Sun - Fri</span>
                     </li>
                 </ul>
             </div>
+
 
             <!-- Newsletter -->
             <div>

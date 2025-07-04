@@ -213,7 +213,7 @@
 <!-- Features Section -->
 <section class="max-w-7xl mx-auto px-4 py-16">
     <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
-        Why Choose <span class="text-purple-600">JobPortal</span>
+        Why Choose <span class="text-purple-600">JobPoint?</span>
     </h2>
 
     <div class="grid gap-8 md:grid-cols-3">
