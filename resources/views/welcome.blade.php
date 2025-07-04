@@ -3,11 +3,13 @@
 
    
     <!-- Hero Section -->
-    <section class="text-center py-16 px-4">
-      <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">Find Your Dream Job</h2>
-      <p class="text-lg text-gray-600 mb-8">
-        Connect with top employers and discover opportunities that match your skills and career goals.
-      </p>
+<section style="background-image: url('/images/back.jpg');" class="relative text-center py-16 px-4 bg-cover bg-center bg-no-repeat">
+  <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div> 
+  <div class="relative z-10 max-w-4xl mx-auto text-gray-900"> 
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-8 drop-shadow-lg">Find Your Dream Job</h2> 
+    <p class="text-lg mb-24 drop-shadow-md">
+      Connect with top employers and discover opportunities that match your skills and career goals.
+    </p>
       
       <!-- Search Form -->
       <div class="max-w-4xl mx-auto">
@@ -41,51 +43,185 @@
           </button>
         </form>
       </div>
+    </div>
     </section>
 
-    <!-- Featured Jobs Section -->
-    <section class="bg-white py-8">
-  <div class="max-w-7xl mx-auto px-4">
-    <h2 class="text-2xl font-semibold mb-6 border-b-4 border-indigo-400 inline-block">Featured Jobs</h2>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      
-      <!-- Card -->
-      <div class="bg-indigo-50 rounded-lg shadow p-5 flex flex-col justify-between">
-        <div class="flex items-center mb-3">
-          <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-12 h-12 rounded mr-3">
-          <div>
-            <h3 class="font-semibold text-lg">Executive Assistant To Director</h3>
-            <p class="text-gray-500 text-sm">We Care Health Center</p>
-            <p class="text-gray-500 text-sm">Naxal, Bhagwatibahal</p>
-          </div>
+ <!-- Featured Jobs Section -->
+    <section class="bg-gradient-to-br from-gray-50 to-indigo-50 py-16">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Featured Jobs</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">Discover top opportunities from leading companies</p>
         </div>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="bg-indigo-100 text-indigo-600 text-xs px-2 py-1 rounded-full">Full Time</span>
-          <span class="bg-indigo-100 text-indigo-600 text-xs px-2 py-1 rounded-full">Mid Level</span>
+        
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Featured Job Card 1 -->
+          <div class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border-l-4 border-transparent hover:border-indigo-500 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="relative z-10">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center space-x-3">
+                  <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <img src="https://via.placeholder.com/56" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover">
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-lg text-gray-800 group-hover:text-indigo-600 transition-colors duration-200">Executive Assistant To Director</h3>
+                    <p class="text-gray-500 text-sm font-medium">We Care Health Center</p>
+                  </div>
+                </div>
+                <div class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
+                  FEATURED
+                </div>
+              </div>
+              
+              <div class="space-y-2 mb-6">
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  Naxal, Bhagwatibahal
+                </div>
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  Full Time • Mid Level
+                </div>
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                  </svg>
+                  Competitive Salary
+                </div>
+              </div>
+              
+              <div class="flex items-center justify-between">
+                <div class="flex space-x-2">
+                  <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">Full Time</span>
+                  <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">Mid Level</span>
+                </div>
+                <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold text-sm group-hover:scale-105">
+                  Apply Now
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Featured Job Card 2 -->
+          <div class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border-l-4 border-transparent hover:border-indigo-500 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="relative z-10">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center space-x-3">
+                  <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <img src="https://via.placeholder.com/56" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover">
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-lg text-gray-800 group-hover:text-indigo-600 transition-colors duration-200">Office Secretary</h3>
+                    <p class="text-gray-500 text-sm font-medium">EG Group of Companies</p>
+                  </div>
+                </div>
+                <div class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
+                  FEATURED
+                </div>
+              </div>
+              
+              <div class="space-y-2 mb-6">
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  Lazimpath
+                </div>
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  Full Time • Senior Level
+                </div>
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                  </svg>
+                  Competitive Salary
+                </div>
+              </div>
+              
+              <div class="flex items-center justify-between">
+                <div class="flex space-x-2">
+                  <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">Full Time</span>
+                  <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">Senior Level</span>
+                </div>
+                <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold text-sm group-hover:scale-105">
+                  Apply Now
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Featured Job Card 3 -->
+          <div class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 border-l-4 border-transparent hover:border-indigo-500 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="relative z-10">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center space-x-3">
+                  <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <img src="https://via.placeholder.com/56" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover">
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-lg text-gray-800 group-hover:text-indigo-600 transition-colors duration-200">Office Secretary</h3>
+                    <p class="text-gray-500 text-sm font-medium">EG Group of Companies</p>
+                  </div>
+                </div>
+                <div class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
+                  FEATURED
+                </div>
+              </div>
+              
+              <div class="space-y-2 mb-6">
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  Lazimpath
+                </div>
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  Full Time • Senior Level
+                </div>
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                  </svg>
+                  Competitive Salary
+                </div>
+              </div>
+              
+              <div class="flex items-center justify-between">
+                <div class="flex space-x-2">
+                  <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">Full Time</span>
+                  <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">Senior Level</span>
+                </div>
+                <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold text-sm group-hover:scale-105">
+                  Apply Now
+                </button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+        <div class="text-center mt-12">
+          <button class="bg-white text-indigo-600 border-2 border-indigo-600 px-8 py-3 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 font-semibold">
+            View All Featured Jobs
+          </button>
         </div>
       </div>
-      
-      <!-- Repeat above card for other featured jobs -->
-      <div class="bg-indigo-50 rounded-lg shadow p-5 flex flex-col justify-between">
-        <div class="flex items-center mb-3">
-          <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-12 h-12 rounded mr-3">
-          <div>
-            <h3 class="font-semibold text-lg">Office Secretary</h3>
-            <p class="text-gray-500 text-sm">EG Group of Companies</p>
-            <p class="text-gray-500 text-sm">Lazimpath</p>
-          </div>
-        </div>
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="bg-indigo-100 text-indigo-600 text-xs px-2 py-1 rounded-full">Full Time</span>
-          <span class="bg-indigo-100 text-indigo-600 text-xs px-2 py-1 rounded-full">Senior Level</span>
-        </div>
-      </div>
-      
-      <!-- Add more cards as needed -->
-
-    </div>
-  </div>
-</section>
+    </section>
 
 
 
@@ -132,59 +268,174 @@
 </section>
 
 
-        <!-- Jobs Section -->
-    <section class="bg-indigo-50 py-8">
-  <div class="max-w-7xl mx-auto px-4">
-    <h2 class="text-2xl font-semibold mb-6 border-b-4 border-indigo-400 inline-block">Job Vacancy In Nepal</h2>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      
-      <!-- Card -->
-      <div class="bg-white rounded-lg shadow p-5 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center mb-3">
-            <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-12 h-12 rounded mr-3">
-            <div>
-              <h3 class="font-semibold text-lg">Finance Technical Writer/Designer</h3>
-              <p class="text-gray-500 text-sm">Appharu Pvt Ltd</p>
+   <!-- Job Vacancy Section -->
+    <section class="bg-white py-16">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-between mb-12">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Latest Job Vacancies</h2>
+            <p class="text-lg text-gray-600">Explore recent job opportunities in Nepal</p>
+          </div>
+          <button class="hidden md:block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold">
+            View All Jobs
+          </button>
+        </div>
+        
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Job Card 1 -->
+          <div class="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 hover:scale-105 hover:border-indigo-200">
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
+                  <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-10 h-10 rounded-lg object-cover">
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-gray-800 hover:text-indigo-600 transition-colors duration-200">Finance Technical Writer/Designer</h3>
+                  <p class="text-gray-500 text-sm font-medium">Appharu Pvt Ltd</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v.5M8 6V4m0 2v.5m0 0V21l4-3 4 3V6.5"/>
+                  </svg>
+                  Fresher Level
+                </div>
+                <span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium">14 days left</span>
+              </div>
+              <div class="flex items-center text-gray-600 text-sm">
+                <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                Mid Baneshwor
+              </div>
+              <div class="flex items-center text-gray-600 text-sm">
+                <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                </svg>
+                Nrs. 30K-40K
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+              <div class="flex space-x-2">
+                <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">Full Time</span>
+              </div>
+              <button class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm hover:underline transition-colors duration-200">
+                View Details →
+              </button>
             </div>
           </div>
-          <div class="text-gray-600 text-sm space-y-1">
-            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">work_outline</span> Fresher</div>
-            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">place</span> Mid Baneshwor</div>
-            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">attach_money</span> Nrs. 30K-40K</div>
-          </div>
-        </div>
-        <div class="flex justify-between items-center mt-4">
-          <span class="text-sm text-gray-500">14 days left</span>
-          <a href="#" class="text-indigo-500 hover:underline font-medium">View Detail</a>
-        </div>
-      </div>
-      
 
-      <div class="bg-white rounded-lg shadow p-5 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center mb-3">
-            <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-12 h-12 rounded mr-3">
-            <div>
-              <h3 class="font-semibold text-lg">Senior Barista</h3>
-              <p class="text-gray-500 text-sm">Seven to Nine Coffee</p>
+          <!-- Job Card 2 -->
+          <div class="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 hover:scale-105 hover:border-indigo-200">
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center shadow-md">
+                  <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-10 h-10 rounded-lg object-cover">
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-gray-800 hover:text-indigo-600 transition-colors duration-200">Senior Barista</h3>
+                  <p class="text-gray-500 text-sm font-medium">Seven to Nine Coffee</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v.5M8 6V4m0 2v.5m0 0V21l4-3 4 3V6.5"/>
+                  </svg>
+                  2+ Years Experience
+                </div>
+                <span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium">14 days left</span>
+              </div>
+              <div class="flex items-center text-gray-600 text-sm">
+                <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                Hattisar
+              </div>
+              <div class="flex items-center text-gray-600 text-sm">
+                <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                </svg>
+                Monthly Salary
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+              <div class="flex space-x-2">
+                <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">Full Time</span>
+              </div>
+              <button class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm hover:underline transition-colors duration-200">
+                View Details →
+              </button>
             </div>
           </div>
-          <div class="text-gray-600 text-sm space-y-1">
-            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">work</span> 2+ years</div>
-            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">place</span> Hattisar</div>
-            <div class="flex items-center"><span class="material-icons mr-1 text-indigo-400">attach_money</span> Nrs. Monthly</div>
+        
+
+          <!-- Job Card 3 -->
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 hover:scale-105 hover:border-indigo-200">
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center shadow-md">
+                  <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-10 h-10 rounded-lg object-cover">
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-gray-800 hover:text-indigo-600 transition-colors duration-200">Senior Barista</h3>
+                  <p class="text-gray-500 text-sm font-medium">Seven to Nine Coffee</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center text-gray-600 text-sm">
+                  <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v.5M8 6V4m0 2v.5m0 0V21l4-3 4 3V6.5"/>
+                  </svg>
+                  2+ Years Experience
+                </div>
+                <span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium">14 days left</span>
+              </div>
+              <div class="flex items-center text-gray-600 text-sm">
+                <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                Hattisar
+              </div>
+              <div class="flex items-center text-gray-600 text-sm">
+                <svg class="w-4 h-4 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                </svg>
+                Monthly Salary
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+              <div class="flex space-x-2">
+                <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">Full Time</span>
+              </div>
+              <button class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm hover:underline transition-colors duration-200">
+                View Details →
+              </button>
+            </div>
           </div>
         </div>
-        <div class="flex justify-between items-center mt-4">
-          <span class="text-sm text-gray-500">14 days left</span>
-          <a href="#" class="text-indigo-500 hover:underline font-medium">View Detail</a>
+        <div class="text-center mt-12 md:hidden">
+          <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold">
+            View All Jobs
+          </button>
         </div>
       </div>
-      
-
-    </div>
-  </div>
-</section>
+    </section>
 
 @endsection
