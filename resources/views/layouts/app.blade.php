@@ -89,29 +89,33 @@
             </div>
             <nav class="mt-6">
                 <a href="{{ route('admin.index') }}"
-                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.index') ? 'bg-red-600 text-white' : 'hover:bg-red-500 hover:text-white' }} transition-colors duration-200">
+                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.index') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
                     <i class="ri-layout-masonry-fill"></i>
                     <span class="ml-4 font-semibold">Dashboard</span>
                 </a>
                 <a href="#"
-                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobs.index', 'admin.category.edit') ? 'bg-red-600 text-white' : 'hover:bg-red-500 hover:text-white' }} transition-colors duration-200">
-                    <i class="ri-grid-line"></i>
+                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobs.index', 'admin.category.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
+                    <i class="ri-suitcase-fill"></i>
                     <span class="ml-4 font-semibold">Jobs</span>
                 </a>
                 <a href="#"
-                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.users.index', 'admin.fooditems.edit') ? 'bg-red-600 text-white' : 'hover:bg-red-500 hover:text-white' }} transition-colors duration-200">
-                    <i class="ri-cup-fill"></i>
-                    <span class="ml-4 font-semibold">Users</span>
+                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.employers.index', 'admin.fooditems.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
+                    <i class="ri-building-fill"></i>
+                    <span class="ml-4 font-semibold">Employers</span>
+                </a>
+                <a href="#"
+                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobseekers.index', 'admin.fooditems.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
+                    <i class="ri-user-fill"></i>
+                    <span class="ml-4 font-semibold">Job Seekers</span>
                 </a>
                
-
             </nav>
         </aside>
 
         <!-- Main Content -->
         <main class="ml-64 w-full">
             <!-- Header Section -->
-            <div class="w-full bg-red-600 text-white flex items-center justify-between px-4 py-14 shadow-lg">
+            <div class="w-full bg-indigo-600 text-white flex items-center justify-between px-4 py-14 shadow-lg">
                 <h1 class="text-xl font-semibold">{{ $title ?? 'Default Title' }}</h1>
                 <div class="flex items-center space-x-4">
                     <div class="relative group">
