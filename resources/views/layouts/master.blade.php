@@ -36,10 +36,19 @@
                         class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Jobs</a>
                     <a href="{{ route('contact') }}"
                         class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Contact</a>
+                        @auth
+                             
+                        <form action="{{ route('logout') }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit"
+                                class="px-4 py-2 text-sm border-2 border-white text-white rounded-md hover:bg-white hover:text-indigo-600 transition-all duration-200">Logout</button>
+                        </form>
+                         @else
                     <a href="{{ route('login') }}"
                         class="px-4 py-2 text-sm border-2 border-white text-white rounded-md hover:bg-white hover:text-indigo-600 transition-all duration-200">Login</a>
                     <a href="{{ route('register') }}"
                         class="px-4 py-2 text-sm bg-yellow-400 text-indigo-800 rounded-md hover:bg-yellow-300 font-semibold transition-all duration-200">Register</a>
+                        @endauth
                 </nav>
 
                 <!-- Mobile Hamburger -->
