@@ -10,9 +10,6 @@ use App\Http\Controllers\WorkController;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/', [HomepageController::class, 'index'])->name('welcome');
 Route::get('/about',[HomepageController::class, 'about'])->name('about');
@@ -23,6 +20,9 @@ Route::get('/searchjob',[HomepageController::class, 'job'])->name('job');
 Route::middleware('role:admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 // Category Routes
 Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
