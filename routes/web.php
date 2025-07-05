@@ -44,6 +44,7 @@ Route::middleware('role:user')->group(function () {
 
 Route::middleware('role:company')->group(function () {
     Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
+    Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
 
 });
 
