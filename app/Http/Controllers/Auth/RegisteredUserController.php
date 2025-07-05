@@ -27,24 +27,66 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function companystore(Request $request): RedirectResponse
     {
+        
+        
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:15'],
+            'role' => ['nullable', 'string', ], 
+            
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+        
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'role' => $request->role , 
+            'password' => Hash::make($request->password),
+
+        ]);
+        
+        // Assign the 'user' role by default if no role is specified
+        // $user->assignRole('user');   
+       
+        event(new Registered($user));
+
+        
+
+        return redirect(route('login', absolute: false));
+    }
+     public function userstore(Request $request): RedirectResponse
+    {
+        
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:15'],
+            'role' => ['nullable', 'string', ], // Allow 'user' or 'admin' roles
+
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+        
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'role' => $request->role , 
             'password' => Hash::make($request->password),
-        ]);
 
+        ]);
+        
+        // Assign the 'user' role by default if no role is specified
+        // $user->assignRole('user');   
+       
         event(new Registered($user));
 
-        Auth::login($user);
+       
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('login', absolute: false));
     }
 }
