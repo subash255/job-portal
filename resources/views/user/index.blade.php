@@ -1,6 +1,8 @@
 @extends('layouts.user')
 @section('content')
 <!-- Hero Section -->
+
+ <div>User</div>
 <section style="background-image: url('/images/back.jpg');" class="relative text-center py-16 px-4 bg-cover bg-center bg-no-repeat">
     <div class="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
     <div class="relative z-10 max-w-4xl mx-auto text-gray-900">

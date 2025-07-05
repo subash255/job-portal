@@ -36,8 +36,11 @@
                         class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Jobs</a>
                     <a href="{{ route('contact') }}"
                         class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Contact</a>
-                    <a href="{{ route('login') }}"
-                        class="px-4 py-2 text-sm border-2 border-white text-white rounded-md hover:bg-white hover:text-indigo-600 transition-all duration-200">logout</a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit"
+                            class="px-4 py-2 text-sm border-2 border-white text-white rounded-md hover:bg-white hover:text-indigo-600 transition-all duration-200">Logout</button>
+                    </form>
                     
                 </nav>
 

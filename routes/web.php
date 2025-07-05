@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -37,9 +38,15 @@ Route::get('/jobs',[WorkController::class,'index'])->name('jobs.index');
 });
 
 Route::middleware('role:user')->group(function () {
-    Route::get('/index', [UserController::class, 'index'])->name('index');
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
 });
+
+Route::middleware('role:company')->group(function () {
+    Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
+
+});
+
 
 
 
