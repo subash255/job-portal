@@ -19,7 +19,12 @@ Route::get('/searchjob',[HomepageController::class, 'job'])->name('job');
 
 Route::middleware('role:admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    // Admin Routes
+    Route::get('/admin/jobs', [AdminController::class, 'jobs'])->name('admin.jobs.index');
+    Route::get('/admin/employers', [AdminController::class, 'employers'])->name('admin.employers.index');
+    Route::get('/admin/jobseekers', [AdminController::class, 'jobseekers'])->name('admin.jobseeker.index');
 
+    // Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

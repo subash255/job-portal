@@ -211,49 +211,6 @@
 
 
 
-<!-- Features Section -->
-<section class="max-w-7xl mx-auto px-4 py-16">
-    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
-        Why Choose <span class="text-purple-600">JobPoint?</span>
-    </h2>
-
-    <div class="grid gap-8 md:grid-cols-3">
-        <!-- Card 1 -->
-        <div class="bg-white/80 backdrop-blur rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8">
-            <h3 class="text-xl font-semibold text-purple-700 mb-4">For Job Seekers</h3>
-            <ul class="text-gray-700 text-justify text-sm space-y-3">
-                <li>✔️ Browse thousands of jobs</li>
-                <li>✔️ Apply with just a few clicks</li>
-                <li>✔️ Track your applications</li>
-                <li>✔️ Get matched to opportunities</li>
-            </ul>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="bg-white/80 backdrop-blur rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8">
-            <h3 class="text-xl font-semibold text-purple-700 mb-4">For Employers</h3>
-            <ul class="text-gray-700 text-justify text-sm space-y-3">
-                <li>✔️ Post job openings easily</li>
-                <li>✔️ Manage applications</li>
-                <li>✔️ Find qualified talent</li>
-                <li>✔️ Build your brand</li>
-            </ul>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="bg-white/80 backdrop-blur rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8">
-            <h3 class="text-xl font-semibold text-purple-700 mb-4">How It Works</h3>
-            <ol class="text-gray-700 text-justify text-sm space-y-3 list-decimal list-inside">
-                <li>Create your account</li>
-                <li>Complete your profile</li>
-                <li>Browse or post jobs</li>
-                <li>Apply or manage listings</li>
-            </ol>
-        </div>
-    </div>
-</section>
-
-
 <!-- Job Vacancy Section -->
 <section class="bg-white py-16">
   <div class="max-w-7xl mx-auto px-4">

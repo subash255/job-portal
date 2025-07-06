@@ -13,38 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <style>
-        /* Adjust the padding and positioning of the entries select box to avoid overlap */
-        .dataTables_length select {
-            padding-right: 35px;
-            /* Add space for the dropdown arrow */
-            appearance: none;
-            /* Remove default dropdown appearance */
-            -webkit-appearance: none;
-            /* Remove default dropdown for Safari */
-            -moz-appearance: none;
-            /* Remove default dropdown for Firefox */
-            width: auto;
-            /* Auto adjust width to fit content */
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"><path d="M0 0l5 5 5-5z" fill="none" stroke="#333" stroke-width="1"/></svg>') no-repeat right 10px center;
-            background-size: 10px;
-            /* Resize the custom arrow */
-            text-indent: 0.01px;
-            /* Adjust text indent for better alignment */
-        }
-
-        /* Optional: Add a border color when the select box is focused */
-        .dataTables_length select:focus {
-            border-color: #4A90E2;
-            outline: none;
-        }
-
-        /* Optional: Remove dropdown arrow for a cleaner UI in specific cases */
-        .dataTables_length select::-ms-expand {
-            display: none;
-            /* Remove the arrow in Internet Explorer */
-        }
-    </style>
+   
     <script>
         // Remove the JavaScript related to toggling the sidebar
         window.onload = function() {
@@ -57,11 +26,6 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.dataTables.css" />
-
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
 
 
     <script>
@@ -93,17 +57,17 @@
                     <i class="ri-layout-masonry-fill"></i>
                     <span class="ml-4 font-semibold">Dashboard</span>
                 </a>
-                <a href="#"
+                <a href="{{ route('admin.jobs.index') }}"
                     class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobs.index', 'admin.category.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
                     <i class="ri-suitcase-fill"></i>
                     <span class="ml-4 font-semibold">Jobs</span>
                 </a>
-                <a href="#"
+                <a href="{{ route('admin.employers.index') }}"
                     class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.employers.index', 'admin.fooditems.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
                     <i class="ri-building-fill"></i>
                     <span class="ml-4 font-semibold">Employers</span>
                 </a>
-                <a href="#"
+                <a href="{{ route('admin.jobseeker.index') }}"
                     class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobseekers.index', 'admin.fooditems.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
                     <i class="ri-user-fill"></i>
                     <span class="ml-4 font-semibold">Job Seekers</span>
