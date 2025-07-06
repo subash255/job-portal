@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
         
         
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],//test
             'phone' => ['nullable', 'string', 'max:15'],
             'role' => ['nullable', 'string', ], 
             
