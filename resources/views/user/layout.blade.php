@@ -10,9 +10,11 @@
                     <!-- User Profile Card -->
                     <div class="text-center mb-8">
                         <div class="relative inline-block">
-                            <img src="{{ auth()->user()->profile_picture ? asset('storage/'.auth()->user()->profile_picture) : 'https://via.placeholder.com/100' }}" 
-                                 alt="Profile Picture" 
-                                 class="w-20 h-20 rounded-full mx-auto mb-4 object-cover ring-4 ring-indigo-100">
+                            <img src="{{ auth()->user()->profile_picture ? asset('storage/' . auth()->user()->profile_picture) 
+                                              : 'https://via.placeholder.com/100' }}"
+                                alt="Profile Picture"
+                                class="w-20 h-20 rounded-full mx-auto mb-4 object-cover ring-4 ring-indigo-100">
+
                             <div class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 rounded-full ring-2 ring-white"></div>
                         </div>
                         <h3 class="text-xl font-bold text-gray-800">{{ auth()->user()->name }}</h3>

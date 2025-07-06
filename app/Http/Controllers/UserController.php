@@ -32,52 +32,45 @@ class UserController extends Controller
     }
     
     public function updateProfile(Request $request)
-    {
-        /** @var User $user */
-        $user = Auth::user();
-        
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
-            'bio' => 'nullable|string|max:1000',
-            'skills' => 'nullable|string|max:500',
-            'experience' => 'nullable|string|max:1000',
-            'education' => 'nullable|string|max:1000',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'resume' => 'nullable|file|mimes:pdf|max:10240',
-        ]);
-        
-        $data = $request->only(['name', 'email', 'phone', 'address', 'bio', 'skills', 'experience', 'education']);
-        
-        // Handle profile picture upload
-        if ($request->hasFile('profile_picture')) {
-            // Delete old profile picture if exists
-            if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture)) {
-                Storage::disk('public')->delete($user->profile_picture);
-            }
-            
-            $profilePicturePath = $request->file('profile_picture')->store('profile_pictures', 'public');
-            $data['profile_picture'] = $profilePicturePath;
+{
+    $user = User::find(Auth::id());
+
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'phone' => 'nullable|string|max:20',
+        'address' => 'nullable|string|max:255',
+        'bio' => 'nullable|string|max:1000',
+        'skills' => 'nullable|string|max:500',
+        'experience' => 'nullable|string|max:1000',
+        'education' => 'nullable|string|max:1000',
+        'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'resume' => 'nullable|file|mimes:pdf|max:10240',
+    ]);
+
+    // Handle profile picture upload
+    if ($request->hasFile('profile_picture')) {
+        if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture)) {
+            Storage::disk('public')->delete($user->profile_picture);
         }
-        
-        // Handle resume upload
-        if ($request->hasFile('resume')) {
-            // Delete old resume if exists
-            if ($user->resume && Storage::disk('public')->exists($user->resume)) {
-                Storage::disk('public')->delete($user->resume);
-            }
-            
-            $resumePath = $request->file('resume')->store('resumes', 'public');
-            $data['resume'] = $resumePath;
-        }
-        
-        // Update user data
-        User::where('id', $user->id)->update($data);
-        
-        return redirect()->route('user.profile')->with('success', 'Profile updated successfully!');
+
+        $validated['profile_picture'] = $request->file('profile_picture')->store('profile_pictures', 'public');
     }
+
+    // Handle resume upload
+    if ($request->hasFile('resume')) {
+        if ($user->resume && Storage::disk('public')->exists($user->resume)) {
+            Storage::disk('public')->delete($user->resume);
+        }
+
+        $validated['resume'] = $request->file('resume')->store('resumes', 'public');
+    }
+
+    $user->update($validated);
+
+    return redirect()->route('user.profile')->with('success', 'Profile updated successfully!');
+}
+
     
     public function myJobs(Request $request)
     {
