@@ -44,7 +44,14 @@ Route::get('/jobs',[WorkController::class,'index'])->name('jobs.index');
 
 Route::middleware('role:user')->group(function () {
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
-
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::get('/user/edit-profile', [UserController::class, 'editProfile'])->name('user.edit-profile');
+    Route::post('/user/update-profile', [UserController::class, 'updateProfile'])->name('user.update-profile');
+    Route::get('/user/my-jobs', [UserController::class, 'myJobs'])->name('user.my-jobs');
+    Route::get('/user/settings', [UserController::class, 'settings'])->name('user.settings');
+    Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.change-password');
+    Route::post('/user/update-notification-settings', [UserController::class, 'updateNotificationSettings'])->name('user.update-notification-settings');
+    Route::post('/user/update-privacy-settings', [UserController::class, 'updatePrivacySettings'])->name('user.update-privacy-settings');
 });
 
 Route::middleware('role:company')->group(function () {

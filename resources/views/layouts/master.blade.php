@@ -37,47 +37,51 @@
                         class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Jobs</a>
                     <a href="{{ route('contact') }}"
                         class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Contact</a>
-                             @auth
-                            
-    @if(auth()->user()->role === 'user')
-    <div class="relative inline-block text-left" id="userDropdownWrapper">
-        <!-- Dropdown Button -->
-        <button id="userDropdownButton"
-            class="text-white font-semibold px-4 py-2 border-2 border-white rounded-md hover:bg-white hover:text-indigo-600 transition">
-            {{ Auth::user()->name }}
-            <i class="ri-arrow-down-s-line ml-1"></i>
-        </button>
+                    @auth
 
-        <!-- Dropdown Menu -->
-        <div id="userDropdownMenu"
-            class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
-            <a href="#"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                <i class="ri-user-line mr-2"></i> Dashboard
-            </a>
+                        @if (auth()->user()->role === 'user')
+                            <div class="relative inline-block text-left" id="userDropdownWrapper">
+                                <!-- Dropdown Button -->
+                                <button id="userDropdownButton"
+                                    class="text-white font-semibold px-4 py-2 border-2 border-white rounded-md hover:bg-white hover:text-indigo-600 transition">
+                                    {{ Auth::user()->name }}
+                                    <i class="ri-arrow-down-s-line ml-1"></i>
+                                </button>
 
-            <a href="{{ route('job') }}"
-                class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                <i class="ri-briefcase-line mr-2"></i> Jobs
-            </a>
+                                <!-- Dropdown Menu -->
+                                <div id="userDropdownMenu"
+                                    class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
+    
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit"
-                    class="w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100">
-                    <i class="ri-logout-box-r-line mr-2"></i> Logout
-                </button>
-            </form>
-        </div>
-    </div>
- @endif
-                         @else
-                    <a href="{{ route('login') }}"
-                        class="px-4 py-2 text-sm border-2 border-white text-white rounded-md hover:bg-white hover:text-indigo-600 transition-all duration-200">Login</a>
-                    <a href="{{ route('register') }}"
-                        class="px-4 py-2 text-sm bg-yellow-400 text-indigo-800 rounded-md hover:bg-yellow-300 font-semibold transition-all duration-200">Register</a>
-                        @endauth
-                       
+                                    <a href="{{ route('user.profile') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                                        <i class="ri-user-line mr-2"></i> My Profile
+                                    </a>
+
+                                    <a href="{{ route('user.my-jobs') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                                        <i class="ri-briefcase-line mr-2"></i> My Applications
+                                    </a>
+
+            
+
+                                    <div class="border-t border-gray-200 my-2"></div>
+
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100">
+                                            <i class="ri-logout-box-r-line mr-2"></i> Logout
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="px-4 py-2 text-sm border-2 border-white text-white rounded-md hover:bg-white hover:text-indigo-600 transition-all duration-200">Login</a>
+                        <a href="{{ route('register') }}"
+                            class="px-4 py-2 text-sm bg-yellow-400 text-indigo-800 rounded-md hover:bg-yellow-300 font-semibold transition-all duration-200">Register</a>
+                    @endauth
+
                 </nav>
 
                 <!-- Mobile Hamburger -->
@@ -121,8 +125,8 @@
             <!-- Logo + Description -->
             <div>
                 <div class="flex items-center mb-4 space-x-2 font-semibold">
-    <img src="/images/logoo.png" alt="JobPortal Logo" class="h-20 w-auto rounded-lg">
-</div>
+                    <img src="/images/logoo.png" alt="JobPortal Logo" class="h-20 w-auto rounded-lg">
+                </div>
 
                 <p class="text-sm text-gray-300 mb-4">
                     Your trusted platform for connecting top employers and talented job seekers worldwide.
@@ -207,42 +211,42 @@
         </div>
     </footer>
 
-<script>
-    // Vanilla JS to toggle mobile menu
-    const menuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
+    <script>
+        // Vanilla JS to toggle mobile menu
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-    menuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-    });
-
-    // User dropdown toggle functionality
-    const userDropdownButton = document.getElementById('userDropdownButton');
-    const userDropdownMenu = document.getElementById('userDropdownMenu');
-    const userDropdownWrapper = document.getElementById('userDropdownWrapper');
-
-    if (userDropdownButton && userDropdownMenu) {
-        // Toggle dropdown when button is clicked
-        userDropdownButton.addEventListener('click', (e) => {
-            e.stopPropagation();
-            userDropdownMenu.classList.toggle('hidden');
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!userDropdownWrapper.contains(e.target)) {
-                userDropdownMenu.classList.add('hidden');
-            }
-        });
+        // User dropdown toggle functionality
+        const userDropdownButton = document.getElementById('userDropdownButton');
+        const userDropdownMenu = document.getElementById('userDropdownMenu');
+        const userDropdownWrapper = document.getElementById('userDropdownWrapper');
 
-        // Close dropdown when pressing Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                userDropdownMenu.classList.add('hidden');
-            }
-        });
-    }
-</script>
+        if (userDropdownButton && userDropdownMenu) {
+            // Toggle dropdown when button is clicked
+            userDropdownButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                userDropdownMenu.classList.toggle('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!userDropdownWrapper.contains(e.target)) {
+                    userDropdownMenu.classList.add('hidden');
+                }
+            });
+
+            // Close dropdown when pressing Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    userDropdownMenu.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 
 </body>
 
