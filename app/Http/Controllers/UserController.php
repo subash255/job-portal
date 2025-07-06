@@ -11,4 +11,5 @@ class UserController extends Controller
         // Logic to display user dashboard or profile
         return view('user.index');
     }
+    
 }

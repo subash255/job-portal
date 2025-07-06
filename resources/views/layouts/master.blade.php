@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;300;400;600;700&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body class="bg-gradient-to-br from-gray-100 to-white text-gray-800 font-sans">
@@ -50,9 +51,9 @@
         <!-- Dropdown Menu -->
         <div id="userDropdownMenu"
             class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
-            <a href=""
+            <a href="#"
                 class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                <i class="ri-user-line mr-2"></i> Profile
+                <i class="ri-user-line mr-2"></i> Dashboard
             </a>
 
             <a href="{{ route('job') }}"
@@ -206,15 +207,42 @@
         </div>
     </footer>
 
-    <script>
-        // Vanilla JS to toggle mobile menu
-        const menuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+<script>
+    // Vanilla JS to toggle mobile menu
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
 
-        menuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+    menuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // User dropdown toggle functionality
+    const userDropdownButton = document.getElementById('userDropdownButton');
+    const userDropdownMenu = document.getElementById('userDropdownMenu');
+    const userDropdownWrapper = document.getElementById('userDropdownWrapper');
+
+    if (userDropdownButton && userDropdownMenu) {
+        // Toggle dropdown when button is clicked
+        userDropdownButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdownMenu.classList.toggle('hidden');
         });
-    </script>
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!userDropdownWrapper.contains(e.target)) {
+                userDropdownMenu.classList.add('hidden');
+            }
+        });
+
+        // Close dropdown when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                userDropdownMenu.classList.add('hidden');
+            }
+        });
+    }
+</script>
 
 </body>
 
