@@ -65,6 +65,7 @@ Route::middleware('role:company')->group(function () {
     Route::get('/company/settings', [CompanyController::class, 'settings'])->name('company.settings');
     Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
     Route::post('/company/store', [CompanyController::class, 'store'])->name('work.store');
+    Route::put('/company/profile/update', [CompanyController::class, 'profileupdate'])->name('company.profile.update');
 });
 
 

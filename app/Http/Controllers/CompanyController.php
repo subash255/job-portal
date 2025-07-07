@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -79,6 +81,52 @@ class CompanyController extends Controller
 
         return redirect()->route('company.index')->with('success', 'Job posted successfully!');
     }
+
+   
+
+public function profileupdate(Request $request)
+{
+    
+    $data = $request->validate([
+        'name' => 'nullable|string|max:255',
+        'industry' => 'nullable|string|max:255',
+        'company_size' => 'nullable|string|max:255',
+        'founded_year' => 'nullable|string',
+        'description' => 'nullable|string',
+        'company_website' => 'nullable|url|max:255',
+        'phone' => 'nullable|string|max:20',
+        'address' => 'nullable|string|max:255',
+        'city' => 'nullable|string|max:100',
+        'state' => 'nullable|string|max:100',
+        'postal_code' => 'nullable|string|max:20',
+        'country' => 'nullable|string|max:100',
+        'linkedin' => 'nullable|url|max:255',
+        'company_twitter' => 'nullable|url|max:255',
+        'company_facebook' => 'nullable|url|max:255',
+        'company_instagram' => 'nullable|url|max:255',
+        'profile_picture' => 'nullable|image|max:2048',
+    ]);
+   
+
+    $user = User::find(Auth::id());
+
+    // Handle logo upload and store path in $data
+    if ($request->hasFile('profile_picture')) {
+        if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture)) {
+            Storage::disk('public')->delete($user->profile_picture);
+        }
+
+        $data['profile_picture'] = $request->file('profile_picture')->store('company_logos', 'public');
+    }
+
+    // Update user record with validated data
+   
+    $user->update($data);
+ 
+
+    return redirect()->back()->with('success', 'Company profile updated successfully.');
+}
+
        
 
 }
