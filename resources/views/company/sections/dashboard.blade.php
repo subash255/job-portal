@@ -18,7 +18,7 @@
             </div>
             <span class="text-2xl font-bold">15</span>
         </div>
-        <p class="text-blue-100 text-sm font-medium">Active Jobs</p>
+        <p class="text-blue-100 text-sm font-medium">Total Jobs</p>
     </div>
 
     <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 rounded-2xl text-white shadow-lg">
@@ -34,11 +34,11 @@
     <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6 rounded-2xl text-white shadow-lg">
         <div class="flex items-center justify-between mb-4">
             <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                <i class="ri-bookmark-line text-xl"></i>
+                <i class="ri-pulse-line text-xl"></i>
             </div>
             <span class="text-2xl font-bold">32</span>
         </div>
-        <p class="text-purple-100 text-sm font-medium">Shortlisted</p>
+        <p class="text-purple-100 text-sm font-medium">Active Jobs</p>
     </div>
 
     <div class="bg-gradient-to-r from-orange-500 to-orange-600 p-6 rounded-2xl text-white shadow-lg">
