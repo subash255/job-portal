@@ -56,8 +56,11 @@ Route::middleware('role:user')->group(function () {
 
 Route::middleware('role:company')->group(function () {
     Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
+    Route::get('/company/jobs', [CompanyController::class, 'jobs'])->name('company.jobs');
+    Route::get('/company/applications', [CompanyController::class, 'applications'])->name('company.applications');
+    Route::get('/company/profile', [CompanyController::class, 'profile'])->name('company.profile');
+    Route::get('/company/settings', [CompanyController::class, 'settings'])->name('company.settings');
     Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
-
 });
 
 

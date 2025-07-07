@@ -23,21 +23,8 @@
                     </h1>
                 </div>
 
-                <!-- Navigation -->
-                <nav class="hidden md:flex space-x-4 items-center font-semibold">
-                    <a href="#" class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">
-                        <i class="ri-dashboard-line mr-1"></i>Dashboard
-                    </a>
-                    <a href="#" class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">
-                        <i class="ri-briefcase-line mr-1"></i>My Jobs
-                    </a>
-                    <a href="#" class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">
-                        <i class="ri-user-line mr-1"></i>Applications
-                    </a>
-                    <a href="#" class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">
-                        <i class="ri-building-line mr-1"></i>Company Profile
-                    </a>
-                </nav>
+                <!-- Empty space for center alignment -->
+                <div class="flex-1"></div>
 
                 <!-- User Menu -->
                 <div class="relative">
@@ -79,11 +66,11 @@
         <!-- Mobile Navigation -->
         <div id="mobileMenu" class="md:hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 border-t border-white border-opacity-20 hidden">
             <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="#" class="block px-3 py-2 text-base font-medium text-white hover:text-yellow-300 hover:bg-white hover:bg-opacity-10 rounded-md">
+                <a href="{{ route('company.index') }}" class="block px-3 py-2 text-base font-medium text-white hover:text-yellow-300 hover:bg-white hover:bg-opacity-10 rounded-md">
                     <i class="ri-dashboard-line mr-2"></i>Dashboard
                 </a>
                 <a href="#" class="block px-3 py-2 text-base font-medium text-white hover:text-yellow-300 hover:bg-white hover:bg-opacity-10 rounded-md">
-                    <i class="ri-briefcase-line mr-2"></i>My Jobs
+                    <i class="ri-briefcase-line mr-2"></i>Jobs
                 </a>
                 <a href="#" class="block px-3 py-2 text-base font-medium text-white hover:text-yellow-300 hover:bg-white hover:bg-opacity-10 rounded-md">
                     <i class="ri-user-line mr-2"></i>Applications
@@ -98,24 +85,72 @@
     <!-- Main Content -->
     <main class="min-h-screen bg-gradient-to-br from-gray-100 to-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Welcome Section -->
-            <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-800">Welcome back, {{ Auth::user()->name }}! 👋</h1>
-                        <p class="text-gray-600 mt-1">Here's what's happening with your company today.</p>
-                    </div>
-                    <div class="hidden md:flex items-center space-x-4">
-                        <div class="text-right">
-                            <p class="text-sm text-gray-500">Today</p>
-                            <p class="text-lg font-semibold text-gray-800">{{ date('M d, Y') }}</p>
+            <!-- Main Layout with Sidebar -->
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Sidebar -->
+                <div class="lg:w-1/4">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-8">
+                        <!-- Company Profile Card -->
+                        <div class="text-center mb-8">
+                            <div class="relative inline-block">
+                                <div class="w-20 h-20 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                    <i class="ri-building-line text-2xl text-white"></i>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 rounded-full ring-2 ring-white"></div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-800">{{ auth()->user()->name }}</h3>
+                            <p class="text-gray-600 text-sm">{{ auth()->user()->email }}</p>
+                            <span class="inline-block bg-indigo-100 text-indigo-600 text-xs px-2 py-1 rounded-full mt-2">Company Account</span>
                         </div>
+
+                        <!-- Navigation Menu -->
+                        <nav class="space-y-2">
+                            <a href="{{ route('company.index') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 {{ request()->routeIs('company.index') ? 'bg-indigo-50 text-indigo-600 border-r-2 border-indigo-600' : '' }}">
+                                <i class="ri-dashboard-line text-lg"></i>
+                                <span class="font-medium">Dashboard</span>
+                            </a>
+
+                            <a href="{{ route('company.jobs') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 {{ request()->routeIs('company.jobs') ? 'bg-indigo-50 text-indigo-600 border-r-2 border-indigo-600' : '' }}">
+                                <i class="ri-briefcase-line text-lg"></i>
+                                <span class="font-medium">Jobs</span>
+                            </a>
+
+                            <a href="{{ route('company.applications') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 {{ request()->routeIs('company.applications') ? 'bg-indigo-50 text-indigo-600 border-r-2 border-indigo-600' : '' }}">
+                                <i class="ri-user-line text-lg"></i>
+                                <span class="font-medium">Applications</span>
+                            </a>
+
+                            <a href="{{ route('company.profile') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 {{ request()->routeIs('company.profile') ? 'bg-indigo-50 text-indigo-600 border-r-2 border-indigo-600' : '' }}">
+                                <i class="ri-building-line text-lg"></i>
+                                <span class="font-medium">Company Profile</span>
+                            </a>
+
+                            <a href="{{ route('company.settings') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 {{ request()->routeIs('company.settings') ? 'bg-indigo-50 text-indigo-600 border-r-2 border-indigo-600' : '' }}">
+                                <i class="ri-settings-3-line text-lg"></i>
+                                <span class="font-medium">Settings</span>
+                            </a>
+
+                            <div class="border-t pt-4 mt-6">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="flex items-center gap-3 px-4 py-3 text-red-600 rounded-lg hover:bg-red-50 transition-colors duration-200 w-full text-left">
+                                        <i class="ri-logout-box-line text-lg"></i>
+                                        <span class="font-medium">Logout</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Main Content Area -->
+                <div class="lg:w-3/4">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 min-h-[500px]">
+                        <!-- Page Content -->
+                        @yield('content')
                     </div>
                 </div>
             </div>
-
-            <!-- Page Content -->
-            @yield('content')
         </div>
     </main>
 
@@ -153,7 +188,7 @@
                 <div>
                     <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">Dashboard</a></li>
+                        <li><a href="{{ route('company.index') }}" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">Dashboard</a></li>
                         <li><a href="#" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">My Jobs</a></li>
                         <li><a href="#" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">Applications</a></li>
                         <li><a href="#" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">Company Profile</a></li>
@@ -206,20 +241,11 @@
             }
         });
 
-        // Add active class to current page
-        const currentPath = window.location.pathname;
-        const navLinks = document.querySelectorAll('nav a, #mobileMenu a');
-        
-        navLinks.forEach(link => {
-            if (link.getAttribute('href') === currentPath) {
-                link.classList.add('text-yellow-300');
-                link.classList.remove('text-white');
-            }
-        });
+
 
         // Auto-hide success messages
         setTimeout(function() {
-            const successMessages = document.querySelectorAll('.bg-green-50, .bg-blue-50, .bg-indigo-50');
+            const successMessages = document.querySelectorAll('.alert, .notification, .success-message, .error-message');
             successMessages.forEach(function(message) {
                 message.style.transition = 'opacity 0.5s ease-out';
                 message.style.opacity = '0';
