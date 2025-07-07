@@ -12,10 +12,10 @@ class WorkController extends Controller
     public function index()
     {
         // Fetch all works from the database
-        $works = Work::with('category')->get();
+        $works = Work::with('category','user')->get();
 
         // Return the view with the works data
-        return view('jobs.index', compact('works'));
+        return view('admin.jobs.index', compact('works'));
     }
     public function create()
     {

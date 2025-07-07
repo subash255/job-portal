@@ -19,14 +19,15 @@
 </script>
 
 <div class="p-4 bg-white shadow-lg -mt-12 mx-4 z-20 rounded-lg">
-    <h2 class="text-2xl font-semibold mb-4">Job Listings</h2>
+    <h2 class="text-2xl font-semibold mb-4">work Listings</h2>
 
     <div class="overflow-x-auto">
-        <table id="jobsTable" class="min-w-full border-separate border-spacing-0 border border-gray-300">
+        <table id="worksTable" class="min-w-full border-separate border-spacing-0 border border-gray-300">
             <thead class="bg-gray-100">
                 <tr>
                     <th class="border px-4 py-2">S.N</th>
-                    <th class="border px-4 py-2">Job Title</th>
+                    <th class="border px-4 py-2">Work Title</th>
+                    <th class="border px-4 py-2">Category</th>
                     <th class="border px-4 py-2">Company</th>
                     <th class="border px-4 py-2">Location</th>
                     <th class="border px-4 py-2">Type</th>
@@ -36,23 +37,29 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($jobs as $job)
+                @foreach ($works as $work)
                     <tr class="bg-white hover:bg-gray-50">
                         <td class="border px-4 py-2 text-center">{{ $loop->iteration }}</td>
-                        <td class="border px-4 py-2">{{ $job->title }}</td>
-                        <td class="border px-4 py-2">{{ optional($job->employer)->company_name }}</td>
-                        <td class="border px-4 py-2">{{ $job->location }}</td>
-                        <td class="border px-4 py-2">{{ ucfirst($job->job_type) }}</td>
-                        <td class="border px-4 py-2">{{ $job->created_at->format('d M, Y') }}</td>
+                        <td class="border px-4 py-2">{{ $work->title }}</td>
+                        <td class="border px-4 py-2">
+                            @if ($work->category)
+                                {{ $work->category->name }}
+                            @else
+                                <span class="text-red-500">No Category</span>
+                            @endif
+                        <td class="border px-4 py-2">{{ $work->user->name }}</td>
+                        <td class="border px-4 py-2">{{ $work->location }}</td>
+                        <td class="border px-4 py-2">{{ ucfirst($work->type) }}</td>
+                        <td class="border px-4 py-2">{{ $work->created_at->format('d M, Y') }}</td>
                         <td class="border px-4 py-2">
                             <span class="inline-block px-2 py-1 text-xs rounded-full
-                                {{ $job->status == 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                {{ ucfirst($job->status) }}
+                                {{ $work->status == 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                                {{ ucfirst($work->status) }}
                             </span>
                         </td>
                         <td class="px-2 py-2 flex justify-center space-x-2 border">
                             <button type="button"
-                                onclick="openDeleteModal({{ $job->id }})"
+                                onclick="openDeleteModal({{ $work->id }})"
                                 class="bg-red-500 hover:bg-red-700 p-2 w-8 h-8 rounded-full flex items-center justify-center">
                                 <i class="ri-delete-bin-line text-white"></i>
                             </button>
@@ -60,15 +67,15 @@
                     </tr>
 
                     <!-- Delete Modal -->
-                    <div id="deleteModal-{{ $job->id }}"
+                    <div id="deleteModal-{{ $work->id }}"
                         class="fixed inset-0 bg-black bg-opacity-70 modal-hidden items-center justify-center z-50 backdrop-blur-[1px] flex">
                         <div class="bg-white p-6 rounded-lg w-96">
                             <h2 class="text-xl font-semibold mb-4">Confirm Deletion</h2>
-                            <p>Are you sure you want to delete <strong>{{ $job->title }}</strong>?</p>
+                            <p>Are you sure you want to delete <strong>{{ $work->title }}</strong>?</p>
                             <div class="mt-4 flex justify-end">
                                 <button class="bg-gray-400 hover:bg-gray-600 text-white p-2 rounded-md mr-2"
-                                    onclick="closeDeleteModal({{ $job->id }})">Cancel</button>
-                                <form action="{{ route('admin.jobs.destroy', $job->id) }}" method="POST">
+                                    onclick="closeDeleteModal({{ $work->id }})">Cancel</button>
+                                <form action="{{ route('admin.works.delete', $work->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
@@ -101,7 +108,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#jobsTable').DataTable({
+        $('#worksTable').DataTable({
             pageLength: 10,
             lengthMenu: [10, 25, 50, 100],
             paging: true,

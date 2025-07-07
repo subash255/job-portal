@@ -20,7 +20,6 @@ Route::get('/searchjob',[HomepageController::class, 'job'])->name('job');
 Route::middleware('role:admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     // Admin Routes
-    Route::get('/admin/jobs', [AdminController::class, 'jobs'])->name('admin.jobs.index');
     Route::get('/admin/employers', [AdminController::class, 'employers'])->name('admin.employers.index');
     Route::get('/admin/jobseekers', [AdminController::class, 'jobseekers'])->name('admin.jobseeker.index');
 
@@ -38,7 +37,11 @@ Route::post('/category/update/{id}', [CategoryController::class, 'update'])->nam
 Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 Route::post('/category/status-toggle/{categoryId}', [CategoryController::class, 'updateToggle'])->name('category.status-toggle');
 
-Route::get('/jobs',[WorkController::class,'index'])->name('jobs.index');
+Route::get('/jobs',[WorkController::class,'index'])->name('admin.jobs.index');
+   
+    Route::get('/admin/jobs/edit/{id}', [WorkController::class, 'edit'])->name('admin.works.edit');
+    Route::post('/admin/jobs/update/{id}', [WorkController::class, 'update'])->name('admin.works.update');
+    Route::get('/admin/jobs/delete/{id}', [WorkController::class, 'destroy'])->name('admin.works.delete');
 
 });
 
@@ -61,6 +64,7 @@ Route::middleware('role:company')->group(function () {
     Route::get('/company/profile', [CompanyController::class, 'profile'])->name('company.profile');
     Route::get('/company/settings', [CompanyController::class, 'settings'])->name('company.settings');
     Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
+    Route::post('/company/store', [CompanyController::class, 'store'])->name('work.store');
 });
 
 

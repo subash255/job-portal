@@ -52,22 +52,23 @@
     </div>
     
     <div class="divide-y divide-gray-100">
+        @foreach ($works as $work)
         <!-- Job Item -->
         <div class="p-6 hover:bg-gray-50 transition-colors duration-200">
             <div class="flex items-start justify-between">
                 <div class="flex-1">
                     <div class="flex items-center gap-3 mb-2">
-                        <h4 class="text-lg font-semibold text-gray-800">Senior Frontend Developer</h4>
+                        <h4 class="text-lg font-semibold text-gray-800">{{$work->title}}</h4>
                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                            <i class="ri-pulse-line mr-1"></i> Active
+                            <i class="ri-pulse-line mr-1"></i> {{$work->status}}
                         </span>
                     </div>
                     <div class="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                        <span><i class="ri-map-pin-line mr-1"></i> Kathmandu, Nepal</span>
-                        <span><i class="ri-money-dollar-circle-line mr-1"></i> Rs. 80,000 - 120,000</span>
-                        <span><i class="ri-calendar-line mr-1"></i> Posted 2 days ago</span>
+                        <span><i class="ri-map-pin-line mr-1"></i> {{$work->location}}</span>
+                        <span><i class="ri-money-dollar-circle-line mr-1"></i> {{$work->salary}}</span>
+                        <span><i class="ri-calendar-line mr-1"></i> {{$work->created_at->diffForHumans()}}</span>
                     </div>
-                    <p class="text-gray-600 text-sm line-clamp-2">We are looking for an experienced Frontend Developer to join our team and work on exciting projects...</p>
+                    <p class="text-gray-600 text-sm line-clamp-2">{{$work->description}}</p>
                 </div>
                 <div class="text-right ml-6">
                     <div class="mb-2">
@@ -88,80 +89,9 @@
                 </div>
             </div>
         </div>
+        @endforeach
 
-        <!-- Job Item -->
-        <div class="p-6 hover:bg-gray-50 transition-colors duration-200">
-            <div class="flex items-start justify-between">
-                <div class="flex-1">
-                    <div class="flex items-center gap-3 mb-2">
-                        <h4 class="text-lg font-semibold text-gray-800">Digital Marketing Manager</h4>
-                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                            <i class="ri-pulse-line mr-1"></i> Active
-                        </span>
-                    </div>
-                    <div class="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                        <span><i class="ri-map-pin-line mr-1"></i> Pokhara, Nepal</span>
-                        <span><i class="ri-money-dollar-circle-line mr-1"></i> Rs. 60,000 - 90,000</span>
-                        <span><i class="ri-calendar-line mr-1"></i> Posted 5 days ago</span>
-                    </div>
-                    <p class="text-gray-600 text-sm line-clamp-2">Join our marketing team and help us grow our brand presence across digital platforms...</p>
-                </div>
-                <div class="text-right ml-6">
-                    <div class="mb-2">
-                        <span class="text-2xl font-bold text-indigo-600">12</span>
-                        <p class="text-sm text-gray-500">Applications</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="p-2 text-gray-400 hover:text-indigo-600 transition-colors rounded-lg hover:bg-indigo-50">
-                            <i class="ri-eye-line"></i>
-                        </button>
-                        <button class="p-2 text-gray-400 hover:text-blue-600 transition-colors rounded-lg hover:bg-blue-50">
-                            <i class="ri-edit-line"></i>
-                        </button>
-                        <button class="p-2 text-gray-400 hover:text-red-600 transition-colors rounded-lg hover:bg-red-50">
-                            <i class="ri-delete-bin-line"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Job Item -->
-        <div class="p-6 hover:bg-gray-50 transition-colors duration-200">
-            <div class="flex items-start justify-between">
-                <div class="flex-1">
-                    <div class="flex items-center gap-3 mb-2">
-                        <h4 class="text-lg font-semibold text-gray-800">Backend Developer</h4>
-                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
-                            <i class="ri-time-line mr-1"></i> Draft
-                        </span>
-                    </div>
-                    <div class="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                        <span><i class="ri-map-pin-line mr-1"></i> Lalitpur, Nepal</span>
-                        <span><i class="ri-money-dollar-circle-line mr-1"></i> Rs. 90,000 - 130,000</span>
-                        <span><i class="ri-calendar-line mr-1"></i> Created 1 week ago</span>
-                    </div>
-                    <p class="text-gray-600 text-sm line-clamp-2">We need a skilled Backend Developer to build and maintain our server-side applications...</p>
-                </div>
-                <div class="text-right ml-6">
-                    <div class="mb-2">
-                        <span class="text-2xl font-bold text-gray-500">0</span>
-                        <p class="text-sm text-gray-500">Applications</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="p-2 text-gray-400 hover:text-green-600 transition-colors rounded-lg hover:bg-green-50">
-                            <i class="ri-send-plane-line"></i>
-                        </button>
-                        <button class="p-2 text-gray-400 hover:text-blue-600 transition-colors rounded-lg hover:bg-blue-50">
-                            <i class="ri-edit-line"></i>
-                        </button>
-                        <button class="p-2 text-gray-400 hover:text-red-600 transition-colors rounded-lg hover:bg-red-50">
-                            <i class="ri-delete-bin-line"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>
 
