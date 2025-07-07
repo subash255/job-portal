@@ -13,13 +13,14 @@
     </div>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-    <!-- Company Info Card -->
-    <div class="lg:col-span-2">
-        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
+<div class="max-w-6xl mx-auto">
+    <!-- Company Info Section -->
+    <div class="mb-8">
+        <!-- Company Info Card -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
             <h3 class="text-xl font-bold text-gray-800 mb-6">Company Information</h3>
-            
-            <form class="space-y-6">
+                
+                <form class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
@@ -68,13 +69,31 @@
                         <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
                         <input type="tel" placeholder="+977 98XXXXXXXX" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
-                </div>
-            </form>
+                </div>                </form>
+            </div>
         </div>
+    </div>
 
-        <!-- Location Information -->
-        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
-            <h3 class="text-xl font-bold text-gray-800 mb-6">Location Information</h3>
+    <!-- Company Logo Section -->
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
+        <h3 class="text-xl font-bold text-gray-800 mb-6">Company Logo</h3>
+        
+        <div class="flex items-center justify-center">
+            <div class="text-center">
+                <div class="w-32 h-32 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                    <i class="ri-building-line text-4xl text-white"></i>
+                </div>
+                <p class="text-sm text-gray-600 mb-4">Upload your company logo (Max 2MB)</p>
+                <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                    <i class="ri-upload-line mr-2"></i>Choose File
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Information -->
+    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
+        <h3 class="text-xl font-bold text-gray-800 mb-6">Location Information</h3>
             
             <form class="space-y-6">
                 <div>
@@ -158,25 +177,5 @@
                 </div>
             </form>
         </div>
-    </div>
-
-    <!-- Sidebar -->
-    <div class="lg:col-span-1">
-        <!-- Company Logo -->
-        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
-            <h3 class="text-xl font-bold text-gray-800 mb-6">Company Logo</h3>
-            
-            <div class="text-center">
-                <div class="w-32 h-32 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                    <i class="ri-building-line text-4xl text-white"></i>
-                </div>
-                <p class="text-sm text-gray-600 mb-4">Upload your company logo (Max 2MB)</p>
-                <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
-                    <i class="ri-upload-line mr-2"></i>Choose File
-                </button>
-            </div>
-        </div>
-
-        
     </div>
 </div>

@@ -8,9 +8,9 @@
     </div>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="max-w-4xl mx-auto">
     <!-- Main Settings -->
-    <div class="lg:col-span-2 space-y-8">
+    <div class="space-y-8">
         <!-- Account Information -->
         <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
             <div class="flex items-center justify-between mb-6">
@@ -70,14 +70,7 @@
                         <input type="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
                     </div>
                 </div>
-
-                
             </form>
         </div>
-
-       
-    </div>
-
-    
     </div>
 </div>
