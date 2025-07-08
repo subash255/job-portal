@@ -14,7 +14,7 @@
                 <div class="flex-1 w-full md:w-auto relative">
                     <label for="job-title" class="sr-only">Job Title</label>
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                        <i class="ri-briefcase-line text-lg"></i> 
+                        <i class="ri-briefcase-line text-lg"></i>
                     </div>
                     <input type="text" id="job-title" name="job_title" placeholder="Enter job title (e.g., Software Engineer, Marketing Manager)" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
                 </div>
@@ -22,7 +22,7 @@
                 <div class="flex-1 w-full md:w-auto relative">
                     <label for="location" class="sr-only">Location</label>
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                        <i class="ri-map-pin-line text-lg"></i> 
+                        <i class="ri-map-pin-line text-lg"></i>
                     </div>
                     <input type="text" id="location" name="location" placeholder="Enter location" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
                 </div>
@@ -40,12 +40,12 @@
 <section class="bg-gray-50 py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row gap-8">
-            
+
             <!-- Filter Sidebar -->
             <div class="lg:w-1/4">
                 <div class="bg-white rounded-lg shadow-lg p-6 sticky top-4">
                     <h3 class="text-xl font-bold text-gray-800 mb-6">Filter Jobs</h3>
-                    
+
                     <!-- Job Type Filter -->
                     <div class="mb-6">
                         <h4 class="font-semibold text-gray-700 mb-3">Job Type</h4>
@@ -177,114 +177,72 @@
 
                 <!-- Job Cards -->
                 <div class="space-y-6">
-    <!-- Job Card 1 -->
-    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200">
-        <div class="flex items-start justify-between">
-            <div class="flex items-start space-x-4">
-                <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <img src="images/7.jpeg" alt="Company Logo" class="w-14 h-14 rounded-lg object-cover">
-                </div>
-                <div class="flex-1">
-                    <h3 class="text-xl font-bold text-gray-800 hover:text-indigo-600 transition-colors duration-200">
-                        <a href="#" class="cursor-pointer">Senior Software Engineer</a>
-                    </h3>
-                    <p class="text-gray-600 font-medium mb-2">Tech Solutions Pvt. Ltd.</p>
-                    <div class="flex items-center space-x-4 text-sm text-gray-500">
-                        <div class="flex items-center">
-                            <i class="ri-map-pin-line mr-1 text-gray-500"></i>
-                            Kathmandu, Nepal
-                        </div>
-                        <div class="flex items-center">
-                            <i class="ri-time-line mr-1 text-gray-500"></i>
-                            Posted 2 days ago
-                        </div>
-                        <div class="flex items-center">
-                            <i class="ri-money-dollar-circle-line mr-1 text-gray-500"></i>
-                            NPR 80,000 - 120,000
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-right">
-                <div class="mb-4">
-                    <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">Featured</span>
-                </div>
-                <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold">
-                    Apply Now
-                </button>
-            </div>
-        </div>
-        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
-            <div class="flex space-x-2">
-                <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">Full Time</span>
-                <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">Senior Level</span>
-                <span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium">Remote</span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button class="text-gray-500 hover:text-red-500 transition-colors duration-200">
-                    <i class="ri-heart-line text-xl"></i>
-                </button>
-                <button class="text-gray-500 hover:text-indigo-500 transition-colors duration-200">
-                    <i class="ri-share-line text-xl"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+                    @foreach ($works as $work)
+                    <!-- Job Card 1 -->
+ <form action="{{ route('work.apply', $work->id) }}" method="post">
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                                    <img src="images/7.jpeg" alt="Company Logo" class="w-14 h-14 rounded-lg object-cover">
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold text-gray-800 hover:text-indigo-600 transition-colors duration-200">
+                                        <a href="#" class="cursor-pointer">{{$work->title}}</a>
+                                    </h3>
+                                    <p class="text-gray-600 font-medium mb-2">{{$work->user->name}}</p>
+                                    <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                        <div class="flex items-center">
+                                            <i class="ri-map-pin-line mr-1 text-gray-500"></i>
+                                            {{$work->location,$work->user->state}}
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="ri-time-line mr-1 text-gray-500"></i>
+                                            {{($work->created_at)->diffForHumans() }}
+                                        </div>
+                                        <div class="flex items-center">
+                                            <i class="ri-money-dollar-circle-line mr-1 text-gray-500"></i>
+                                            {{$work->salary}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="mb-4">
+                                    <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">Featured</span>
+                                </div>
+                            
+                               
 
-    <!-- Job Card 2 -->
-    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200">
-        <div class="flex items-start justify-between">
-            <div class="flex items-start space-x-4">
-                <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <img src="images/7.jpeg" alt="Company Logo" class="w-14 h-14 rounded-lg object-cover">
-                </div>
-                <div class="flex-1">
-                    <h3 class="text-xl font-bold text-gray-800 hover:text-indigo-600 transition-colors duration-200">
-                        <a href="#" class="cursor-pointer">Marketing Manager</a>
-                    </h3>
-                    <p class="text-gray-600 font-medium mb-2">Creative Agency Ltd.</p>
-                    <div class="flex items-center space-x-4 text-sm text-gray-500">
-                        <div class="flex items-center">
-                            <i class="ri-map-pin-line mr-1 text-gray-500"></i>
-                            Lalitpur, Nepal
+                                    @csrf
+                                    <button type="submit" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold">
+                                        Apply Now
+                                    </button>
+                                   
+                            </div>
                         </div>
-                        <div class="flex items-center">
-                            <i class="ri-time-line mr-1 text-gray-500"></i>
-                            Posted 1 day ago
-                        </div>
-                        <div class="flex items-center">
-                            <i class="ri-money-dollar-circle-line mr-1 text-gray-500"></i>
-                            NPR 50,000 - 70,000
+                        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                            <div class="flex space-x-2">
+                                <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">{{$work->type}}</span>
+                                <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">{{$work->position}}</span>
+                                <span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium">Onsite</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <button class="text-gray-500 hover:text-red-500 transition-colors duration-200">
+                                    <i class="ri-heart-line text-xl"></i>
+                                </button>
+                                <button class="text-gray-500 hover:text-indigo-500 transition-colors duration-200">
+                                    <i class="ri-share-line text-xl"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
+                    </form>
+                    
+
+                    @endforeach
+
                 </div>
-            </div>
-            <div class="text-right">
-                <div class="mb-4">
-                    <span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium">14 days left</span>
-                </div>
-                <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold">
-                    Apply Now
-                </button>
-            </div>
-        </div>
-        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
-            <div class="flex space-x-2">
-                <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">Full Time</span>
-                <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">Mid Level</span>
-                <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-medium">On-site</span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button class="text-gray-500 hover:text-red-500 transition-colors duration-200">
-                    <i class="ri-heart-line text-xl"></i>
-                </button>
-                <button class="text-gray-500 hover:text-indigo-500 transition-colors duration-200">
-                    <i class="ri-share-line text-xl"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
                 <!-- Pagination -->

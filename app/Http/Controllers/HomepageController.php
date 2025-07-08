@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Work;
 use Illuminate\Http\Request;
 
 class HomepageController extends Controller
 {
     public function index()
+
     {
-        return view('welcome');
+        $works = Work::all(); 
+        $latestWorks = Work::latest()->take(3)->get(); // Fetch the latest 6 works
+        return view('welcome',compact('works', 'latestWorks'));
     }
     public function about()
     {
@@ -20,6 +24,7 @@ class HomepageController extends Controller
     }
     public function job()
     {
-        return view('job');
+        $works = Work::all();
+        return view('job', compact('works'));
     }
 }

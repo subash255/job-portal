@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomepageController;
@@ -15,6 +16,7 @@ Route::get('/', [HomepageController::class, 'index'])->name('welcome');
 Route::get('/about',[HomepageController::class, 'about'])->name('about');
 Route::get('/contact',[HomepageController::class, 'contact'])->name('contact');
 Route::get('/searchjob',[HomepageController::class, 'job'])->name('job');
+Route::post('/apply/{work}', [ApplicantController::class, 'store'])->name('work.apply');
 
 
 Route::middleware('role:admin')->group(function () {
@@ -55,6 +57,7 @@ Route::middleware('role:user')->group(function () {
     Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.change-password');
     Route::post('/user/update-notification-settings', [UserController::class, 'updateNotificationSettings'])->name('user.update-notification-settings');
     Route::post('/user/update-privacy-settings', [UserController::class, 'updatePrivacySettings'])->name('user.update-privacy-settings');
+    
 });
 
 Route::middleware('role:company')->group(function () {
