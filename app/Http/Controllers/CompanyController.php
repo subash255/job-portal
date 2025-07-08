@@ -246,4 +246,19 @@ public function edit($id)
             ->with('success', $statusMessages[$request->status]);
     }
 
+    public function showApplication($id)
+    {
+        $application = Applicant::with(['user', 'work'])
+            ->whereHas('work', function($q) {
+                $q->where('user_id', Auth::id());
+            })
+            ->findOrFail($id);
+
+        $html = view('company.partials.applicant-details', compact('application'))->render();
+
+        return response()->json([
+            'html' => $html
+        ]);
+    }
+
 }

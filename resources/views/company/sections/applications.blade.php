@@ -71,18 +71,9 @@
                         {{ ucfirst($application->status ?? 'Applied') }}
                     </span>
                     <div class="flex gap-2">
-                        @if($application->user->resume)
-                            <a href="{{ asset('storage/' . $application->user->resume) }}" target="_blank" class="p-2 text-gray-400 hover:text-indigo-600 transition-colors rounded-lg hover:bg-indigo-50" title="View Resume">
-                                <i class="ri-file-text-line"></i>
-                            </a>
-                        @endif
-                        <form method="POST" action="{{ route('company.application.update-status', $application->id) }}" class="inline">
-                            @csrf
-                            <input type="hidden" name="status" value="shortlisted">
-                            <button type="submit" class="p-2 text-gray-400 hover:text-green-600 transition-colors rounded-lg hover:bg-green-50" title="Shortlist">
-                                <i class="ri-bookmark-line"></i>
-                            </button>
-                        </form>
+                        <button type="button" class="p-2 text-gray-400 hover:text-indigo-600 transition-colors rounded-lg hover:bg-indigo-50" title="View Applicant Details" onclick="openApplicantModal({{ $application->id }})">
+                            <i class="ri-eye-line"></i>
+                        </button>
                         <form method="POST" action="{{ route('company.application.update-status', $application->id) }}" class="inline">
                             @csrf
                             <input type="hidden" name="status" value="interview">
@@ -113,6 +104,52 @@
     </div>
     @endif
 </div>
+
+<!-- Applicant Details Modal -->
+<div id="applicantModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Applicant Details</h2>
+                    <button onclick="closeApplicantModal()" class="text-gray-400 hover:text-gray-600">
+                        <i class="ri-close-line text-xl"></i>
+                    </button>
+                </div>
+                
+                <div id="applicantDetails" class="space-y-4">
+                    <!-- Dynamic content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openApplicantModal(applicationId) {
+    fetch(`/company/application/${applicationId}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('applicantDetails').innerHTML = data.html;
+            document.getElementById('applicantModal').classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error loading applicant details');
+        });
+}
+
+function closeApplicantModal() {
+    document.getElementById('applicantModal').classList.add('hidden');
+}
+
+// Close modal when clicking outside
+document.getElementById('applicantModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeApplicantModal();
+    }
+});
+</script>
 
 <!-- Pagination -->
 @if($applications->hasPages())

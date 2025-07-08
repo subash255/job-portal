@@ -19,9 +19,36 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('password');
             $table->string('role')->default('user');
+            
+            // User profile fields
+            $table->string('address')->nullable();
+            $table->text('bio')->nullable();
+            $table->text('skills')->nullable();
+            $table->text('experience')->nullable();
+            $table->text('education')->nullable();
+            $table->string('profile_picture')->nullable();
+            $table->string('resume')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('gender')->nullable();
+            $table->integer('experience_years')->nullable();
+            
+            // Company profile fields
+            $table->string('industry')->nullable();
+            $table->string('founded_year')->nullable();
+            $table->text('description')->nullable();
+            $table->string('company_size')->nullable();
+            $table->string('company_website')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('country')->nullable();
+            $table->string('company_facebook')->nullable();
+            $table->string('company_twitter')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('company_instagram')->nullable();
+            
             $table->rememberToken();
             $table->timestamps();
-
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

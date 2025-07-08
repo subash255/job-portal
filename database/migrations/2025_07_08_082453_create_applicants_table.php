@@ -12,22 +12,39 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('applicants', function (Blueprint $table) {
-    $table->id();
+            $table->id();
 
-    $table->foreignId('work_id')->constrained()->onDelete('cascade');
+            $table->foreignId('work_id')->constrained()->onDelete('cascade');
 
-    $table->foreignId('applicant_id')
-          ->constrained('users')
-          ->onDelete('cascade');
+            $table->foreignId('applicant_id')
+                  ->constrained('users')
+                  ->onDelete('cascade');
 
-    $table->foreignId('company_id')
-          ->constrained('users')
-          ->onDelete('cascade');
+            $table->foreignId('company_id')
+                  ->constrained('users')
+                  ->onDelete('cascade');
 
-    $table->enum('status', ['applied', 'interviewed', 'hired', 'rejected'])->default('applied');
+            // Application status with all possible values
+            $table->enum('status', ['applied', 'under_review', 'shortlisted', 'interview', 'rejected'])
+                  ->default('applied');
 
-    $table->timestamps();
-});
+            // Additional application fields
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->text('experience')->nullable();
+            $table->text('education')->nullable();
+            $table->string('skills')->nullable();
+            $table->text('cover_letter')->nullable();
+            $table->string('resume')->nullable();
+            $table->timestamp('applied_at')->nullable();
+
+            // Additional fields that might be added from application form
+            $table->string('portfolio_url')->nullable();
+            $table->string('expected_salary')->nullable();
+            $table->date('availability_date')->nullable();
+
+            $table->timestamps();
+        });
     }
 
     /**
