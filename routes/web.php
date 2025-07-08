@@ -68,6 +68,9 @@ Route::middleware('role:company')->group(function () {
     Route::get('/company/settings', [CompanyController::class, 'settings'])->name('company.settings');
     Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
     Route::post('/company/store', [CompanyController::class, 'store'])->name('work.store');
+    Route::get('/company/jobs/{id}/edit', [CompanyController::class, 'edit'])->name('company.jobs.edit');
+    Route::put('/company/jobs/{id}', [CompanyController::class, 'update'])->name('company.jobs.update');
+    Route::delete('/company/jobs/{id}', [CompanyController::class, 'destroy'])->name('company.jobs.delete');
     Route::put('/company/profile/update', [CompanyController::class, 'profileupdate'])->name('company.profile.update');
 });
 

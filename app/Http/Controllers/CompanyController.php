@@ -14,14 +14,37 @@ class CompanyController extends Controller
 {
     public function index()
     {
-         $applications = Applicant::where('company_id', Auth::id())->latest()->get();
+        $applications = Applicant::where('company_id', Auth::id())->latest()->get();
         $works = Work::where('user_id', Auth::id())->latest()->get();
-         $totalapplicant = 0;
-    foreach ($works as $work) {
-        $totalapplicant += $work->applicants()->count();
-    }
+        $totalapplicant = 0;
+        foreach ($works as $work) {
+            $totalapplicant += $work->applicants()->count();
+        }
+        
+        // Calculate dynamic stats
+        $totalJobs = $works->count();
+        $totalApplications = $totalapplicant;
+        $activeJobs = $works->where('status', 'active')->count();
+        $closedJobs = $works->where('status', 'closed')->count();
+        $recentJobs = $works->take(5); // Get 5 most recent jobs
+        $recentApplications = $applications->take(5); // Get 5 most recent applications
+        
+        // For interviews, we'll simulate with pending applications for now
+        $interviews = $applications->where('status', 'interview')->count();
+        
         // Logic to display company dashboard
-        return view('company.index', compact('applications','works','totalapplicant'), ['section' => 'dashboard']);
+        return view('company.index', compact(
+            'applications',
+            'works',
+            'totalapplicant',
+            'totalJobs',
+            'totalApplications',
+            'activeJobs',
+            'closedJobs',
+            'recentJobs',
+            'recentApplications',
+            'interviews'
+        ), ['section' => 'dashboard']);
     }
 
     public function create()
@@ -135,6 +158,50 @@ public function profileupdate(Request $request)
     return redirect()->back()->with('success', 'Company profile updated successfully.');
 }
 
-       
+public function edit($id)
+    {
+        $work = Work::where('user_id', Auth::id())->findOrFail($id);
+        $categories = Category::all();
+        return view('company.edit', compact('work', 'categories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $work = Work::where('user_id', Auth::id())->findOrFail($id);
+        
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'position' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'type' => 'required|string',
+            'salary' => 'nullable|string|max:255',
+            'end_date' => 'required|date|after:today',
+            'status' => 'required|in:active,closed',
+            'description' => 'required|string',
+        ]);
+
+        $work->update([
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'position' => $request->position,
+            'location' => $request->location,
+            'type' => $request->type,
+            'salary' => $request->salary,
+            'end_date' => $request->end_date,
+            'status' => $request->status,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->route('company.jobs')->with('success', 'Job updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $work = Work::where('user_id', Auth::id())->findOrFail($id);
+        $work->delete();
+        
+        return redirect()->route('company.jobs')->with('success', 'Job deleted successfully!');
+    }
 
 }
