@@ -37,6 +37,11 @@ class Applicant extends Model
         return $this->belongsTo(User::class, 'applicant_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'applicant_id');
+    }
+
     public function company()
     {
         return $this->belongsTo(User::class, 'company_id');

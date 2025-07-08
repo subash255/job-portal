@@ -163,4 +163,19 @@ class UserController extends Controller
         
         return redirect()->route('user.profile')->with('success', 'Resume deleted successfully!');
     }
+    
+    public function withdrawApplication($id)
+    {
+        $application = Applicant::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->first();
+            
+        if (!$application) {
+            return redirect()->route('user.my-jobs')->with('error', 'Application not found or you do not have permission to withdraw it.');
+        }
+        
+        $application->delete();
+        
+        return redirect()->route('user.my-jobs')->with('success', 'Application withdrawn successfully!');
+    }
 }

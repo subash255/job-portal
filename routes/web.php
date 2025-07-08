@@ -56,6 +56,7 @@ Route::middleware('role:user')->group(function () {
     Route::post('/user/update-profile', [UserController::class, 'updateProfile'])->name('user.update-profile');
     Route::delete('/user/delete-resume', [UserController::class, 'deleteResume'])->name('user.delete-resume');
     Route::get('/user/my-jobs', [UserController::class, 'myJobs'])->name('user.my-jobs');
+    Route::delete('/user/withdraw-application/{id}', [UserController::class, 'withdrawApplication'])->name('user.withdraw-application');
     Route::get('/user/settings', [UserController::class, 'settings'])->name('user.settings');
     Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.change-password');
     Route::post('/user/update-notification-settings', [UserController::class, 'updateNotificationSettings'])->name('user.update-notification-settings');
@@ -67,6 +68,7 @@ Route::middleware('role:company')->group(function () {
     Route::get('/company', [CompanyController::class, 'index'])->name('company.index');
     Route::get('/company/jobs', [CompanyController::class, 'jobs'])->name('company.jobs');
     Route::get('/company/applications', [CompanyController::class, 'applications'])->name('company.applications');
+    Route::post('/company/application/{id}/update-status', [CompanyController::class, 'updateApplicationStatus'])->name('company.application.update-status');
     Route::get('/company/profile', [CompanyController::class, 'profile'])->name('company.profile');
     Route::get('/company/settings', [CompanyController::class, 'settings'])->name('company.settings');
     Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');

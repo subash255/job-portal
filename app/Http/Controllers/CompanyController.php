@@ -14,7 +14,14 @@ class CompanyController extends Controller
 {
     public function index()
     {
-        $applications = Applicant::where('company_id', Auth::id())->latest()->get();
+        // Get applications for jobs posted by this company
+        $applications = Applicant::with(['work', 'user'])
+            ->whereHas('work', function($q) {
+                $q->where('user_id', Auth::id());
+            })
+            ->latest()
+            ->get();
+            
         $works = Work::where('user_id', Auth::id())->latest()->get();
         $totalapplicant = 0;
         foreach ($works as $work) {
@@ -64,9 +71,16 @@ class CompanyController extends Controller
 
     public function applications()
     {
-        $applications = Applicant::where('company_id', Auth::id())->get();
+        // Get applications for jobs posted by this company with pagination
+        $applications = Applicant::with(['work', 'user'])
+            ->whereHas('work', function($q) {
+                $q->where('user_id', Auth::id());
+            })
+            ->latest()
+            ->paginate(10);
+        
         // Logic to display company applications
-        return view('company.index',compact('applications'), ['section' => 'applications']);
+        return view('company.index', compact('applications'), ['section' => 'applications']);
     }
 
     public function profile()
@@ -202,6 +216,34 @@ public function edit($id)
         $work->delete();
         
         return redirect()->route('company.jobs')->with('success', 'Job deleted successfully!');
+    }
+    
+    public function updateApplicationStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:applied,under_review,shortlisted,interview,rejected'
+        ]);
+        
+        $application = Applicant::with('work')
+            ->whereHas('work', function($q) {
+                $q->where('user_id', Auth::id());
+            })
+            ->findOrFail($id);
+        
+        $application->update([
+            'status' => $request->status
+        ]);
+        
+        $statusMessages = [
+            'applied' => 'Application status updated to Applied',
+            'under_review' => 'Application moved to Under Review',
+            'shortlisted' => 'Applicant shortlisted successfully',
+            'interview' => 'Interview scheduled for applicant',
+            'rejected' => 'Application rejected'
+        ];
+        
+        return redirect()->route('company.applications')
+            ->with('success', $statusMessages[$request->status]);
     }
 
 }
