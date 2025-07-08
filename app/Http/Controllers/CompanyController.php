@@ -16,9 +16,10 @@ class CompanyController extends Controller
     {
          $applications = Applicant::where('company_id', Auth::id())->latest()->get();
         $works = Work::where('user_id', Auth::id())->latest()->get();
-        foreach ($works as $work) {
-    $totalapplicant = $work->applicants()->count();
-        }
+         $totalapplicant = 0;
+    foreach ($works as $work) {
+        $totalapplicant += $work->applicants()->count();
+    }
         // Logic to display company dashboard
         return view('company.index', compact('applications','works','totalapplicant'), ['section' => 'dashboard']);
     }
