@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Work;
@@ -13,8 +14,13 @@ class CompanyController extends Controller
 {
     public function index()
     {
+         $applications = Applicant::where('company_id', Auth::id())->latest()->get();
+        $works = Work::where('user_id', Auth::id())->latest()->get();
+        foreach ($works as $work) {
+    $totalapplicant = $work->applicants()->count();
+        }
         // Logic to display company dashboard
-        return view('company.index', ['section' => 'dashboard']);
+        return view('company.index', compact('applications','works','totalapplicant'), ['section' => 'dashboard']);
     }
 
     public function create()
@@ -34,8 +40,9 @@ class CompanyController extends Controller
 
     public function applications()
     {
+        $applications = Applicant::where('company_id', Auth::id())->get();
         // Logic to display company applications
-        return view('company.index', ['section' => 'applications']);
+        return view('company.index',compact('applications'), ['section' => 'applications']);
     }
 
     public function profile()

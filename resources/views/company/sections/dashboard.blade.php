@@ -98,50 +98,24 @@
         </div>
         
         <div class="space-y-4">
+            @foreach ($works as $work)
             <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                 <div class="flex items-center">
                     <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center mr-3">
                         <i class="ri-code-line text-white"></i>
                     </div>
                     <div>
-                        <h4 class="font-semibold text-gray-800">Senior Frontend Developer</h4>
-                        <p class="text-sm text-gray-600">18 applications</p>
+                        <h4 class="font-semibold text-gray-800">{{$work->title}}</h4>
+                        <p class="text-sm text-gray-600">{{$totalapplicant}} applications</p>
                     </div>
                 </div>
                 <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
                     Active
                 </span>
             </div>
+            @endforeach
 
-            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center mr-3">
-                        <i class="ri-megaphone-line text-white"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-800">Digital Marketing Manager</h4>
-                        <p class="text-sm text-gray-600">12 applications</p>
-                    </div>
-                </div>
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                    Active
-                </span>
-            </div>
-
-            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mr-3">
-                        <i class="ri-server-line text-white"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-800">Backend Developer</h4>
-                        <p class="text-sm text-gray-600">0 applications</p>
-                    </div>
-                </div>
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
-                    Draft
-                </span>
-            </div>
+            
         </div>
     </div>
 
@@ -153,14 +127,15 @@
         </div>
         
         <div class="space-y-4">
+            @foreach ($applications as $application)
             <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                 <div class="flex items-center">
                     <div class="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold mr-3">
                         JD
                     </div>
                     <div>
-                        <h4 class="font-semibold text-gray-800">John Doe</h4>
-                        <p class="text-sm text-gray-600">Senior Frontend Developer</p>
+                        <h4 class="font-semibold text-gray-800">{{$application->applicant->name}}</h4>
+                        <p class="text-sm text-gray-600">{{$application->work->title}}</p>
                     </div>
                 </div>
                 <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
@@ -168,35 +143,7 @@
                 </span>
             </div>
 
-            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-gradient-to-r from-green-600 to-green-700 rounded-full flex items-center justify-center text-white font-semibold mr-3">
-                        SM
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-800">Sarah Miller</h4>
-                        <p class="text-sm text-gray-600">Digital Marketing Manager</p>
-                    </div>
-                </div>
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
-                    Review
-                </span>
-            </div>
-
-            <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-white font-semibold mr-3">
-                        MJ
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-800">Michael Johnson</h4>
-                        <p class="text-sm text-gray-600">Senior Frontend Developer</p>
-                    </div>
-                </div>
-                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                    Shortlisted
-                </span>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>

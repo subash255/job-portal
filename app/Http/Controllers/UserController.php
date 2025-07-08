@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Applicant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -72,34 +73,31 @@ class UserController extends Controller
 }
 
     
-    public function myJobs(Request $request)
-    {
-        /** @var User $user */
-        $user = Auth::user();
-        
-        // Start with base query
-        $query = Work::query();
-        
-        // Apply search filter
-        if ($request->has('search') && $request->search) {
-            $query->where(function($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%')
-                  ->orWhere('company_name', 'like', '%' . $request->search . '%')
-                  ->orWhere('location', 'like', '%' . $request->search . '%');
-            });
-        }
-        
-        // Apply status filter
-        if ($request->has('status') && $request->status) {
-            // This would typically filter by actual application status
-            // For now, we'll just apply the filter as a placeholder
-            $query->where('job_type', 'like', '%' . $request->status . '%');
-        }
-        
-        $appliedJobs = $query->latest()->paginate(10);
-        
-        return view('user.my-jobs', compact('appliedJobs'));
+   public function myJobs(Request $request)
+{
+    $user = Auth::user();
+
+    $query = Applicant::with('work') // eager load related work data
+        ->where('applicant_id', $user->id); // fetch only current user's jobs
+
+    // Search filter on related Work model
+    if ($request->filled('search')) {
+        $query->whereHas('work', function ($q) use ($request) {
+            $q->where('title', 'like', '%' . $request->search . '%')
+              ->orWhere('location', 'like', '%' . $request->search . '%');
+        });
     }
+
+    // Filter by status of the application
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    $appliedJobs = $query->latest()->paginate(10);
+
+    return view('user.my-jobs', compact('appliedJobs'));
+}
+
     
     public function settings()
     {

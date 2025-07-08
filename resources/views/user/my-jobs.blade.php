@@ -62,19 +62,19 @@
                             <div class="flex items-start justify-between">
                                 <div>
                                     <h3 class="text-xl font-bold text-gray-800 mb-1">{{ $job->title }}</h3>
-                                    <p class="text-gray-600 mb-2">{{ $job->company_name }}</p>
+                                    <p class="text-gray-600 mb-2">{{ $job->company->company }}</p>
                                     <div class="flex items-center gap-4 text-sm text-gray-500">
                                         <div class="flex items-center gap-1">
                                             <i class="ri-map-pin-line"></i>
-                                            <span>{{ $job->location }}</span>
+                                            <span>{{ $job->work->location }}</span>
                                         </div>
                                         <div class="flex items-center gap-1">
                                             <i class="ri-time-line"></i>
-                                            <span>{{ $job->job_type }}</span>
+                                            <span>{{ $job->work->type }}</span>
                                         </div>
                                         <div class="flex items-center gap-1">
                                             <i class="ri-money-dollar-box-line"></i>
-                                            <span>{{ $job->salary_range }}</span>
+                                            <span>{{ $job->work->salary}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -94,19 +94,19 @@
                 <!-- Application Status -->
                 <div class="lg:w-64">
                     <div class="bg-gray-50 rounded-lg p-4">
-                        <h4 class="font-semibold text-gray-800 mb-3">Application Status</h4>
+                        <h4 class="font-semibold text-gray-800 mb-3">Applied</h4>
                         <div class="space-y-2">
                             <div class="flex items-center gap-2">
                                 <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                                <span class="text-sm text-gray-600">Application Submitted</span>
+                                <span class="text-sm text-gray-600">Interviewed</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                                <span class="text-sm text-gray-600">Under Review</span>
+                                <span class="text-sm text-gray-600">Accepted</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
-                                <span class="text-sm text-gray-400">Interview</span>
+                                <span class="text-sm text-gray-400">Rejected</span>
                             </div>
                             <div class="flex items-center gap-2">
                                 <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
