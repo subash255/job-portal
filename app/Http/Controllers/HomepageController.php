@@ -27,4 +27,9 @@ class HomepageController extends Controller
         $works = Work::all();
         return view('job', compact('works'));
     }
+    public function jobDetail($id)
+    {
+        $work = Work::with(['user', 'category'])->findOrFail($id);
+        return view('job-detail', compact('work'));
+    }
 }

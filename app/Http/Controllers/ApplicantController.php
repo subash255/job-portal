@@ -10,35 +10,79 @@ use Illuminate\Support\Facades\Auth;
 class ApplicantController extends Controller
 {
     public function store(Request $request, $work)
-{
-    if (!Auth::check()) {
-        return redirect()->route('login')->with('error', 'You must be logged in to apply for a job.');
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'You must be logged in to apply for a job.');
+        }
+
+        // Retrieve the Work model
+        $work = Work::findOrFail($work);
+        
+        // Check if user has already applied
+        $hasApplied = Applicant::where('work_id', $work->id)
+                               ->where('applicant_id', Auth::id())
+                               ->exists();
+
+        if ($hasApplied) {
+            return redirect()->route('job.detail', $work->id)->with('error', 'You have already applied for this job.');
+        }
+
+        $company_id = $work->user_id;
+
+        // Validate the form data
+        $data = $request->validate([
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'experience' => 'nullable|string|max:1000',
+            'education' => 'nullable|string|max:1000',
+            'skills' => 'nullable|string|max:500',
+            'cover_letter' => 'required|string|max:2000',
+            'resume' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
+            'terms' => 'required|accepted',
+        ]);
+
+        // Handle resume upload if provided
+        $resumePath = null;
+        if ($request->hasFile('resume')) {
+            $resumePath = $request->file('resume')->store('resumes', 'public');
+        }
+
+        // Create the applicant record
+        $applicant = new Applicant();
+        $applicant->work_id = $work->id;
+        $applicant->applicant_id = Auth::id();
+        $applicant->company_id = $company_id;
+        $applicant->status = 'applied';
+        $applicant->phone = $data['phone'];
+        $applicant->address = $data['address'];
+        $applicant->experience = $data['experience'];
+        $applicant->education = $data['education'];
+        $applicant->skills = $data['skills'];
+        $applicant->cover_letter = $data['cover_letter'];
+        $applicant->resume = $resumePath;
+        $applicant->applied_at = now();
+        $applicant->save();
+
+        return redirect()->route('user.my-jobs')->with('success', 'Application submitted successfully!');
     }
 
-    // Retrieve the Work model
-    $work = Work::findOrFail($work);
-    $company_id = $work->user_id;
+public function create($work)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'You must be logged in to apply for a job.');
+        }
 
-    // Merge necessary values into the request
-    $request->merge([
-        'company_id' => $company_id,
-        'applicant_id' => Auth::id(),
-    ]);
+        $work = Work::with(['user', 'category'])->findOrFail($work);
+        
+        // Check if user has already applied
+        $hasApplied = Applicant::where('work_id', $work->id)
+                               ->where('applicant_id', Auth::id())
+                               ->exists();
 
-    // Validate only `status` (work_id and applicant_id come from system)
-    $data = $request->validate([
-        'status' => 'nullable|in:applied, interviewed, hired, rejected',
-    ]);
+        if ($hasApplied) {
+            return redirect()->route('job.detail', $work->id)->with('error', 'You have already applied for this job.');
+        }
 
-    // Create the applicant record
-    $applicant = new Applicant();
-    $applicant->work_id = $work->id;
-    $applicant->applicant_id = Auth::id();
-    $applicant->company_id = $company_id;
-    $applicant->status = 'applied';
-    $applicant->save();
-
-    return redirect()->route('user.my-jobs')->with('success', 'Application submitted successfully!');
-}
-
+        return view('apply-job', compact('work'));
+    }
 }

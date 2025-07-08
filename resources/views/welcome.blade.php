@@ -94,9 +94,9 @@
                 {{$work->position}}</span>
 
             </div>
-            <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold text-sm group-hover:scale-105">
+            <a href="{{ route('job.detail', $work->id) }}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold text-sm group-hover:scale-105">
               Apply Now
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -211,7 +211,7 @@
           <div class="flex space-x-2">
             <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">{{$work->type}}</span>
           </div>
-          <button class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm hover:underline transition-colors duration-200">View Details →</button>
+          <a href="{{ route('job.detail', $work->id) }}" class="text-indigo-600 hover:text-indigo-800 font-semibold text-sm hover:underline transition-colors duration-200">View Details →</a>
         </div>
       </div>
 

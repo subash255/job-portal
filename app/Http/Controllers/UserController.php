@@ -149,4 +149,18 @@ class UserController extends Controller
         // For now, we'll just return success
         return back()->with('success', 'Privacy settings updated successfully!');
     }
+    
+    public function deleteResume()
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        
+        if ($user->resume && Storage::disk('public')->exists($user->resume)) {
+            Storage::disk('public')->delete($user->resume);
+        }
+        
+        $user->update(['resume' => null]);
+        
+        return redirect()->route('user.profile')->with('success', 'Resume deleted successfully!');
+    }
 }

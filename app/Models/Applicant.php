@@ -13,6 +13,18 @@ class Applicant extends Model
         'applicant_id',
         'company_id',
         'status',
+        'phone',
+        'address',
+        'experience',
+        'education',
+        'skills',
+        'cover_letter',
+        'resume',
+        'applied_at',
+    ];
+
+    protected $casts = [
+        'applied_at' => 'datetime',
     ];
 
     public function work()

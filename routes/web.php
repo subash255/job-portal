@@ -16,7 +16,9 @@ Route::get('/', [HomepageController::class, 'index'])->name('welcome');
 Route::get('/about',[HomepageController::class, 'about'])->name('about');
 Route::get('/contact',[HomepageController::class, 'contact'])->name('contact');
 Route::get('/searchjob',[HomepageController::class, 'job'])->name('job');
+Route::get('/job/{id}', [HomepageController::class, 'jobDetail'])->name('job.detail');
 Route::post('/apply/{work}', [ApplicantController::class, 'store'])->name('work.apply');
+Route::get('/apply/{work}', [ApplicantController::class, 'create'])->name('work.apply.form');
 
 
 Route::middleware('role:admin')->group(function () {
@@ -52,6 +54,7 @@ Route::middleware('role:user')->group(function () {
     Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::get('/user/edit-profile', [UserController::class, 'editProfile'])->name('user.edit-profile');
     Route::post('/user/update-profile', [UserController::class, 'updateProfile'])->name('user.update-profile');
+    Route::delete('/user/delete-resume', [UserController::class, 'deleteResume'])->name('user.delete-resume');
     Route::get('/user/my-jobs', [UserController::class, 'myJobs'])->name('user.my-jobs');
     Route::get('/user/settings', [UserController::class, 'settings'])->name('user.settings');
     Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.change-password');

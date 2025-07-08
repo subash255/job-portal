@@ -169,11 +169,15 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <a href="{{ asset('storage/'.$user->resume) }}" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium">
-                        <i class="ri-eye-line"></i> View
+                        <i class="ri-eye-line"></i> 
                     </a>
-                    <a href="{{ asset('storage/'.$user->resume) }}" download class="text-green-600 hover:text-green-800 font-medium">
-                        <i class="ri-download-line"></i> Download
-                    </a>
+                    <form action="{{ route('user.delete-resume') }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete your resume?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-600 hover:text-red-800 font-medium">
+                            <i class="ri-delete-bin-line"></i> 
+                        </button>
+                    </form>
                 </div>
             </div>
         @else
