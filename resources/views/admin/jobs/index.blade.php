@@ -19,7 +19,7 @@
 </script>
 
 <div class="p-4 bg-white shadow-lg -mt-12 mx-4 z-20 rounded-lg">
-    <h2 class="text-2xl font-semibold mb-4">work Listings</h2>
+    <h2 class="text-2xl font-semibold mb-4">Work Listings</h2>
 
     <div class="overflow-x-auto">
         <table id="worksTable" class="min-w-full border-separate border-spacing-0 border border-gray-300">
@@ -31,8 +31,8 @@
                     <th class="border px-4 py-2">Company</th>
                     <th class="border px-4 py-2">Location</th>
                     <th class="border px-4 py-2">Type</th>
-                    <th class="border px-4 py-2">Posted On</th>
                     <th class="border px-4 py-2">Status</th>
+                    <th class="border px-4 py-2">Featured</th>
                     <th class="border px-4 py-2">Actions</th>
                 </tr>
             </thead>
@@ -50,12 +50,20 @@
                         <td class="border px-4 py-2">{{ $work->user->name }}</td>
                         <td class="border px-4 py-2">{{ $work->location }}</td>
                         <td class="border px-4 py-2">{{ ucfirst($work->type) }}</td>
-                        <td class="border px-4 py-2">{{ $work->created_at->format('d M, Y') }}</td>
                         <td class="border px-4 py-2">
                             <span class="inline-block px-2 py-1 text-xs rounded-full
                                 {{ $work->status == 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
                                 {{ ucfirst($work->status) }}
                             </span>
+                        </td>
+                        <td class="border px-4 py-2 text-center">
+                            <form action="{{ route('admin.jobs.toggle-featured', $work->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="px-3 py-1 text-xs rounded-full transition-colors
+                                    {{ $work->featured ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                                    {{ $work->featured ? 'Featured' : 'Not Featured' }}
+                                </button>
+                            </form>
                         </td>
                         <td class="px-2 py-2 flex justify-center space-x-2 border">
                             <button type="button"

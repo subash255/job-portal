@@ -41,4 +41,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the works/jobs posted by this user (company).
+     */
+    public function works()
+    {
+        return $this->hasMany(Work::class, 'user_id');
+    }
 }

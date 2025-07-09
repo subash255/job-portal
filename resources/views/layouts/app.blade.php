@@ -73,7 +73,7 @@
                     <span class="ml-4 font-semibold">Employers</span>
                 </a>
                 <a href="{{ route('admin.jobseeker.index') }}"
-                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobseekers.index', 'admin.fooditems.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
+                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobseeker.index', 'admin.fooditems.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
                     <i class="ri-user-fill"></i>
                     <span class="ml-4 font-semibold">Job Seekers</span>
                 </a>

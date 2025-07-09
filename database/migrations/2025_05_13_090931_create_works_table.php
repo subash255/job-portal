@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('salary')->nullable();
             $table->string('type')->default('full-time');
             $table->string('status')->default('active');
+            $table->boolean('featured')->default(false);
             $table->text('expected_requirement')->nullable();
             $table->timestamps();
            

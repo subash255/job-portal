@@ -29,8 +29,7 @@
                     <th class="border px-4 py-2">Company Name</th>
                     <th class="border px-4 py-2">Email</th>
                     <th class="border px-4 py-2">Phone</th>
-                    <th class="border px-4 py-2">Industry</th>
-                    <th class="border px-4 py-2">Status</th>
+                    <th class="border px-4 py-2">Jobs Posted</th>
                     <th class="border px-4 py-2">Actions</th>
                 </tr>
             </thead>
@@ -38,16 +37,10 @@
                 @foreach ($employers as $employer)
                     <tr class="bg-white hover:bg-gray-50">
                         <td class="border px-4 py-2 text-center">{{ $loop->iteration }}</td>
-                        <td class="border px-4 py-2">{{ $employer->company_name }}</td>
+                        <td class="border px-4 py-2">{{ $employer->name }}</td>
                         <td class="border px-4 py-2">{{ $employer->email }}</td>
-                        <td class="border px-4 py-2">{{ $employer->phone }}</td>
-                        <td class="border px-4 py-2">{{ $employer->industry }}</td>
-                        <td class="border px-4 py-2">
-                            <span class="inline-block px-2 py-1 text-xs rounded-full
-                                {{ $employer->status == 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                {{ ucfirst($employer->status) }}
-                            </span>
-                        </td>
+                        <td class="border px-4 py-2">{{ $employer->phone ?? 'N/A' }}</td>
+                        <td class="border px-4 py-2">{{ $employer->works_count }}</td>
                         <td class="px-2 py-2 flex justify-center space-x-2 border">
                             <button type="button"
                                 onclick="openDeleteModal({{ $employer->id }})"
@@ -62,7 +55,7 @@
                         class="fixed inset-0 bg-black bg-opacity-70 modal-hidden items-center justify-center z-50 backdrop-blur-[1px] flex">
                         <div class="bg-white p-6 rounded-lg w-96">
                             <h2 class="text-xl font-semibold mb-4">Confirm Deletion</h2>
-                            <p>Are you sure you want to delete <strong>{{ $employer->company_name }}</strong>?</p>
+                            <p>Are you sure you want to delete <strong>{{ $employer->name }}</strong>?</p>
                             <div class="mt-4 flex justify-end">
                                 <button class="bg-gray-400 hover:bg-gray-600 text-white p-2 rounded-md mr-2"
                                     onclick="closeDeleteModal({{ $employer->id }})">Cancel</button>

@@ -13,6 +13,7 @@ class HomepageController extends Controller
     {
         $works = Work::with(['user', 'category'])
             ->where('status', 'active')
+            ->where('featured', true)
             ->latest()
             ->take(6)
             ->get(); 

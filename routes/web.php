@@ -25,7 +25,9 @@ Route::middleware('role:admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     // Admin Routes
     Route::get('/admin/employers', [AdminController::class, 'employers'])->name('admin.employers.index');
+    Route::delete('/admin/employers/{id}', [AdminController::class, 'destroyEmployer'])->name('admin.employers.destroy');
     Route::get('/admin/jobseekers', [AdminController::class, 'jobseekers'])->name('admin.jobseeker.index');
+    Route::delete('/admin/jobseekers/{id}', [AdminController::class, 'destroyJobseeker'])->name('admin.jobseekers.destroy');
 
     // Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,6 +48,7 @@ Route::get('/jobs',[WorkController::class,'index'])->name('admin.jobs.index');
     Route::get('/admin/jobs/edit/{id}', [WorkController::class, 'edit'])->name('admin.works.edit');
     Route::post('/admin/jobs/update/{id}', [WorkController::class, 'update'])->name('admin.works.update');
     Route::get('/admin/jobs/delete/{id}', [WorkController::class, 'destroy'])->name('admin.works.delete');
+    Route::post('/admin/jobs/toggle-featured/{id}', [AdminController::class, 'toggleFeatured'])->name('admin.jobs.toggle-featured');
 
 });
 

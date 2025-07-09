@@ -31,7 +31,6 @@
                     <th class="border px-4 py-2">Phone</th>
                     <th class="border px-4 py-2">Skills</th>
                     <th class="border px-4 py-2">Experience</th>
-                    <th class="border px-4 py-2">Status</th>
                     <th class="border px-4 py-2">Actions</th>
                 </tr>
             </thead>
@@ -44,12 +43,6 @@
                         <td class="border px-4 py-2">{{ $jobseeker->phone }}</td>
                         <td class="border px-4 py-2">{{ $jobseeker->skills }}</td>
                         <td class="border px-4 py-2">{{ $jobseeker->experience }} yrs</td>
-                        <td class="border px-4 py-2">
-                            <span class="inline-block px-2 py-1 text-xs rounded-full 
-                                {{ $jobseeker->status == 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                {{ ucfirst($jobseeker->status) }}
-                            </span>
-                        </td>
                         <td class="px-2 py-2 flex justify-center space-x-2 border">
                             <button type="button"
                                 onclick="openDeleteModal({{ $jobseeker->id }})"
