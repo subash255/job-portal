@@ -32,12 +32,18 @@
                     </div>
 
                     <div class="flex-1 w-full md:w-auto relative">
-                        <label for="location" class="sr-only">Location</label>
+                        <label for="job-type" class="sr-only">Job Type</label>
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                            <i class="ri-map-pin-line text-lg"></i>
+                            <i class="ri-briefcase-4-line text-lg"></i>
                         </div>
-                        <input type="text" id="location" name="location" value="{{ request('location') }}" placeholder="Enter location"
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                        <select id="job-type" name="type" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
+                            <option value="">Select job type</option>
+                            <option value="Full-Time" {{ request('type') == 'Full-Time' ? 'selected' : '' }}>Full-Time</option>
+                            <option value="Part-Time" {{ request('type') == 'Part-Time' ? 'selected' : '' }}>Part-Time</option>
+                            <option value="Contract" {{ request('type') == 'Contract' ? 'selected' : '' }}>Contract</option>
+                            <option value="Internship" {{ request('type') == 'Internship' ? 'selected' : '' }}>Internship</option>
+                            <option value="Freelance" {{ request('type') == 'Freelance' ? 'selected' : '' }}>Freelance</option>
+                        </select>
                     </div>
 
                     <button type="submit"
@@ -63,39 +69,52 @@
                         <form method="GET" action="{{ route('job') }}" id="filterForm">
                             <!-- Preserve search terms -->
                             <input type="hidden" name="search" value="{{ request('search') }}">
-                            <input type="hidden" name="location" value="{{ request('location') }}">
+                            <input type="hidden" name="type" value="{{ request('type') }}">
 
                             <!-- Job Type Filter -->
                             <div class="mb-6">
                                 <h4 class="font-semibold text-gray-700 mb-3">Job Type</h4>
                                 <div class="space-y-2">
+                                    @php
+                                        $selectedTypes = request('type', []);
+                                        if (!is_array($selectedTypes)) {
+                                            $selectedTypes = [$selectedTypes];
+                                        }
+                                    @endphp
                                     <label class="flex items-center">
-                                        <input type="checkbox" name="type[]" value="full-time" 
-                                            {{ in_array('full-time', request('type', [])) ? 'checked' : '' }}
+                                        <input type="checkbox" name="type[]" value="Full-Time" 
+                                            {{ in_array('Full-Time', $selectedTypes) ? 'checked' : '' }}
                                             class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 filter-checkbox" />
                                         <span class="ml-2 text-sm text-gray-600">Full Time</span>
-                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['full-time'] ?? 0 }})</span>
+                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['Full-Time'] ?? 0 }})</span>
                                     </label>
                                     <label class="flex items-center">
-                                        <input type="checkbox" name="type[]" value="part-time"
-                                            {{ in_array('part-time', request('type', [])) ? 'checked' : '' }}
+                                        <input type="checkbox" name="type[]" value="Part-Time"
+                                            {{ in_array('Part-Time', $selectedTypes) ? 'checked' : '' }}
                                             class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 filter-checkbox" />
                                         <span class="ml-2 text-sm text-gray-600">Part Time</span>
-                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['part-time'] ?? 0 }})</span>
+                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['Part-Time'] ?? 0 }})</span>
                                     </label>
                                     <label class="flex items-center">
-                                        <input type="checkbox" name="type[]" value="contract"
-                                            {{ in_array('contract', request('type', [])) ? 'checked' : '' }}
+                                        <input type="checkbox" name="type[]" value="Contract"
+                                            {{ in_array('Contract', $selectedTypes) ? 'checked' : '' }}
                                             class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 filter-checkbox" />
                                         <span class="ml-2 text-sm text-gray-600">Contract</span>
-                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['contract'] ?? 0 }})</span>
+                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['Contract'] ?? 0 }})</span>
                                     </label>
                                     <label class="flex items-center">
-                                        <input type="checkbox" name="type[]" value="freelance"
-                                            {{ in_array('freelance', request('type', [])) ? 'checked' : '' }}
+                                        <input type="checkbox" name="type[]" value="Internship"
+                                            {{ in_array('Internship', $selectedTypes) ? 'checked' : '' }}
+                                            class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 filter-checkbox" />
+                                        <span class="ml-2 text-sm text-gray-600">Internship</span>
+                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['Internship'] ?? 0 }})</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="type[]" value="Freelance"
+                                            {{ in_array('Freelance', $selectedTypes) ? 'checked' : '' }}
                                             class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 filter-checkbox" />
                                         <span class="ml-2 text-sm text-gray-600">Freelance</span>
-                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['freelance'] ?? 0 }})</span>
+                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['Freelance'] ?? 0 }})</span>
                                     </label>
                                 </div>
                             </div>
@@ -142,8 +161,8 @@
                                 @if(request('search'))
                                     for "<strong>{{ request('search') }}</strong>"
                                 @endif
-                                @if(request('location'))
-                                    in "<strong>{{ request('location') }}</strong>"
+                                @if(request('type'))
+                                    in "<strong>{{ request('type') }}</strong>" jobs
                                 @endif
                             </p>
                         </div>
@@ -254,13 +273,13 @@
                                 </div>
                                 <h3 class="text-xl font-semibold text-gray-900 mb-2">No Jobs Found</h3>
                                 <p class="text-gray-600 mb-4">
-                                    @if(request()->hasAny(['search', 'location', 'type', 'category']))
+                                    @if(request()->hasAny(['search', 'type', 'category']))
                                         No jobs match your current search criteria. Try adjusting your filters.
                                     @else
                                         There are no job listings available at the moment.
                                     @endif
                                 </p>
-                                @if(request()->hasAny(['search', 'location', 'type', 'category']))
+                                @if(request()->hasAny(['search', 'type', 'category']))
                                 <a href="{{ route('job') }}" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200 font-medium">
                                     Clear All Filters
                                 </a>
@@ -299,11 +318,11 @@
                 checkbox.checked = false;
             });
             
-            // Clear search and location inputs
+            // Clear search and type inputs
             const searchInput = document.querySelector('input[name="search"]');
-            const locationInput = document.querySelector('input[name="location"]');
+            const typeSelect = document.querySelector('select[name="type"]');
             if (searchInput) searchInput.value = '';
-            if (locationInput) locationInput.value = '';
+            if (typeSelect) typeSelect.value = '';
             
             // Redirect to base URL without parameters
             window.location.href = '{{ route("job") }}';

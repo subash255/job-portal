@@ -51,21 +51,10 @@ class HomepageController extends Controller
             });
         }
 
-        // Location filter
-        if ($request->filled('location')) {
-            $location = $request->location;
-            $query->where(function($q) use ($location) {
-                $q->where('location', 'like', "%{$location}%")
-                  ->orWhereHas('user', function($userQuery) use ($location) {
-                      $userQuery->where('city', 'like', "%{$location}%")
-                               ->orWhere('state', 'like', "%{$location}%");
-                  });
-            });
-        }
-
         // Job type filter
         if ($request->filled('type')) {
-            $query->whereIn('type', $request->type);
+            $types = is_array($request->type) ? $request->type : [$request->type];
+            $query->whereIn('type', $types);
         }
 
         // Category filter

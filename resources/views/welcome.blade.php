@@ -22,11 +22,18 @@
         </div>
 
         <div class="flex-1 w-full md:w-auto relative">
-          <label for="location" class="sr-only">Location</label>
+          <label for="job-type" class="sr-only">Job Type</label>
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-            <i class="ri-map-pin-line text-lg"></i>
+            <i class="ri-briefcase-4-line text-lg"></i>
           </div>
-          <input type="text" id="location" name="location" placeholder="Enter location" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+          <select id="job-type" name="type" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
+            <option value="">Select job type</option>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Part-Time">Part-Time</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+            <option value="Freelance">Freelance</option>
+          </select>
         </div>
 
         <button type="submit" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-md hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 flex items-center gap-2 font-semibold">
@@ -102,11 +109,6 @@
 
   </div>
 
-  <div class="text-center mt-12">
-    <button class="bg-white text-indigo-600 border-2 border-indigo-600 px-8 py-3 rounded-lg hover:bg-indigo-600 hover:text-white transition-all duration-200 font-semibold">
-      View All Featured Jobs
-    </button>
-  </div>
   </div>
 </section>
 
@@ -114,6 +116,7 @@
 
 
 <!-- Features Section -->
+@guest
 <section class="max-w-7xl mx-auto px-4 py-16">
   <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">
     Why Choose <span class="text-purple-600">JobPoint?</span>
@@ -154,6 +157,7 @@
     </div>
   </div>
 </section>
+@endguest
 
 
 <!-- Job Vacancy Section -->
@@ -164,9 +168,9 @@
         <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Latest Job Vacancies</h2>
         <p class="text-lg text-gray-600">Explore recent job opportunities in Nepal</p>
       </div>
-      <button class="hidden md:block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold">
+      <a href="{{ route('job') }}" class="hidden md:block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold">
         View All Jobs
-      </button>
+      </a>
     </div>
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -201,10 +205,15 @@
             </span>
           </div>
           <div class="flex items-center text-gray-600 text-sm">
-            <i class="ri-map-pin-line text-indigo-500 w-4 h-4 mr-2"></i> {{ $work->location }}, {{ $work->user->city  }}
+            <i class="ri-map-pin-line text-indigo-500 w-4 h-4 mr-2"></i> {{ $work->location }}
           </div>
           <div class="flex items-center text-gray-600 text-sm">
-            <i class="ri-money-dollar-box-line text-indigo-500 w-4 h-4 mr-2"></i> Nrs. {{$work->salary}}
+            <i class="ri-money-dollar-box-line text-indigo-500 w-4 h-4 mr-2"></i> 
+            @if($work->salary)
+              Nrs. {{$work->salary}}
+            @else
+              Negotiable
+            @endif
           </div>
         </div>
 
@@ -216,15 +225,15 @@
         </div>
       </div>
 
-      <!-- Job Card 2 -->
+      
       @endforeach
 
     </div>
 
     <div class="text-center mt-12 md:hidden">
-      <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold">
+      <a href="{{ route('job') }}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold">
         View All Jobs
-      </button>
+      </a>
     </div>
   </div>
 </section>
