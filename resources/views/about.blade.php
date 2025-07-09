@@ -2,11 +2,11 @@
 @section('content')
 
 
-<!-- Who Are We Section -->
+<!-- Who Are We Sections -->
 <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <!-- Content -->
+            <!-- Contents -->
             <div>
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Who Are We?</h2>
                 <p class="text-lg text-gray-600 mb-6 leading-relaxed">
@@ -17,19 +17,19 @@
                 </p>
                 <div class="grid grid-cols-2 gap-6 mt-8">
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-indigo-600 mb-2">50,000+</div>
+                        <div class="text-3xl font-bold text-indigo-600 mb-2">51,000+</div>
                         <div class="text-gray-600">Active Job Seekers</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-indigo-600 mb-2">2,500+</div>
+                        <div class="text-3xl font-bold text-indigo-600 mb-2">2,300+</div>
                         <div class="text-gray-600">Trusted Employers</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-indigo-600 mb-2">15,000+</div>
+                        <div class="text-3xl font-bold text-indigo-600 mb-2">10,000+</div>
                         <div class="text-gray-600">Jobs Posted</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-3xl font-bold text-indigo-600 mb-2">98%</div>
+                        <div class="text-3xl font-bold text-indigo-600 mb-2">97%</div>
                         <div class="text-gray-600">Success Rate</div>
                     </div>
                 </div>
