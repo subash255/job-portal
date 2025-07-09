@@ -38,10 +38,10 @@
                     
                     <!-- Dropdown Menu -->
                     <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden">
-                        <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <a href="{{route('company.profile')}}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                             <i class="ri-user-line mr-2"></i>Profile
                         </a>
-                        <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <a href="{{route('company.settings')}}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                             <i class="ri-settings-3-line mr-2"></i>Settings
                         </a>
                         <div class="border-t border-gray-100"></div>

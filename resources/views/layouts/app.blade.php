@@ -58,7 +58,7 @@
                     <span class="ml-4 font-semibold">Dashboard</span>
                 </a>
                  <a href="{{ route('category.index') }}"
-                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.category.index', 'admin.category.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
+                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('category.index', 'category.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
                     <i class="ri-layout-grid-fill"></i>
                     <span class="ml-4 font-semibold">Category</span>
                 </a>

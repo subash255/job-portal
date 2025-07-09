@@ -77,9 +77,23 @@
                     <div class="mb-8">
                         @auth
                             @if(auth()->user()->role == 'user')
-                                <a href="{{ route('work.apply.form', $work->id) }}" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
-                                    <i class="ri-send-plane-line mr-2"></i>Apply Now
-                                </a>
+                                @php
+                                    $hasApplied = \App\Models\Applicant::where('work_id', $work->id)
+                                        ->where('applicant_id', auth()->id())
+                                        ->exists();
+                                @endphp
+                                
+                                @if($hasApplied)
+                                    <div class="inline-flex items-center bg-green-100 text-green-800 px-6 py-3 rounded-lg font-semibold">
+                                        <i class="ri-check-circle-line mr-2"></i>
+                                        Already Applied
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-2">You have already applied to this position. Check your applications for status updates.</p>
+                                @else
+                                    <a href="{{ route('work.apply.form', $work->id) }}" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                                        <i class="ri-send-plane-line mr-2"></i>Apply Now
+                                    </a>
+                                @endif
                             @else
                                 <p class="text-gray-500 italic">Only job seekers can apply for positions.</p>
                             @endif

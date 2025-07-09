@@ -43,35 +43,63 @@
                             <div class="relative inline-block text-left" id="userDropdownWrapper">
                                 <!-- Dropdown Button -->
                                 <button id="userDropdownButton"
-                                    class="text-white font-semibold px-4 py-2 border-2 border-white rounded-md hover:bg-white hover:text-indigo-600 transition">
-                                    {{ Auth::user()->name }}
-                                    <i class="ri-arrow-down-s-line ml-1"></i>
+                                    class="flex items-center space-x-3 text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-all duration-200">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                                        @if(Auth::user()->profile_picture)
+                                            <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="{{ Auth::user()->name }}" class="w-7 h-7 rounded-full object-cover">
+                                        @else
+                                            <i class="ri-user-line text-white text-sm"></i>
+                                        @endif
+                                    </div>
+                                    <span class="font-medium">{{ Auth::user()->name }}</span>
+                                    <i class="ri-arrow-down-s-line text-lg"></i>
                                 </button>
 
                                 <!-- Dropdown Menu -->
                                 <div id="userDropdownMenu"
-                                    class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
-    
+                                    class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100">
+                                    
+                                    <!-- User Info Header -->
+                                    <div class="px-4 py-3 border-b border-gray-100">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                                                @if(Auth::user()->profile_picture)
+                                                    <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="{{ Auth::user()->name }}" class="w-9 h-9 rounded-full object-cover">
+                                                @else
+                                                    <i class="ri-user-line text-white text-lg"></i>
+                                                @endif
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold text-gray-800">{{ Auth::user()->name }}</p>
+                                                <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    <a href="{{ route('user.profile') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                                        <i class="ri-user-line mr-2"></i> My Profile
-                                    </a>
+                                    <!-- Menu Items -->
+                                    <div class="py-1">
+                                        <a href="{{ route('user.profile') }}" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                                            <i class="ri-user-line mr-3 text-gray-500"></i>
+                                            <span>My Profile</span>
+                                        </a>
 
-                                    <a href="{{ route('user.my-jobs') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                                        <i class="ri-briefcase-line mr-2"></i> My Applications
-                                    </a>
+                                        <a href="{{ route('user.my-jobs') }}" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                                            <i class="ri-briefcase-line mr-3 text-gray-500"></i>
+                                            <span>My Applications</span>
+                                        </a>
+                                    </div>
 
-            
-
-                                    <div class="border-t border-gray-200 my-2"></div>
-
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <button type="submit"
-                                            class="w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100">
-                                            <i class="ri-logout-box-r-line mr-2"></i> Logout
-                                        </button>
-                                    </form>
+                                    <!-- Logout -->
+                                    <div class="border-t border-gray-100 py-1">
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit"
+                                                class="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors duration-200">
+                                                <i class="ri-logout-box-r-line mr-3 text-gray-500"></i>
+                                                <span>Logout</span>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         @endif

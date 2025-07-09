@@ -15,7 +15,9 @@ class WorkController extends Controller
         $works = Work::with('category','user')->get();
 
         // Return the view with the works data
-        return view('admin.jobs.index', compact('works'));
+        return view('admin.jobs.index', compact('works'), [
+            'title' => 'Manage Jobs'
+        ]);
     }
     public function create()
     {
@@ -23,7 +25,9 @@ class WorkController extends Controller
         $categories = Category::all();
 
         // Return the view to create a new work
-        return view('works.create', compact('categories'));
+        return view('works.create', compact('categories'), [
+            'title' => 'Create New Job'
+        ]);
     }
     public function store(Request $request)
     {
@@ -83,7 +87,9 @@ class WorkController extends Controller
         $categories = Category::all();
 
         // Return the view to edit the work
-        return view('works.edit', compact('work', 'categories'));
+        return view('works.edit', compact('work', 'categories'), [
+            'title' => 'Edit Job'
+        ]);
     }
     public function update(Request $request, $id)
     {

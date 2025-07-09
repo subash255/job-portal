@@ -106,9 +106,28 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-col items-end space-y-2">
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        <i class="ri-check-line mr-1"></i>
-                                        Applied
+                                    @php
+                                        $statusColors = [
+                                            'applied' => 'bg-blue-100 text-blue-800',
+                                            'under_review' => 'bg-yellow-100 text-yellow-800',
+                                            'interview' => 'bg-purple-100 text-purple-800',
+                                            'hired' => 'bg-green-100 text-green-800',
+                                            'rejected' => 'bg-red-100 text-red-800',
+                                        ];
+                                        $statusIcons = [
+                                            'applied' => 'ri-send-plane-line',
+                                            'under_review' => 'ri-time-line',
+                                            'interview' => 'ri-user-voice-line',
+                                            'hired' => 'ri-check-circle-line',
+                                            'rejected' => 'ri-close-circle-line',
+                                        ];
+                                        $currentStatus = $job->status ?? 'applied';
+                                        $statusClass = $statusColors[$currentStatus] ?? 'bg-gray-100 text-gray-800';
+                                        $statusIcon = $statusIcons[$currentStatus] ?? 'ri-question-line';
+                                    @endphp
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $statusClass }}">
+                                        <i class="{{ $statusIcon }} mr-1"></i>
+                                        {{ ucfirst(str_replace('_', ' ', $currentStatus)) }}
                                     </span>
                                     <span class="text-xs text-gray-500">{{ $job->created_at->diffForHumans() }}</span>
                                 </div>
@@ -123,11 +142,24 @@
                         <div class="flex items-center space-x-6">
                             <div class="text-sm text-gray-600">
                                 <span class="font-medium">Status:</span>
-                                <span class="ml-1 px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">Processing</span>
+                                @php
+                                    $statusColors = [
+                                        'applied' => 'bg-blue-100 text-blue-800',
+                                        'under_review' => 'bg-yellow-100 text-yellow-800',
+                                        'interview' => 'bg-purple-100 text-purple-800',
+                                        'hired' => 'bg-green-100 text-green-800',
+                                        'rejected' => 'bg-red-100 text-red-800',
+                                    ];
+                                    $currentStatus = $job->status ?? 'applied';
+                                    $statusClass = $statusColors[$currentStatus] ?? 'bg-gray-100 text-gray-800';
+                                @endphp
+                                <span class="ml-1 px-2 py-1 rounded text-xs {{ $statusClass }}">
+                                    {{ ucfirst(str_replace('_', ' ', $currentStatus)) }}
+                                </span>
                             </div>
                             <div class="text-sm text-gray-600">
                                 <span class="font-medium">Applied:</span>
-                                <span class="ml-1">{{ $job->created_at->format('M d, Y') }}</span>
+                                <span class="ml-1">{{ ($job->applied_at ?? $job->created_at)->format('M d, Y') }}</span>
                             </div>
                             @if($job->work->end_date)
                             <div class="text-sm text-gray-600">

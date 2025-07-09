@@ -30,7 +30,7 @@
     <div class="p-4 bg-white shadow-lg -mt-12 mx-4 z-20 rounded-lg">
         <div class="mb-4 flex justify-end">
             <button id="openModalButton"
-                class="text-red-500 font-medium bg-white border-2 border-red-500 rounded-lg py-2 px-4 hover:bg-red-600 hover:text-white transition duration-300">
+                class="text-indigo-500 font-medium bg-white border-2 border-indigo-500 rounded-lg py-2 px-4 hover:bg-indigo-600 hover:text-white transition duration-300">
                 Add Category
             </button>
         </div>
