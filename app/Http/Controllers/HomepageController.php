@@ -3,30 +3,115 @@
 namespace App\Http\Controllers;
 
 use App\Models\Work;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomepageController extends Controller
 {
     public function index()
-
     {
-        $works = Work::all(); 
-        $latestWorks = Work::latest()->take(3)->get(); // Fetch the latest 6 works
-        return view('welcome',compact('works', 'latestWorks'));
+        $works = Work::with(['user', 'category'])
+            ->where('status', 'active')
+            ->latest()
+            ->take(6)
+            ->get(); 
+        $latestWorks = Work::with(['user', 'category'])
+            ->where('status', 'active')
+            ->latest()
+            ->take(6)
+            ->get();
+        return view('welcome', compact('works', 'latestWorks'));
     }
+
     public function about()
     {
         return view('about');
     }
+
     public function contact()
     {
         return view('contact');
     }
-    public function job()
+
+    public function job(Request $request)
     {
-        $works = Work::all();
-        return view('job', compact('works'));
+        $query = Work::with(['user', 'category'])->where('status', 'active');
+
+        // Search functionality
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('title', 'like', "%{$searchTerm}%")
+                  ->orWhere('description', 'like', "%{$searchTerm}%")
+                  ->orWhere('position', 'like', "%{$searchTerm}%")
+                  ->orWhereHas('user', function($userQuery) use ($searchTerm) {
+                      $userQuery->where('name', 'like', "%{$searchTerm}%");
+                  });
+            });
+        }
+
+        // Location filter
+        if ($request->filled('location')) {
+            $location = $request->location;
+            $query->where(function($q) use ($location) {
+                $q->where('location', 'like', "%{$location}%")
+                  ->orWhereHas('user', function($userQuery) use ($location) {
+                      $userQuery->where('city', 'like', "%{$location}%")
+                               ->orWhere('state', 'like', "%{$location}%");
+                  });
+            });
+        }
+
+        // Job type filter
+        if ($request->filled('type')) {
+            $query->whereIn('type', $request->type);
+        }
+
+        // Category filter
+        if ($request->filled('category')) {
+            $query->whereIn('category_id', $request->category);
+        }
+
+        // Sorting
+        switch ($request->get('sort', 'latest')) {
+            case 'oldest':
+                $query->oldest();
+                break;
+            case 'title_asc':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'title_desc':
+                $query->orderBy('title', 'desc');
+                break;
+            case 'company':
+                $query->join('users', 'works.user_id', '=', 'users.id')
+                      ->orderBy('users.name', 'asc')
+                      ->select('works.*');
+                break;
+            default: // latest
+                $query->latest();
+                break;
+        }
+
+        // Pagination
+        $works = $query->paginate(10);
+
+        // Get categories with job counts for filter
+        $categories = Category::withCount(['works' => function($q) {
+            $q->where('status', 'active');
+        }])->get();
+
+        // Get job type counts for filter
+        $jobTypeCounts = Work::where('status', 'active')
+            ->select('type', DB::raw('count(*) as count'))
+            ->groupBy('type')
+            ->pluck('count', 'type')
+            ->toArray();
+
+        return view('job', compact('works', 'categories', 'jobTypeCounts'));
     }
+
     public function jobDetail($id)
     {
         $work = Work::with(['user', 'category'])->findOrFail($id);

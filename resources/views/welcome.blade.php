@@ -11,14 +11,14 @@
 
     <!-- Search Form -->
     <div class="max-w-4xl mx-auto">
-      <form class="flex flex-col md:flex-row gap-4 items-center justify-center bg-white p-6 rounded-lg shadow-lg border">
+      <form method="GET" action="{{ route('job') }}" class="flex flex-col md:flex-row gap-4 items-center justify-center bg-white p-6 rounded-lg shadow-lg border">
 
         <div class="flex-1 w-full md:w-auto relative">
           <label for="job-title" class="sr-only">Job Title</label>
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
             <i class="ri-briefcase-line text-lg"></i>
           </div>
-          <input type="text" id="job-title" name="job_title" placeholder="Enter job title (e.g., Software Engineer, Marketing Manager)" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+          <input type="text" id="job-title" name="search" placeholder="Enter job title (e.g., Software Engineer, Marketing Manager)" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
         </div>
 
         <div class="flex-1 w-full md:w-auto relative">
@@ -92,7 +92,7 @@
 
             </div>
             <a href="{{ route('job.detail', $work->id) }}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold text-sm group-hover:scale-105">
-              Apply Now
+              View Details
             </a>
           </div>
         </div>

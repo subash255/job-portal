@@ -1,5 +1,14 @@
 @extends('layouts.master')
+
 @section('content')
+<style>
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
     <!-- Hero Section with Search -->
     <section style="background-image: url('/images/back.jpg');"
         class="relative text-center py-16 px-4 bg-cover bg-center bg-no-repeat">
@@ -9,7 +18,7 @@
 
             <!-- Search Form -->
             <div class="max-w-4xl mx-auto">
-                <form
+                <form method="GET" action="{{ route('job') }}"
                     class="flex flex-col md:flex-row gap-4 items-center justify-center bg-white p-6 rounded-lg shadow-lg border">
 
                     <div class="flex-1 w-full md:w-auto relative">
@@ -17,7 +26,7 @@
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
                             <i class="ri-briefcase-line text-lg"></i>
                         </div>
-                        <input type="text" id="job-title" name="job_title"
+                        <input type="text" id="job-title" name="search" value="{{ request('search') }}"
                             placeholder="Enter job title (e.g., Software Engineer, Marketing Manager)"
                             class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
                     </div>
@@ -27,7 +36,7 @@
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
                             <i class="ri-map-pin-line text-lg"></i>
                         </div>
-                        <input type="text" id="location" name="location" placeholder="Enter location"
+                        <input type="text" id="location" name="location" value="{{ request('location') }}" placeholder="Enter location"
                             class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
                     </div>
 
@@ -51,129 +60,74 @@
                     <div class="bg-white rounded-lg shadow-lg p-6 sticky top-4">
                         <h3 class="text-xl font-bold text-gray-800 mb-6">Filter Jobs</h3>
 
-                        <!-- Job Type Filter -->
-                        <div class="mb-6">
-                            <h4 class="font-semibold text-gray-700 mb-3">Job Type</h4>
-                            <div class="space-y-2">
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Full Time</span>
-                                    <span class="ml-auto text-xs text-gray-400">(24)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Part Time</span>
-                                    <span class="ml-auto text-xs text-gray-400">(8)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Contract</span>
-                                    <span class="ml-auto text-xs text-gray-400">(12)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Freelance</span>
-                                    <span class="ml-auto text-xs text-gray-400">(6)</span>
-                                </label>
-                            </div>
-                        </div>
+                        <form method="GET" action="{{ route('job') }}" id="filterForm">
+                            <!-- Preserve search terms -->
+                            <input type="hidden" name="search" value="{{ request('search') }}">
+                            <input type="hidden" name="location" value="{{ request('location') }}">
 
-                        <!-- Experience Level Filter -->
-                        <div class="mb-6">
-                            <h4 class="font-semibold text-gray-700 mb-3">Experience Level</h4>
-                            <div class="space-y-2">
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Entry Level</span>
-                                    <span class="ml-auto text-xs text-gray-400">(15)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Mid Level</span>
-                                    <span class="ml-auto text-xs text-gray-400">(18)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Senior Level</span>
-                                    <span class="ml-auto text-xs text-gray-400">(12)</span>
-                                </label>
+                            <!-- Job Type Filter -->
+                            <div class="mb-6">
+                                <h4 class="font-semibold text-gray-700 mb-3">Job Type</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="type[]" value="full-time" 
+                                            {{ in_array('full-time', request('type', [])) ? 'checked' : '' }}
+                                            class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 filter-checkbox" />
+                                        <span class="ml-2 text-sm text-gray-600">Full Time</span>
+                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['full-time'] ?? 0 }})</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="type[]" value="part-time"
+                                            {{ in_array('part-time', request('type', [])) ? 'checked' : '' }}
+                                            class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 filter-checkbox" />
+                                        <span class="ml-2 text-sm text-gray-600">Part Time</span>
+                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['part-time'] ?? 0 }})</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="type[]" value="contract"
+                                            {{ in_array('contract', request('type', [])) ? 'checked' : '' }}
+                                            class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 filter-checkbox" />
+                                        <span class="ml-2 text-sm text-gray-600">Contract</span>
+                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['contract'] ?? 0 }})</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="type[]" value="freelance"
+                                            {{ in_array('freelance', request('type', [])) ? 'checked' : '' }}
+                                            class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 filter-checkbox" />
+                                        <span class="ml-2 text-sm text-gray-600">Freelance</span>
+                                        <span class="ml-auto text-xs text-gray-400">({{ $jobTypeCounts['freelance'] ?? 0 }})</span>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Salary Range Filter -->
-                        <div class="mb-6">
-                            <h4 class="font-semibold text-gray-700 mb-3">Salary Range</h4>
-                            <div class="space-y-2">
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Under 30K</span>
-                                    <span class="ml-auto text-xs text-gray-400">(8)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">30K - 50K</span>
-                                    <span class="ml-auto text-xs text-gray-400">(15)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">50K - 80K</span>
-                                    <span class="ml-auto text-xs text-gray-400">(12)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">80K+</span>
-                                    <span class="ml-auto text-xs text-gray-400">(7)</span>
-                                </label>
+                            <!-- Category Filter -->
+                            <div class="mb-6">
+                                <h4 class="font-semibold text-gray-700 mb-3">Category</h4>
+                                <div class="space-y-2">
+                                    @foreach($categories as $category)
+                                    <label class="flex items-center">
+                                        <input type="checkbox" name="category[]" value="{{ $category->id }}"
+                                            {{ in_array($category->id, request('category', [])) ? 'checked' : '' }}
+                                            class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 filter-checkbox" />
+                                        <span class="ml-2 text-sm text-gray-600">{{ $category->name }}</span>
+                                        <span class="ml-auto text-xs text-gray-400">({{ $category->works_count ?? 0 }})</span>
+                                    </label>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Location Filter -->
-                        <div class="mb-6">
-                            <h4 class="font-semibold text-gray-700 mb-3">Location</h4>
-                            <div class="space-y-2">
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Kathmandu</span>
-                                    <span class="ml-auto text-xs text-gray-400">(35)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Lalitpur</span>
-                                    <span class="ml-auto text-xs text-gray-400">(12)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Bhaktapur</span>
-                                    <span class="ml-auto text-xs text-gray-400">(8)</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                                    <span class="ml-2 text-sm text-gray-600">Pokhara</span>
-                                    <span class="ml-auto text-xs text-gray-400">(5)</span>
-                                </label>
+                            <!-- Clear Filters Button -->
+                            <div class="flex space-x-2">
+                                <button type="button" onclick="clearFilters()"
+                                    class="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors duration-200 font-medium">
+                                    Clear Filters
+                                </button>
+                                <button type="submit"
+                                    class="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-colors duration-200 font-medium">
+                                    Apply
+                                </button>
                             </div>
-                        </div>
-
-                        <!-- Clear Filters Button -->
-                        <button
-                            class="w-full bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors duration-200 font-medium">
-                            Clear All Filters
-                        </button>
+                        </form>
                     </div>
                 </div>
 
@@ -183,128 +137,176 @@
                     <div class="flex items-center justify-between mb-6">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-800">Job Listings</h2>
-                            <p class="text-gray-600">Showing 1-20 of 150 jobs</p>
+                            <p class="text-gray-600">
+                                Showing {{ $works->firstItem() ?? 0 }}-{{ $works->lastItem() ?? 0 }} of {{ $works->total() ?? 0 }} jobs
+                                @if(request('search'))
+                                    for "<strong>{{ request('search') }}</strong>"
+                                @endif
+                                @if(request('location'))
+                                    in "<strong>{{ request('location') }}</strong>"
+                                @endif
+                            </p>
                         </div>
                         <div class="flex items-center space-x-4">
                             <span class="text-sm text-gray-600">Sort by:</span>
-                            <select
-                                class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                <option>Latest</option>
-                                <option>Salary: High to Low</option>
-                                <option>Salary: Low to High</option>
-                                <option>Experience</option>
-                            </select>
+                            <form method="GET" action="{{ route('job') }}" class="inline">
+                                <!-- Preserve current filters -->
+                                @foreach(request()->except(['sort', 'page']) as $key => $value)
+                                    @if(is_array($value))
+                                        @foreach($value as $item)
+                                            <input type="hidden" name="{{ $key }}[]" value="{{ $item }}">
+                                        @endforeach
+                                    @else
+                                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                    @endif
+                                @endforeach
+                                
+                                <select name="sort" onchange="this.form.submit()"
+                                    class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Latest</option>
+                                    <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Oldest</option>
+                                    <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Title A-Z</option>
+                                    <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Title Z-A</option>
+                                    <option value="company" {{ request('sort') == 'company' ? 'selected' : '' }}>Company</option>
+                                </select>
+                            </form>
                         </div>
                     </div>
 
                     <!-- Job Cards -->
                     <div class="space-y-6">
-                        @foreach ($works as $work)
-                            <!-- Job Card 1 -->
-                            <form action="{{ route('work.apply', $work->id) }}" method="post">
-                                <div
-                                    class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200">
-                                    <div class="flex items-start justify-between">
-                                        <div class="flex items-start space-x-4">
-                                            <div
-                                                class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                                                @if ($work->user->profile_picture)
-                                                    <img src="{{ asset('storage/' . $work->user->profile_picture) }}"
-                                                        alt="{{ $work->user->name }} Logo"
-                                                        class="w-10 h-10 rounded-lg object-cover">
-                                                @else
-                                                    <i class="ri-building-line text-4xl text-white"></i>
+                        @forelse ($works as $work)
+                            <!-- Job Card -->
+                            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start space-x-4 flex-1 pr-4">
+                                        <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                                            @if ($work->user->profile_picture)
+                                                <img src="{{ asset('storage/' . $work->user->profile_picture) }}"
+                                                    alt="{{ $work->user->name }} Logo"
+                                                    class="w-14 h-14 rounded-lg object-cover">
+                                            @else
+                                                <i class="ri-building-line text-2xl text-white"></i>
+                                            @endif
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h3 class="text-xl font-bold text-gray-800 hover:text-indigo-600 transition-colors duration-200 mb-1">
+                                                <a href="{{ route('job.detail', $work->id) }}" class="cursor-pointer">{{ $work->title }}</a>
+                                            </h3>
+                                            <p class="text-gray-600 font-medium mb-2">{{ $work->user->name }}</p>
+                                            <div class="flex items-center space-x-4 text-sm text-gray-500 mb-3 flex-wrap">
+                                                <div class="flex items-center">
+                                                    <i class="ri-map-pin-line mr-1 text-gray-500"></i>
+                                                    {{ $work->location }}{{ $work->user->state ? ', ' . $work->user->state : '' }}
+                                                </div>
+                                                <div class="flex items-center">
+                                                    <i class="ri-time-line mr-1 text-gray-500"></i>
+                                                    {{ $work->created_at->diffForHumans() }}
+                                                </div>
+                                                @if($work->salary)
+                                                <div class="flex items-center">
+                                                    <i class="ri-money-dollar-circle-line mr-1 text-gray-500"></i>
+                                                    NPR {{ $work->salary }}
+                                                </div>
+                                                @endif
+                                                @if($work->end_date)
+                                                <div class="flex items-center">
+                                                    <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full font-medium flex items-center">
+                                                        <i class="ri-calendar-line mr-1"></i>
+                                                        Deadline: {{ \Carbon\Carbon::parse($work->end_date)->format('M d, Y') }}
+                                                    </span>
+                                                </div>
                                                 @endif
                                             </div>
-                                            <div class="flex-1">
-                                                <h3
-                                                    class="text-xl font-bold text-gray-800 hover:text-indigo-600 transition-colors duration-200">
-                                                    <a href="#" class="cursor-pointer">{{ $work->title }}</a>
-                                                </h3>
-                                                <p class="text-gray-600 font-medium mb-2">{{ $work->user->name }}</p>
-                                                <div class="flex items-center space-x-4 text-sm text-gray-500">
-                                                    <div class="flex items-center">
-                                                        <i class="ri-map-pin-line mr-1 text-gray-500"></i>
-                                                        {{ $work->location, $work->user->state }}
-                                                    </div>
-                                                    <div class="flex items-center">
-                                                        <i class="ri-time-line mr-1 text-gray-500"></i>
-                                                        {{ $work->created_at->diffForHumans() }}
-                                                    </div>
-                                                   
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="mb-4">
-                                                <span
-                                                    class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">Featured</span>
-                                            </div>
-
-
-
-                                            @csrf
-                                            <button type="submit"
-                                                class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold">
-                                                Apply Now
-                                            </button>
-
+                                            @if($work->description)
+                                            <p class="text-gray-600 text-sm line-clamp-2 mb-3">{{ Str::limit($work->description, 150) }}</p>
+                                            @endif
                                         </div>
                                     </div>
-                                    <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
-                                        <div class="flex space-x-2">
-                                            <span
-                                                class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">{{ $work->type }}</span>
-                                            <span
-                                                class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">{{ $work->position }}</span>
-                                            <span
-                                                class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium">Onsite</span>
+                                    <div class="flex flex-col items-end justify-start space-y-3 flex-shrink-0">
+                                        <div>
+                                            @if($work->status == 'active')
+                                                <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">Active</span>
+                                            @else
+                                                <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full font-medium">{{ ucfirst($work->status) }}</span>
+                                            @endif
                                         </div>
-                                        <div class="flex items-center space-x-4">
-                                            <button
-                                                class="text-gray-500 hover:text-red-500 transition-colors duration-200">
-                                                <i class="ri-heart-line text-xl"></i>
-                                            </button>
-                                            <button
-                                                class="text-gray-500 hover:text-indigo-500 transition-colors duration-200">
-                                                <i class="ri-share-line text-xl"></i>
-                                            </button>
-                                        </div>
+
+                                        <a href="{{ route('job.detail', $work->id) }}"
+                                            class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 font-semibold whitespace-nowrap">
+                                            View Details
+                                        </a>
                                     </div>
                                 </div>
-                            </form>
-                        @endforeach
-
+                                <div class="mt-4 pt-4 border-t border-gray-100">
+                                    <div class="flex space-x-2">
+                                        <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">{{ ucfirst($work->type) }}</span>
+                                        <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">{{ $work->position }}</span>
+                                        <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-medium">{{ $work->category->name ?? 'General' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <!-- No Jobs Found -->
+                            <div class="bg-white rounded-lg shadow-md p-12 text-center">
+                                <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="ri-search-line text-4xl text-gray-400"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-900 mb-2">No Jobs Found</h3>
+                                <p class="text-gray-600 mb-4">
+                                    @if(request()->hasAny(['search', 'location', 'type', 'category']))
+                                        No jobs match your current search criteria. Try adjusting your filters.
+                                    @else
+                                        There are no job listings available at the moment.
+                                    @endif
+                                </p>
+                                @if(request()->hasAny(['search', 'location', 'type', 'category']))
+                                <a href="{{ route('job') }}" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200 font-medium">
+                                    Clear All Filters
+                                </a>
+                                @endif
+                            </div>
+                        @endforelse
                     </div>
 
 
                     <!-- Pagination -->
+                    @if($works->hasPages())
                     <div class="flex items-center justify-center mt-12">
                         <nav class="flex items-center space-x-2">
-                            <button
-                                class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-700 transition-colors duration-200">
-                                Previous
-                            </button>
-                            <button
-                                class="px-3 py-2 text-sm font-medium text-white bg-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-700 transition-colors duration-200">
-                                1
-                            </button>
-                            <button
-                                class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-700 transition-colors duration-200">
-                                2
-                            </button>
-                            <button
-                                class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-700 transition-colors duration-200">
-                                3
-                            </button>
-                            <button
-                                class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-700 transition-colors duration-200">
-                                Next
-                            </button>
+                            {{ $works->appends(request()->input())->links() }}
                         </nav>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- JavaScript for filter functionality -->
+    <script>
+        // Auto-submit filters when checkboxes change
+        document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                document.getElementById('filterForm').submit();
+            });
+        });
+
+        // Clear all filters
+        function clearFilters() {
+            // Uncheck all checkboxes
+            document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            // Clear search and location inputs
+            const searchInput = document.querySelector('input[name="search"]');
+            const locationInput = document.querySelector('input[name="location"]');
+            if (searchInput) searchInput.value = '';
+            if (locationInput) locationInput.value = '';
+            
+            // Redirect to base URL without parameters
+            window.location.href = '{{ route("job") }}';
+        }
+    </script>
 @endsection
