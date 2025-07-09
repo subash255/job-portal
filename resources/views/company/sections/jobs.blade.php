@@ -42,41 +42,9 @@
 
 
 
-<!-- Filter and Search -->
-<div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 mb-8">
-    <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-        <div class="flex flex-col md:flex-row gap-4 flex-1">
-            <div class="relative">
-                <input type="text" placeholder="Search jobs..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                <i class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-            </div>
-            <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                <option>All Status</option>
-                <option>Active</option>
-                <option>Draft</option>
-                <option>Closed</option>
-            </select>
-            <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                <option>All Categories</option>
-                <option>Technology</option>
-                <option>Marketing</option>
-                <option>Design</option>
-            </select>
-        </div>
-        <div class="flex gap-2">
-            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-                <i class="ri-filter-line mr-2"></i>Filter
-            </button>
-
-        </div>
-    </div>
-</div>
 
 <!-- Jobs List -->
 <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
-    <div class="p-6 border-b border-gray-100">
-        <h3 class="text-xl font-bold text-gray-800">Your Job Postings</h3>
-    </div>
     
     <div class="divide-y divide-gray-100">
         @foreach ($works as $work)

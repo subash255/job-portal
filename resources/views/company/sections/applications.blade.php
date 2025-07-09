@@ -5,6 +5,27 @@
             <h1 class="text-3xl font-bold text-gray-800">Applications</h1>
             <p class="text-gray-600 mt-1">Review and manage candidate applications</p>
         </div>
+        <!-- Search and Filter Section -->
+        <div class="flex items-center space-x-4">
+            <form method="GET" action="{{ route('company.applications') }}" class="flex items-center space-x-3">
+                <div class="relative">
+                    <select name="status" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
+                        <option value="">All Status</option>
+                        <option value="applied" {{ request('status') == 'applied' ? 'selected' : '' }}>Applied</option>
+                        <option value="interview" {{ request('status') == 'interview' ? 'selected' : '' }}>Interview</option>
+                        <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                    </select>
+                </div>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                    <i class="ri-search-line mr-2"></i>Search
+                </button>
+                @if(request('status'))
+                    <a href="{{ route('company.applications') }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                        <i class="ri-close-line mr-2"></i>Clear
+                    </a>
+                @endif
+            </form>
+        </div>
     </div>
 </div>
 
@@ -31,7 +52,15 @@
 <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
     <div class="p-6 border-b border-gray-100">
         <div class="flex items-center justify-between">
-            <h3 class="text-xl font-bold text-gray-800">Applications</h3>
+            <div class="flex items-center space-x-4">
+                <h3 class="text-xl font-bold text-gray-800">Applications</h3>
+                @if(request('status'))
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                        <i class="ri-filter-line mr-1"></i>
+                        {{ ucfirst(str_replace('_', ' ', request('status'))) }}
+                    </span>
+                @endif
+            </div>
             <span class="text-sm text-gray-500">{{ $applications->total() }} total applications</span>
         </div>
     </div>
@@ -63,8 +92,6 @@
                 <div class="flex items-center space-x-3">
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
                         @if($application->status == 'applied') bg-blue-100 text-blue-700
-                        @elseif($application->status == 'under_review') bg-yellow-100 text-yellow-700
-                        @elseif($application->status == 'shortlisted') bg-green-100 text-green-700
                         @elseif($application->status == 'interview') bg-purple-100 text-purple-700
                         @elseif($application->status == 'rejected') bg-red-100 text-red-700
                         @else bg-gray-100 text-gray-700 @endif">
@@ -74,6 +101,7 @@
                         <button type="button" class="p-2 text-gray-400 hover:text-indigo-600 transition-colors rounded-lg hover:bg-indigo-50" title="View Applicant Details" onclick="openApplicantModal({{ $application->id }})">
                             <i class="ri-eye-line"></i>
                         </button>
+                        @if($application->status !== 'interview')
                         <form method="POST" action="{{ route('company.application.update-status', $application->id) }}" class="inline">
                             @csrf
                             <input type="hidden" name="status" value="interview">
@@ -81,6 +109,8 @@
                                 <i class="ri-calendar-line"></i>
                             </button>
                         </form>
+                        @endif
+                        @if($application->status !== 'rejected')
                         <form method="POST" action="{{ route('company.application.update-status', $application->id) }}" class="inline">
                             @csrf
                             <input type="hidden" name="status" value="rejected">
@@ -88,6 +118,7 @@
                                 <i class="ri-close-line"></i>
                             </button>
                         </form>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -160,7 +191,7 @@ document.getElementById('applicantModal').addEventListener('click', function(e) 
                 Showing {{ $applications->firstItem() }} to {{ $applications->lastItem() }} of {{ $applications->total() }} applications
             </div>
             <div class="flex items-center space-x-2">
-                {{ $applications->links() }}
+                {{ $applications->appends(request()->query())->links() }}
             </div>
         </div>
     </div>

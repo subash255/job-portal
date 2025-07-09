@@ -57,7 +57,11 @@
           <div class="flex items-start justify-between mb-4">
             <div class="flex items-center space-x-3">
               <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                <img src="images/5.png" alt="Company Logo" class="w-12 h-12 rounded-lg object-cover">
+                @if($work->user->profile_picture)
+                  <img src="{{ asset('storage/' . $work->user->profile_picture) }}" alt="{{ $work->user->name }} Logo" class="w-12 h-12 rounded-lg object-cover">
+                @else
+                        <i class="ri-building-line text-4xl text-white"></i>
+                @endif
               </div>
               <div>
                 <h3 class="font-bold text-lg text-gray-800 group-hover:text-indigo-600 transition-colors duration-200">
@@ -76,19 +80,12 @@
               <i class="ri-map-pin-2-fill text-indigo-500 w-4 h-4 mr-2"></i>
               {{$work->location }}
             </div>
-            <div class="flex items-center text-gray-600 text-sm">
-              <i class="ri-time-line text-indigo-500 w-4 h-4 mr-2"></i>
-              {{$work->type}} • {{$work->position}}
-            </div>
-            <div class="flex items-center text-gray-600 text-sm">
-              <i class="ri-money-dollar-circle-line text-indigo-500 w-4 h-4 mr-2"></i>
-              {{$work->salary}}
-            </div>
+
           </div>
 
           <div class="flex items-center justify-between">
             <div class="flex space-x-2">
-              <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">Full
+              <span class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-medium">
                 {{$work->type}}</span>
               <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-medium">
                 {{$work->position}}</span>
@@ -179,7 +176,11 @@
         <div class="flex items-start justify-between mb-4">
           <div class="flex items-center space-x-3">
             <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
-              <img src="https://via.placeholder.com/48" alt="Company Logo" class="w-10 h-10 rounded-lg object-cover">
+              @if($work->user->profile_picture)
+                <img src="{{ asset('storage/' . $work->user->profile_picture) }}" alt="{{ $work->user->name }} Logo" class="w-10 h-10 rounded-lg object-cover">
+              @else
+                <i class="ri-building-line text-4xl text-white"></i>
+              @endif
             </div>
             <div>
               <h3 class="font-bold text-lg text-gray-800 hover:text-indigo-600 transition-colors duration-200">{{$work->title}}</h3>

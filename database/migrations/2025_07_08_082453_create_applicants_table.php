@@ -25,7 +25,7 @@ return new class extends Migration
                   ->onDelete('cascade');
 
             // Application status with all possible values
-            $table->enum('status', ['applied', 'under_review', 'shortlisted', 'interview', 'rejected'])
+            $table->enum('status', ['applied', 'interview', 'rejected'])
                   ->default('applied');
 
             // Additional application fields

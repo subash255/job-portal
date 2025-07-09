@@ -69,15 +69,20 @@ class CompanyController extends Controller
         return view('company.index',compact('works') ,['section' => 'jobs']);
     }
 
-    public function applications()
+    public function applications(Request $request)
     {
         // Get applications for jobs posted by this company with pagination
-        $applications = Applicant::with(['work', 'user'])
+        $query = Applicant::with(['work', 'user'])
             ->whereHas('work', function($q) {
                 $q->where('user_id', Auth::id());
-            })
-            ->latest()
-            ->paginate(10);
+            });
+        
+        // Apply status filter if provided
+        if ($request->has('status') && $request->status !== '') {
+            $query->where('status', $request->status);
+        }
+        
+        $applications = $query->latest()->paginate(10);
         
         // Logic to display company applications
         return view('company.index', compact('applications'), ['section' => 'applications']);
@@ -221,7 +226,7 @@ public function edit($id)
     public function updateApplicationStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:applied,under_review,shortlisted,interview,rejected'
+            'status' => 'required|in:applied,interview,rejected'
         ]);
         
         $application = Applicant::with('work')
@@ -236,8 +241,6 @@ public function edit($id)
         
         $statusMessages = [
             'applied' => 'Application status updated to Applied',
-            'under_review' => 'Application moved to Under Review',
-            'shortlisted' => 'Applicant shortlisted successfully',
             'interview' => 'Interview scheduled for applicant',
             'rejected' => 'Application rejected'
         ];

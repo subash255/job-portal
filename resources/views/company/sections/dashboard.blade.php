@@ -103,7 +103,7 @@
                 <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                     <div class="flex items-center">
                         <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center mr-3">
-                            <i class="ri-code-line text-white"></i>
+                            <i class="ri-briefcase-line text-white"></i>
                         </div>
                         <div>
                             <h4 class="font-semibold text-gray-800">{{$work->title}}</h4>
