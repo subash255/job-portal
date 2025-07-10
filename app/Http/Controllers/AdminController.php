@@ -5,14 +5,52 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Work;
+use App\Models\Applicant;
+use App\Models\Category;
 
 class AdminController extends Controller
 {
     public function index()
-
     {
-        return view('admin.index',
-        [
+        // Calculate dashboard statistics
+        $totalJobs = Work::count();
+        $activeJobs = Work::where('status', 'active')->count();
+        $closedJobs = Work::where('status', 'closed')->count();
+        $featuredJobs = Work::where('featured', true)->count();
+        
+        $totalEmployers = User::where('role', 'company')->count();
+        $totalJobSeekers = User::where('role', 'user')->count();
+        $totalApplications = Applicant::count();
+        $totalCategories = Category::count();
+        
+        // Recent applications (last 7 days)
+        $recentApplications = Applicant::where('created_at', '>=', now()->subDays(7))->count();
+        
+        // Get recent jobs for activity feed
+        $recentJobs = Work::with('user')
+            ->latest()
+            ->take(5)
+            ->get();
+        
+        // Get recent applications for activity feed
+        $recentApplicationsList = Applicant::with(['work', 'user'])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('admin.index', compact(
+            'totalJobs',
+            'activeJobs', 
+            'closedJobs',
+            'featuredJobs',
+            'totalEmployers',
+            'totalJobSeekers',
+            'totalApplications',
+            'totalCategories',
+            'recentApplications',
+            'recentJobs',
+            'recentApplicationsList'
+        ), [
             'title' => 'Admin Dashboard',
             'active' => 'admin',
         ]);
