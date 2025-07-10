@@ -35,36 +35,31 @@ class WorkController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'company_name' => 'required|string|max:255',
+            'position' => 'nullable|string|max:255',
             'location' => 'required|string|max:255',
             'description' => 'nullable|string',
             'responsibility' => 'nullable|string',
             'benefits' => 'nullable|string',
-            'company_email' => 'nullable|email|max:255',
-            'company_phone' => 'nullable|string|max:20',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'position' => 'nullable|string|max:255',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'end_date' => 'nullable|date|after_or_equal:today',
             'salary' => 'nullable|string|max:255',
-            'type' => 'required|string|in:full-time,part-time,contract,internship',
-            'status' => 'required|boolean',
-            'slug' => 'required|string|max:255|unique:works,slug',
-            'user_id' => Auth::id(), 
-            
+            'type' => 'required|string|in:Full-Time,Part-Time,Contract,Internship,Freelance',
+            'status' => 'required|string|in:active,closed',
             'expected_requirement' => 'nullable|string',
-            
         ]);
+
+        // Prepare data for creation
+        $data = $request->all();
+        $data['user_id'] = Auth::id();
 
         // Handle file upload for the image
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
-            $request->merge(['image' => $imagePath]);
+            $data['image'] = $imagePath;
         }
-        // Generate a unique slug for the wo
 
         // Create a new work record in the database
-        Work::create($request->all());
+        Work::create($data);
 
 
         // Redirect to the works index page with a success message
@@ -103,6 +98,10 @@ class WorkController extends Controller
             'responsibility' => 'nullable|string',
             'benefits' => 'nullable|string',
             'expected_requirement' => 'nullable|string',
+            'end_date' => 'nullable|date|after_or_equal:today',
+            'salary' => 'nullable|string|max:255',
+            'type' => 'nullable|string|in:Full-Time,Part-Time,Contract,Internship,Freelance',
+            'status' => 'nullable|string|in:active,closed',
             // Add other validation rules as needed
         ]);
 

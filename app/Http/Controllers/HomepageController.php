@@ -104,7 +104,11 @@ class HomepageController extends Controller
 
     public function jobDetail($id)
     {
-        $work = Work::with(['user', 'category'])->findOrFail($id);
+        try {
+            $work = Work::with(['user', 'category'])->findOrFail($id);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->route('job')->with('error', 'This job is no longer available.');
+        }
         return view('job-detail', compact('work'));
     }
 }

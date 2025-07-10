@@ -69,7 +69,7 @@
                 <!-- End Date -->
                 <div>
                     <label for="end_date" class="block text-gray-700 font-semibold mb-1">Application End Date</label>
-                    <input type="date" id="end_date" name="end_date"
+                    <input type="date" id="end_date" name="end_date" min="{{ date('Y-m-d') }}"
                         class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                 </div>
 

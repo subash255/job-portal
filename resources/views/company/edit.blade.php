@@ -103,6 +103,7 @@
                 <div>
                     <label for="end_date" class="block text-sm font-medium text-gray-700 mb-2">Application Deadline</label>
                     <input type="date" id="end_date" name="end_date" value="{{ old('end_date', $work->end_date ? $work->end_date->format('Y-m-d') : '') }}" 
+                           min="{{ date('Y-m-d') }}"
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" 
                            required>
                     @error('end_date')

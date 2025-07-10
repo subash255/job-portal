@@ -16,7 +16,11 @@ class ApplicantController extends Controller
         }
 
         // Retrieve the Work model
-        $work = Work::findOrFail($work);
+        try {
+            $work = Work::findOrFail($work);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->route('job')->with('error', 'This job is no longer available.');
+        }
         
         // Check if user has already applied
         $hasApplied = Applicant::where('work_id', $work->id)
@@ -72,7 +76,11 @@ public function create($work)
             return redirect()->route('login')->with('error', 'You must be logged in to apply for a job.');
         }
 
-        $work = Work::with(['user', 'category'])->findOrFail($work);
+        try {
+            $work = Work::with(['user', 'category'])->findOrFail($work);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->route('job')->with('error', 'This job is no longer available.');
+        }
         
         // Check if user has already applied
         $hasApplied = Applicant::where('work_id', $work->id)

@@ -30,13 +30,13 @@
                 <!-- Desktop Nav Links -->
                 <nav class="hidden md:flex space-x-4 items-center font-semibold">
                     <a href="{{ route('welcome') }}"
-                        class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Home</a>
+                        class="px-4 py-2 text-white {{ request()->routeIs('welcome') ? ' text-yellow-300' :  'hover:text-yellow-300' }} transition-colors duration-200">Home</a>
                     <a href="{{ route('about') }}"
-                        class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">About Us</a>
+                        class="px-4 py-2 text-white {{ request()->routeIs('about') ? ' text-yellow-300' :  'hover:text-yellow-300' }} transition-colors duration-200">About Us</a>
                     <a href="{{ route('job') }}"
-                        class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Jobs</a>
+                        class="px-4 py-2 text-white {{ request()->routeIs('job') ? ' text-yellow-300' :  'hover:text-yellow-300' }} transition-colors duration-200">Jobs</a>
                     <a href="{{ route('contact') }}"
-                        class="px-4 py-2 text-white hover:text-yellow-300 transition-colors duration-200">Contact</a>
+                        class="px-4 py-2 text-white {{ request()->routeIs('contact') ? ' text-yellow-300' :  'hover:text-yellow-300' }} transition-colors duration-200">Contact</a>
                     @auth
 
                         @if (auth()->user()->role === 'user')
@@ -209,7 +209,7 @@
                     </li>
                     <li class="flex items-center space-x-2">
                         <i class="ri-phone-line text-indigo-400 text-lg"></i>
-                        <span>+977 9812211443</span>
+                        <span>+977 9855056654</span>
                     </li>
                     <li class="flex items-center space-x-2">
                         <i class="ri-time-line text-indigo-400 text-lg"></i>

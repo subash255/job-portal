@@ -31,7 +31,7 @@
             </div>
             <div>
                 <h3 class="text-lg font-semibold text-gray-800 mb-1">Office Address</h3>
-                <p class="text-gray-600">123 Job Street, Business District<br>Kathmandu, Nepal 44600</p>
+                <p class="text-gray-600">Gaindakot-05<br>Nawalpur, Nepal</p>
             </div>
         </div>
 
@@ -151,28 +151,5 @@
 </section>
 
 
-<!-- Map Section -->
-<section class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Find Our Office</h2>
-            <p class="text-lg text-gray-600">Visit us at our office location for in-person consultations</p>
-        </div>
-        
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div class="aspect-w-16 aspect-h-9">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.6736739474377!2d85.32343931544442!3d27.69413328280186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19968c543c2b%3A0x7d8f6c8c5f8e5a8e!2sKathmandu%2C%20Nepal!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s" 
-                    width="100%" 
-                    height="450" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-        </div>
-    </div>
-</section>
 
 @endsection

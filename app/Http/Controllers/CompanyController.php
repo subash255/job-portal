@@ -218,9 +218,14 @@ public function edit($id)
     public function destroy($id)
     {
         $work = Work::where('user_id', Auth::id())->findOrFail($id);
+        
+        // Delete related applications first
+        $work->applicants()->delete();
+        
+        // Then delete the job
         $work->delete();
         
-        return redirect()->route('company.jobs')->with('success', 'Job deleted successfully!');
+        return redirect()->route('company.jobs')->with('success', 'Job and related applications deleted successfully!');
     }
     
     public function updateApplicationStatus(Request $request, $id)

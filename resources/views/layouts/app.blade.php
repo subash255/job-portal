@@ -63,17 +63,17 @@
                     <span class="ml-4 font-semibold">Category</span>
                 </a>
                 <a href="{{ route('admin.jobs.index') }}"
-                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobs.index', 'admin.category.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
+                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobs.index') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
                     <i class="ri-suitcase-fill"></i>
                     <span class="ml-4 font-semibold">Jobs</span>
                 </a>
                 <a href="{{ route('admin.employers.index') }}"
-                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.employers.index', 'admin.fooditems.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
+                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.employers.index') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
                     <i class="ri-building-fill"></i>
                     <span class="ml-4 font-semibold">Employers</span>
                 </a>
                 <a href="{{ route('admin.jobseeker.index') }}"
-                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobseeker.index', 'admin.fooditems.edit') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
+                    class="sidebar-link flex items-center px-6 py-4 {{ request()->routeIs('admin.jobseeker.index') ? 'bg-indigo-600 text-white' : 'hover:bg-indigo-500 hover:text-white' }} transition-colors duration-200">
                     <i class="ri-user-fill"></i>
                     <span class="ml-4 font-semibold">Job Seekers</span>
                 </a>

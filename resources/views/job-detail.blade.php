@@ -180,7 +180,7 @@
                                 <p class="text-sm text-gray-600 mb-2">{{ $job->user->name }}</p>
                                 <div class="flex items-center justify-between">
                                     <span class="text-xs text-gray-500">{{ $job->location }}</span>
-                                    <a href="{{ route('work.detail', $job->id) }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View</a>
+                                    <a href="{{ route('job.detail', $job->id) }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View</a>
                                 </div>
                             </div>
                             @endforeach
