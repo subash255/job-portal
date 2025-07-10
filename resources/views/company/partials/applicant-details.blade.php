@@ -153,6 +153,21 @@
             </a>
         </div>
     </div>
+    @else
+      <div>
+        <h4 class="font-semibold text-gray-900 mb-3">Resume</h4>
+        <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-2">
+                <i class="ri-file-text-line text-gray-400"></i>
+                <span class="text-sm text-gray-600">Resume.pdf</span>
+            </div>
+            <a href="{{ asset('storage/' . $application->resume) }}" target="_blank" 
+               class="inline-flex items-center px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                <i class="ri-eye-line mr-1"></i>
+                View Resume
+            </a>
+        </div>
+    </div>
     @endif
 
     <!-- Action Buttons -->
