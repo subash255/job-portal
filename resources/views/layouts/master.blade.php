@@ -22,21 +22,25 @@
 
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <h1 class="text-2xl md:text-3xl font-bold text-center text-white">
-                        Job<span class="text-orange-300">Point</span>
-                    </h1>
+                    <a href="{{route('welcome')}}" class="block">
+                        <h1 class="text-2xl md:text-3xl font-bold text-center text-white">
+                            Job<span class="text-orange-300">Point</span>
+                        </h1>
+                    </a>
                 </div>
+
 
                 <!-- Desktop Nav Links -->
                 <nav class="hidden md:flex space-x-4 items-center font-semibold">
                     <a href="{{ route('welcome') }}"
-                        class="px-4 py-2 text-white {{ request()->routeIs('welcome') ? ' text-yellow-300' :  'hover:text-yellow-300' }} transition-colors duration-200">Home</a>
+                        class="px-4 py-2 text-white {{ request()->routeIs('welcome') ? ' text-yellow-300' : 'hover:text-yellow-300' }} transition-colors duration-200">Home</a>
                     <a href="{{ route('about') }}"
-                        class="px-4 py-2 text-white {{ request()->routeIs('about') ? ' text-yellow-300' :  'hover:text-yellow-300' }} transition-colors duration-200">About Us</a>
+                        class="px-4 py-2 text-white {{ request()->routeIs('about') ? ' text-yellow-300' : 'hover:text-yellow-300' }} transition-colors duration-200">About
+                        Us</a>
                     <a href="{{ route('job') }}"
-                        class="px-4 py-2 text-white {{ request()->routeIs('job') ? ' text-yellow-300' :  'hover:text-yellow-300' }} transition-colors duration-200">Jobs</a>
+                        class="px-4 py-2 text-white {{ request()->routeIs('job') ? ' text-yellow-300' : 'hover:text-yellow-300' }} transition-colors duration-200">Jobs</a>
                     <a href="{{ route('contact') }}"
-                        class="px-4 py-2 text-white {{ request()->routeIs('contact') ? ' text-yellow-300' :  'hover:text-yellow-300' }} transition-colors duration-200">Contact</a>
+                        class="px-4 py-2 text-white {{ request()->routeIs('contact') ? ' text-yellow-300' : 'hover:text-yellow-300' }} transition-colors duration-200">Contact</a>
                     @auth
 
                         @if (auth()->user()->role === 'user')
@@ -44,9 +48,11 @@
                                 <!-- Dropdown Button -->
                                 <button id="userDropdownButton"
                                     class="flex items-center space-x-3 text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-all duration-200">
-                                    <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                                        @if(Auth::user()->profile_picture)
-                                            <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="{{ Auth::user()->name }}" class="w-7 h-7 rounded-full object-cover">
+                                    <div
+                                        class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                                        @if (Auth::user()->profile_picture)
+                                            <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
+                                                alt="{{ Auth::user()->name }}" class="w-7 h-7 rounded-full object-cover">
                                         @else
                                             <i class="ri-user-line text-white text-sm"></i>
                                         @endif
@@ -58,13 +64,16 @@
                                 <!-- Dropdown Menu -->
                                 <div id="userDropdownMenu"
                                     class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl py-2 z-50 border border-gray-100">
-                                    
+
                                     <!-- User Info Header -->
                                     <div class="px-4 py-3 border-b border-gray-100">
                                         <div class="flex items-center space-x-3">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                                                @if(Auth::user()->profile_picture)
-                                                    <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="{{ Auth::user()->name }}" class="w-9 h-9 rounded-full object-cover">
+                                            <div
+                                                class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                                                @if (Auth::user()->profile_picture)
+                                                    <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
+                                                        alt="{{ Auth::user()->name }}"
+                                                        class="w-9 h-9 rounded-full object-cover">
                                                 @else
                                                     <i class="ri-user-line text-white text-lg"></i>
                                                 @endif
@@ -78,12 +87,14 @@
 
                                     <!-- Menu Items -->
                                     <div class="py-1">
-                                        <a href="{{ route('user.profile') }}" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                                        <a href="{{ route('user.profile') }}"
+                                            class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors duration-200">
                                             <i class="ri-user-line mr-3 text-gray-500"></i>
                                             <span>My Profile</span>
                                         </a>
 
-                                        <a href="{{ route('user.my-jobs') }}" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors duration-200">
+                                        <a href="{{ route('user.my-jobs') }}"
+                                            class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors duration-200">
                                             <i class="ri-briefcase-line mr-3 text-gray-500"></i>
                                             <span>My Applications</span>
                                         </a>
