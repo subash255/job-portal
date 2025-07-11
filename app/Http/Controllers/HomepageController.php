@@ -37,70 +37,77 @@ class HomepageController extends Controller
 
     public function job(Request $request)
     {
-        $query = Work::with(['user', 'category'])->where('status', 'active');
+        $query = Work::query()
+            ->with(['user', 'category'])
+            ->where('status', 'active');
 
-        // Search functionality
+        // -- Search ------------------------------------
         if ($request->filled('search')) {
-            $searchTerm = $request->search;
-            $query->where(function($q) use ($searchTerm) {
+            $searchTerm = $request->input('search');
+            $query->where(function ($q) use ($searchTerm) {
                 $q->where('title', 'like', "%{$searchTerm}%")
                   ->orWhere('description', 'like', "%{$searchTerm}%")
                   ->orWhere('position', 'like', "%{$searchTerm}%")
-                  ->orWhereHas('user', function($userQuery) use ($searchTerm) {
-                      $userQuery->where('name', 'like', "%{$searchTerm}%");
-                  });
+                  ->orWhereHas('user', fn ($u) =>
+                      $u->where('name', 'like', "%{$searchTerm}%"));
             });
         }
 
-        // Job type filter
+        // -- Job type filter ---------------------------
         if ($request->filled('type')) {
-            $types = is_array($request->type) ? $request->type : [$request->type];
+            $types = $request->input('type');
+            $types = is_array($types) ? $types : [$types];
             $query->whereIn('type', $types);
         }
 
-        // Category filter
+        // -- Category filter ---------------------------
         if ($request->filled('category')) {
-            $query->whereIn('category_id', $request->category);
+            $cats = $request->input('category');
+            $cats = is_array($cats) ? $cats : [$cats];
+            $query->whereIn('category_id', $cats);
         }
 
-        // Sorting
+        // -- Sorting -----------------------------------
         switch ($request->get('sort', 'latest')) {
             case 'oldest':
                 $query->oldest();
                 break;
             case 'title_asc':
-                $query->orderBy('title', 'asc');
+                $query->orderBy('title');
                 break;
             case 'title_desc':
-                $query->orderBy('title', 'desc');
+                $query->orderByDesc('title');
                 break;
             case 'company':
-                $query->join('users', 'works.user_id', '=', 'users.id')
-                      ->orderBy('users.name', 'asc')
-                      ->select('works.*');
+                // keep eager load intact
+                $query->orderBy(
+                    User::select('name')
+                        ->whereColumn('users.id', 'works.user_id')
+                        ->limit(1)
+                );
                 break;
-            default: // latest
+            default:
                 $query->latest();
-                break;
         }
 
-        // Pagination
-        $works = $query->paginate(10);
+        // -- Pagination --------------------------------
+        $works = $query->paginate(10)->withQueryString();
 
-        // Get categories with job counts for filter
-        $categories = Category::withCount(['works' => function($q) {
-            $q->where('status', 'active');
-        }])->get();
+        // -- Category + Type counts --------------------
+        $categories = Category::query()
+            ->withCount(['works' => fn($q) => $q->where('status', 'active')])
+            ->get();
 
-        // Get job type counts for filter
-        $jobTypeCounts = Work::where('status', 'active')
-            ->select('type', DB::raw('count(*) as count'))
+        $jobTypeCounts = Work::query()
+            ->where('status', 'active')
+            ->selectRaw('type, count(*) as count')
             ->groupBy('type')
             ->pluck('count', 'type')
             ->toArray();
 
         return view('job', compact('works', 'categories', 'jobTypeCounts'));
     }
+
 
     public function jobDetail($id)
     {
