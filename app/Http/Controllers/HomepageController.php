@@ -14,11 +14,13 @@ class HomepageController extends Controller
         $works = Work::with(['user', 'category'])
             ->where('status', 'active')
             ->where('featured', true)
+            ->whereDate('end_date', '>=', now())
             ->latest()
             ->take(6)
             ->get(); 
         $latestWorks = Work::with(['user', 'category'])
             ->where('status', 'active')
+            ->whereDate('end_date', '>=', now())
             ->latest()
             ->take(6)
             ->get();
@@ -39,7 +41,8 @@ class HomepageController extends Controller
     {
         $query = Work::query()
             ->with(['user', 'category'])
-            ->where('status', 'active');
+            ->where('status', 'active')
+            ->whereDate('end_date', '>=', now());
 
         // -- Search ------------------------------------
         if ($request->filled('search')) {
