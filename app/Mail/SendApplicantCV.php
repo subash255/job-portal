@@ -2,12 +2,17 @@
 
 namespace App\Mail;
 
+use App\Models\Applicant;
+use App\Models\User;
+use App\Models\Work;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class SendApplicantCV extends Mailable
 {
@@ -20,12 +25,12 @@ class SendApplicantCV extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $work, $applicant)
-    {
-        $this->user = $user;
-        $this->work = $work;
-        $this->applicant = $applicant;
-    }
+   public function __construct($userId, $workId, $applicantId)
+{
+    $this->user = User::find($userId);
+    $this->work = Work::find($workId);
+    $this->applicant = Applicant::find($applicantId);
+}
 
     /**
      * Get the message envelope.
@@ -33,12 +38,10 @@ class SendApplicantCV extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Job Application for: ' . $this->work->title,
-            replyTo: [
-                $this->user->email => $this->user->name,
-            ],
-            from: config('mail.from'),
-        );
+        from: new Address(config('mail.from.address'), config('mail.from.name')),
+        replyTo: [new Address($this->user->email, $this->user->name)],
+        subject: 'New Job Application for: ' . $this->work->title,
+    );
     }
 
     /**
@@ -47,7 +50,7 @@ class SendApplicantCV extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.applicant_cv',
+            view: 'emails.jobapplicant',
             with: [
                 'user' => $this->user,
                 'work' => $this->work,
@@ -61,13 +64,18 @@ class SendApplicantCV extends Mailable
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
-    public function attachments(): array
-    {
+   public function attachments(): array
+{
+    $resume = $this->applicant->resume;
+
+    if (Storage::disk('public')->exists($resume)) {
+        $filePath = Storage::disk('public')->path($resume);
+
         return [
-            // Attach the resume file
-            \Illuminate\Mail\Mailables\Attachment::fromPath(storage_path('app/' . $this->applicant->resume))
-                ->as('resume.' . pathinfo($this->applicant->resume, PATHINFO_EXTENSION))
-                ->withMime('application/pdf'),  // or detect mime type dynamically if needed
+            \Illuminate\Mail\Mailables\Attachment::fromPath($filePath)
+                ->as('resume.' . pathinfo($filePath, PATHINFO_EXTENSION))
+                ->withMime('application/pdf'),
         ];
-    }
+    } 
+}
 }

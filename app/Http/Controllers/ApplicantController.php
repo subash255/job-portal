@@ -48,10 +48,17 @@ class ApplicantController extends Controller
         ]);
 
         // Handle resume upload if provided
-        $resumePath = null;
-        if ($request->hasFile('resume')) {
-            $resumePath = $request->file('resume')->store('resumes', 'public');
-        }
+       
+       $resumePath = null;
+
+if ($request->hasFile('resume')) {
+    // User uploaded a new resume with this application
+    $resumePath = $request->file('resume')->store('resumes', 'public');
+} else {
+    // Use existing resume from authenticated user's profile (if exists)
+    $user = Auth::user();
+    $resumePath = $user->resume ?? null;
+}
 
         // Create the applicant record
         $applicant = new Applicant();
@@ -73,7 +80,7 @@ class ApplicantController extends Controller
         $company = $work->user;
         $user = Auth::user();
 
-        Mail::to($company->email)->queue(new SendApplicantCV($user, $work, $applicant));
+        Mail::to($company->email)->queue(new SendApplicantCV($user->id, $work->id, $applicant->id));
 
         return redirect()->route('user.my-jobs')->with('success', 'Application submitted successfully!');
     }
