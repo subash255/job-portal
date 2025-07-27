@@ -29,6 +29,11 @@ class Applicant extends Model
         'availability_date' => 'date',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function work()
     {
         return $this->belongsTo(Work::class);
