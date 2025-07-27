@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -19,6 +20,26 @@ Route::get('/searchjob',[HomepageController::class, 'job'])->name('job');
 Route::get('/job/{id}', [HomepageController::class, 'jobDetail'])->name('job.detail');
 Route::post('/apply/{work}', [ApplicantController::class, 'store'])->name('work.apply');
 Route::get('/apply/{work}', [ApplicantController::class, 'create'])->name('work.apply.form');
+
+
+Route::get('/google/auth', [GoogleController::class, 'redirectToGoogle'])->name('google.auth');
+Route::get('/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/interview/form', [GoogleController::class, 'showForm'])->name('interview.form');
+    Route::post('/interview/schedule', [GoogleController::class, 'scheduleInterview'])->name('interview.schedule');
+    Route::get('/interviews', [GoogleController::class, 'listInterviews'])->name('interviews.list');
+});
+
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/test-mail', function () {
+    Mail::raw('This is a test email.', function ($message) {
+        $message->to('subadhikari2000@gmail.com')
+            ->subject('Test Email');
+    });
+    return 'Email Sent';
+});
 
 
 Route::middleware('role:admin')->group(function () {

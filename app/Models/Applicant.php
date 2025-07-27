@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Applicant extends Model
 {
-    
-
     protected $fillable = [
         'work_id',
         'applicant_id',
@@ -21,10 +19,14 @@ class Applicant extends Model
         'cover_letter',
         'resume',
         'applied_at',
+        'portfolio_url',
+        'expected_salary',
+        'availability_date',
     ];
 
     protected $casts = [
         'applied_at' => 'datetime',
+        'availability_date' => 'date',
     ];
 
     public function work()
@@ -37,13 +39,14 @@ class Applicant extends Model
         return $this->belongsTo(User::class, 'applicant_id');
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'applicant_id');
-    }
-
     public function company()
     {
         return $this->belongsTo(User::class, 'company_id');
+    }
+
+    // Optional accessor for resume URL
+    public function getResumeUrlAttribute()
+    {
+        return $this->resume ? asset('storage/' . $this->resume) : null;
     }
 }

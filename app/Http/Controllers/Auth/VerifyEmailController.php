@@ -3,25 +3,49 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\RedirectResponse;
 
 class VerifyEmailController extends Controller
 {
-    /**
-     * Mark the authenticated user's email address as verified.
-     */
-    public function __invoke(EmailVerificationRequest $request): RedirectResponse
+    public function verify(Request $request, $id, $hash)
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+        $user = User::findOrFail($id);
+
+        // Ensure the hash matches the user's email
+        if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+            abort(403, 'Invalid verification link.');
         }
 
-        if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
+        // If already verified
+        if ($user->hasVerifiedEmail()) {
+            Auth::login($user);
+            
+
+            if($user->role === 'company') {
+                return redirect()->route('company.index')->with('verified', true);
+            } elseif($user->role === 'user') {
+                return redirect()->route('user.index')->with('verified', true);
+            }
+            return redirect()->route('')->with('verified', true);
         }
 
-        return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+        // ✅ Mark as verified (this updates email_verified_at in DB)
+        $user->markEmailAsVerified();
+        event(new Verified($user));
+
+        // Auto-login after verification
+        Auth::login($user);
+
+     
+
+            if($user->role === 'company') {
+                return redirect()->route('company.index')->with('verified', true);
+            } elseif($user->role === 'user') {
+                return redirect()->route('user.index')->with('verified', true);
+            }
+        return redirect()->route('')->with('verified', true);
     }
 }

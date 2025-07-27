@@ -6,6 +6,8 @@ use App\Models\Applicant;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendApplicantCV;
 
 class ApplicantController extends Controller
 {
@@ -66,6 +68,12 @@ class ApplicantController extends Controller
         $applicant->resume = $resumePath;
         $applicant->applied_at = now();
         $applicant->save();
+
+        // Retrieve the company (user) associated with the job
+        $company = $work->user;
+        $user = Auth::user();
+
+        Mail::to($company->email)->queue(new SendApplicantCV($user, $work, $applicant));
 
         return redirect()->route('user.my-jobs')->with('success', 'Application submitted successfully!');
     }

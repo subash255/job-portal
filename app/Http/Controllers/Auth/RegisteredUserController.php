@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-class RegisteredUserController extends Controller
+class RegisteredUserController extends Controller  
 {
     /**
      * Display the registration view.
@@ -53,9 +53,9 @@ class RegisteredUserController extends Controller
        
         event(new Registered($user));
 
-        
+        Auth::login($user);
 
-        return redirect(route('login', absolute: false));
+        return redirect(route('verification.notice', absolute: false));
     }
      public function userstore(Request $request): RedirectResponse
     {
@@ -84,8 +84,8 @@ class RegisteredUserController extends Controller
        
         event(new Registered($user));
 
-       
+       Auth::login($user);
 
-        return redirect(route('login', absolute: false));
+        return redirect(route('verification.notice', absolute: false));
     }
 }
