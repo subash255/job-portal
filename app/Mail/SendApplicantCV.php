@@ -77,5 +77,7 @@ class SendApplicantCV extends Mailable
                 ->withMime('application/pdf'),
         ];
     } 
+
+    return [];
 }
 }
