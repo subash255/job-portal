@@ -12,7 +12,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class SendApplicantCV extends Mailable
 {
@@ -30,6 +30,11 @@ class SendApplicantCV extends Mailable
     $this->user = User::find($userId);
     $this->work = Work::find($workId);
     $this->applicant = Applicant::find($applicantId);
+
+
+     Log::info('User:', ['user' => $this->user]);
+    Log::info('Work:', ['work' => $this->work]);
+    Log::info('Applicant:', ['applicant' => $this->applicant]);
 }
 
     /**
@@ -55,6 +60,8 @@ class SendApplicantCV extends Mailable
                 'user' => $this->user,
                 'work' => $this->work,
                 'applicant' => $this->applicant,
+
+
             ],
         );
     }
@@ -62,22 +69,15 @@ class SendApplicantCV extends Mailable
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * , \Illuminate\Mail\Mailables\Attachment>
      */
-   public function attachments(): array
-{
-    $resume = $this->applicant->resume;
-
-    if (Storage::disk('public')->exists($resume)) {
-        $filePath = Storage::disk('public')->path($resume);
-
+    public function attachments(): array
+    {
         return [
-            \Illuminate\Mail\Mailables\Attachment::fromPath($filePath)
-                ->as('resume.' . pathinfo($filePath, PATHINFO_EXTENSION))
-                ->withMime('application/pdf'),
+            // Attach the resume file
+            \Illuminate\Mail\Mailables\Attachment::fromPath(storage_path('app/public/resumes/' . $this->applicant->resume))
+                ->as('resume.' . pathinfo($this->applicant->resume, PATHINFO_EXTENSION))
+                ->withMime('application/pdf'),  // or detect mime type dynamically if needed
         ];
-    } 
-
-    return [];
-}
+    }
 }
