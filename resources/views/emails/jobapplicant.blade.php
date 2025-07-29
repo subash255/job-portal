@@ -8,7 +8,7 @@
   <div style="max-width: 600px; margin: auto; background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
     <h2 style="color: #2c3e50;">New Job Application: {{ $work->title }}</h2>
 
-    <p><strong>Applicant Name:</strong> Mr. {{ $user->name }}</p>
+    <p><strong>Applicant Name:</strong> {{ $user->name }}</p>
     <p><strong>Email:</strong> {{ $user->email }}</p>
     <p><strong>Phone:</strong> {{ $applicant->phone ?? 'N/A' }}</p>
     <p><strong>Address:</strong> {{ $applicant->address ?? 'N/A' }}</p>
