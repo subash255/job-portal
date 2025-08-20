@@ -68,7 +68,7 @@
                                     <!-- User Info Header -->
                                     <div class="px-4 py-3 border-b border-gray-100">
                                         <div class="flex items-center space-x-3">
-                                            <div
+                                            {{-- <div
                                                 class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
                                                 @if (Auth::user()->profile_picture)
                                                     <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
@@ -77,7 +77,7 @@
                                                 @else
                                                     <i class="ri-user-line text-white text-lg"></i>
                                                 @endif
-                                            </div>
+                                            </div> --}}
                                             <div>
                                                 <p class="font-semibold text-gray-800">{{ Auth::user()->name }}</p>
                                                 <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
