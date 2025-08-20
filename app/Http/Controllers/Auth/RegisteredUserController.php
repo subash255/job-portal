@@ -29,15 +29,17 @@ class RegisteredUserController extends Controller
      */
     public function companystore(Request $request): RedirectResponse
     {
-        
-        
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],//test
-            'phone' => ['nullable', 'string', 'max:15'],
-            'role' => ['nullable', 'string', ], 
-            
+            'name' => ['required', 'string', 'min:2', 'max:255'],
+            'phone' => ['required', 'string', 'regex:/^[\+]?[0-9\s\-\(\)]{10,15}$/', 'max:15'],
+            'role' => ['nullable', 'string'], 
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'phone.required' => 'Contact number is required.',
+            'phone.regex' => 'Contact number must be a valid phone number containing only numbers, spaces, hyphens, and parentheses.',
+            'name.min' => 'Company name must be at least 2 characters.',
+            'name.required' => 'Company name is required.',
         ]);
         $user = User::create([
             'name' => $request->name,
@@ -59,14 +61,17 @@ class RegisteredUserController extends Controller
     }
      public function userstore(Request $request): RedirectResponse
     {
-        
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:15'],
-            'role' => ['nullable', 'string', ], // Allow 'user' or 'admin' roles
-
+            'name' => ['required', 'string', 'min:2', 'max:255'],
+            'phone' => ['required', 'string', 'regex:/^[\+]?[0-9\s\-\(\)]{10,15}$/', 'max:15'],
+            'role' => ['nullable', 'string'], 
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'phone.required' => 'Contact number is required.',
+            'phone.regex' => 'Contact number must be a valid phone number containing only numbers, spaces, hyphens, and parentheses.',
+            'name.min' => 'Full name must be at least 2 characters.',
+            'name.required' => 'Full name is required.',
         ]);
         
 
