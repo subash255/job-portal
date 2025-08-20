@@ -71,13 +71,26 @@ class SendApplicantCV extends Mailable
      *
      * , \Illuminate\Mail\Mailables\Attachment>
      */
-    public function attachments(): array
-    {
+  public function attachments(): array
+{
+    try {
+        $path = storage_path('app/public/' . $this->applicant->resume);
+
+        if (!file_exists($path)) {
+            \Log::error("Resume file not found: " . $path);
+            return [];
+        }
+
         return [
-            // Attach the resume file
-            \Illuminate\Mail\Mailables\Attachment::fromPath(storage_path('app/public/resumes/' . $this->applicant->resume))
+            \Illuminate\Mail\Mailables\Attachment::fromPath($path)
                 ->as('resume.' . pathinfo($this->applicant->resume, PATHINFO_EXTENSION))
-                ->withMime('application/pdf'),  // or detect mime type dynamically if needed
+                ->withMime(\Illuminate\Support\Facades\File::mimeType($path)),
         ];
+    } catch (\Throwable $e) {
+        \Log::error("Attachment error: " . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+        return [];
     }
+}
+
+
 }
