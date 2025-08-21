@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendApplicantCV;
+use Illuminate\Support\Facades\Storage;
 
 class ApplicantController extends Controller
 {
@@ -49,15 +50,24 @@ class ApplicantController extends Controller
 
         // Handle resume upload if provided
        
-       $resumePath = null;
-
+      
 if ($request->hasFile('resume')) {
-    // User uploaded a new resume with this application
-    $resumePath = $request->file('resume')->store('resumes', 'public');
+    // User uploaded a new resume -> put directly into cv folder
+    $cvPath = $request->file('resume')->store('cv', 'public');
 } else {
-    // Use existing resume from authenticated user's profile (if exists)
+    // Take existing resume from user's profile (in resumes/)
     $user = Auth::user();
-    $resumePath = $user->resume ?? null;
+
+    if ($user && $user->resume && Storage::disk('public')->exists($user->resume)) {
+        // Generate a new filename for cv folder
+        $filename = basename($user->resume); // e.g. "resume.pdf"
+        $cvPath = 'cv/' . $filename;
+
+        // Copy from resumes/ to cv/
+        Storage::disk('public')->copy($user->resume, $cvPath);
+    } else {
+        $cvPath = null;
+    }
 }
 
         // Create the applicant record
@@ -72,7 +82,7 @@ if ($request->hasFile('resume')) {
         $applicant->education = $data['education'];
         $applicant->skills = $data['skills'];
         $applicant->cover_letter = $data['cover_letter'];
-        $applicant->resume = $resumePath;
+        $applicant->resume = $cvPath;
         $applicant->applied_at = now();
         $applicant->save();
 
