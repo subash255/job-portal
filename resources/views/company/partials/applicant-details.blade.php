@@ -172,27 +172,22 @@
 
     <!-- Action Buttons -->
     <div class="flex justify-end space-x-3 pt-4 border-t">
-        @if($application->status !== 'interview')
-        <form method="POST" action="{{ route('company.application.update-status', $application->id) }}" class="inline">
-            @csrf
-            <input type="hidden" name="status" value="interview">
-            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700">
-                <i class="ri-calendar-line mr-2"></i>
-                Schedule Interview
-            </button>
-        </form>
+        @if($application->status === 'applied')
+        <button type="button" 
+                onclick="closeApplicantModal(); confirmScheduleInterview({{ $application->id }}, '{{ $application->user->name ?? 'Unknown User' }}', '{{ $application->work->title }}')"
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700">
+            <i class="ri-calendar-line mr-2"></i>
+            Schedule Interview
+        </button>
         @endif
         
         @if($application->status !== 'rejected')
-        <form method="POST" action="{{ route('company.application.update-status', $application->id) }}" class="inline">
-            @csrf
-            <input type="hidden" name="status" value="rejected">
-            <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-                    onclick="return confirm('Are you sure you want to reject this application?')">
-                <i class="ri-close-line mr-2"></i>
-                Reject
-            </button>
-        </form>
+        <button type="button" 
+                onclick="closeApplicantModal(); confirmRejectApplication({{ $application->id }}, '{{ $application->user->name ?? 'Unknown User' }}', '{{ $application->work->title }}')"
+                class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+            <i class="ri-close-line mr-2"></i>
+            Reject
+        </button>
         @endif
     </div>
 </div>

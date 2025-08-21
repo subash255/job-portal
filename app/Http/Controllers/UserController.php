@@ -167,7 +167,7 @@ class UserController extends Controller
     public function withdrawApplication($id)
     {
         $application = Applicant::where('id', $id)
-            ->where('user_id', Auth::id())
+            ->where('applicant_id', Auth::id())
             ->first();
             
         if (!$application) {

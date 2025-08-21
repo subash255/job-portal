@@ -85,14 +85,12 @@
                         <a href="{{ route('company.jobs.edit', $work->id) }}" class="p-2 text-gray-400 hover:text-blue-600 transition-colors rounded-lg hover:bg-blue-50" title="Edit Job">
                             <i class="ri-edit-line"></i>
                         </a>
-                        <form action="{{ route('company.jobs.delete', $work->id) }}" method="POST" class="inline" 
-                              onsubmit="return confirm('Are you sure you want to delete this job?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="p-2 text-gray-400 hover:text-red-600 transition-colors rounded-lg hover:bg-red-50" title="Delete Job">
-                                <i class="ri-delete-bin-line"></i>
-                            </button>
-                        </form>
+                        <button type="button" 
+                                onclick="confirmDeleteJob({{ $work->id }}, '{{ $work->title }}')"
+                                class="p-2 text-gray-400 hover:text-red-600 transition-colors rounded-lg hover:bg-red-50" 
+                                title="Delete Job">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -121,3 +119,194 @@
         </div>
     @endif
 </div>
+
+<!-- Modal CSS -->
+<style>
+    .modal-hidden {
+        display: none;
+    }
+    
+    .modal-visible {
+        display: flex;
+        animation: fadeIn 0.2s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    .modal-visible .modal-content {
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from { 
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to { 
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
+
+<!-- Delete Job Confirmation Modal -->
+<div id="deleteJobModal" class="fixed inset-0 bg-black bg-opacity-50 modal-hidden items-center justify-center z-50">
+    <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+        <div class="p-6">
+            <!-- Modal Header -->
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                    <i class="ri-delete-bin-line text-red-600 text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Delete Job</h3>
+                    <p class="text-sm text-gray-500">This action cannot be undone</p>
+                </div>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="mb-6">
+                <p class="text-gray-700 mb-4">
+                    Are you sure you want to delete the job posting "<span id="jobTitle" class="font-semibold"></span>"?
+                </p>
+                
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="ri-briefcase-line text-red-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Job Posting</h4>
+                            <p class="text-sm text-gray-600">This will permanently remove the job and all applications</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <div class="flex items-start space-x-2">
+                        <i class="ri-warning-line text-yellow-600 mt-0.5"></i>
+                        <div class="text-sm text-yellow-800">
+                            <p class="font-medium">Warning:</p>
+                            <ul class="mt-1 space-y-1 text-xs">
+                                <li>• The job posting will be permanently deleted</li>
+                                <li>• All applications for this job will be removed</li>
+                                <li>• Applicants will no longer be able to view this job</li>
+                                <li>• This action cannot be reversed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Actions -->
+            <div class="flex space-x-3 justify-end">
+                <button type="button" 
+                        onclick="closeDeleteJobModal()"
+                        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium">
+                    <i class="ri-close-line mr-1"></i>
+                    Cancel
+                </button>
+                <form id="deleteJobForm" method="POST" class="inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" 
+                            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium">
+                        <i class="ri-delete-bin-line mr-1"></i>
+                        Delete Job
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentJobId = null;
+    const deleteJobBaseUrl = '{{ route("company.jobs.delete", ":id") }}';
+
+    // Job delete modal functions
+    function confirmDeleteJob(jobId, jobTitle) {
+        try {
+            currentJobId = jobId;
+            const modal = document.getElementById('deleteJobModal');
+            const jobTitleSpan = document.getElementById('jobTitle');
+            const deleteForm = document.getElementById('deleteJobForm');
+            
+            if (modal && jobTitleSpan && deleteForm) {
+                // Set job title in modal
+                jobTitleSpan.textContent = jobTitle;
+                
+                // Set form action with proper route construction
+                deleteForm.action = deleteJobBaseUrl.replace(':id', jobId);
+                
+                // Show modal
+                modal.classList.remove('modal-hidden');
+                modal.classList.add('modal-visible');
+                document.body.style.overflow = 'hidden';
+            }
+        } catch (error) {
+            console.error('Error opening delete job modal:', error);
+            // Fallback to browser confirm
+            if (confirm(`Are you sure you want to delete the job "${jobTitle}"? This action cannot be undone.`)) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = deleteJobBaseUrl.replace(':id', jobId);
+                
+                const csrfToken = document.createElement('input');
+                csrfToken.type = 'hidden';
+                csrfToken.name = '_token';
+                csrfToken.value = '{{ csrf_token() }}';
+                
+                const methodField = document.createElement('input');
+                methodField.type = 'hidden';
+                methodField.name = '_method';
+                methodField.value = 'DELETE';
+                
+                form.appendChild(csrfToken);
+                form.appendChild(methodField);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    }
+
+    function closeDeleteJobModal() {
+        try {
+            const modal = document.getElementById('deleteJobModal');
+            if (modal) {
+                modal.classList.add('modal-hidden');
+                modal.classList.remove('modal-visible');
+                document.body.style.overflow = '';
+                currentJobId = null;
+            }
+        } catch (error) {
+            console.error('Error closing delete job modal:', error);
+        }
+    }
+
+    // Event listeners for modal
+    document.addEventListener('DOMContentLoaded', function() {
+        // Close modal when clicking outside
+        const deleteJobModal = document.getElementById('deleteJobModal');
+        if (deleteJobModal) {
+            deleteJobModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeDeleteJobModal();
+                }
+            });
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('deleteJobModal');
+                if (modal && modal.classList.contains('modal-visible')) {
+                    closeDeleteJobModal();
+                }
+            }
+        });
+    });
+</script>
