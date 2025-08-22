@@ -139,10 +139,10 @@
             <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
                 <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
                     <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-                         alt="Ishika Sigdel" 
+                         alt="Elon Musk" 
                          class="w-20 h-20 rounded-full object-cover">
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Ishika Sigdel</h3>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Elon Musk</h3>
                 <p class="text-indigo-600 font-medium mb-3">Head of Operations</p>
                 <p class="text-gray-600 text-sm">Ensuring smooth operations and exceptional service delivery across all our platform features.</p>
             </div>
@@ -155,8 +155,8 @@
                          class="w-20 h-20 rounded-full object-cover">
                 </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">Subash Adhikari</h3>
-                <p class="text-indigo-600 font-medium mb-3">Head of Technology</p>
-                <p class="text-gray-600 text-sm">Driving technical innovation and maintaining the cutting-edge technology that powers our platform.</p>
+                <p class="text-indigo-600 font-medium mb-3">Managing Director</p>
+                <p class="text-gray-600 text-sm">Overseeing the company's strategic direction and ensuring alignment with our mission and values.</p>
             </div>
         </div>
     </div>

@@ -155,7 +155,7 @@
                         @if($work->user->company_size)
                         <div class="flex items-center space-x-2">
                             <i class="ri-team-line text-gray-600"></i>
-                            <span class="text-gray-600 text-sm">{{ $work->user->company_size }} employees</span>
+                            <span class="text-gray-600 text-sm">{{ $work->user->company_size }}</span>
                         </div>
                         @endif
                     </div>
