@@ -189,9 +189,9 @@
                     <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
                     <ul class="space-y-2">
                         <li><a href="{{ route('company.index') }}" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">Dashboard</a></li>
-                        <li><a href="#" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">My Jobs</a></li>
-                        <li><a href="#" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">Applications</a></li>
-                        <li><a href="#" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">Company Profile</a></li>
+                        <li><a href="{{ route('company.jobs') }}" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">My Jobs</a></li>
+                        <li><a href="{{ route('company.applications') }}" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">Applications</a></li>
+                        <li><a href="{{ route('company.profile') }}" class="text-gray-100 hover:text-yellow-300 transition-colors duration-200">Company Profile</a></li>
                     </ul>
                 </div>
 

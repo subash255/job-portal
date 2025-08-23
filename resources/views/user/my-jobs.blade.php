@@ -225,12 +225,18 @@
                             @endif
                         </div>
                         <div class="flex items-center justify-start sm:justify-end">
+                            @if($job->status === 'applied' || $job->status === 'interview')
                             <button type="button" 
                                     onclick="confirmWithdraw({{ $job->id }}, '{{ $job->work->title }}', '{{ $job->work->user->name }}')"
                                     class="inline-flex items-center px-3 py-1.5 sm:py-1 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 text-xs sm:text-sm font-medium transition-colors">
                                 <i class="ri-close-circle-line mr-1"></i>
                                 Withdraw
                             </button>
+                            @else
+                            <div class="text-xs sm:text-sm text-gray-500 italic">
+                                Application {{ $job->status === 'rejected' ? 'was rejected' : 'is finalized' }}
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
