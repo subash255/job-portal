@@ -80,6 +80,10 @@
                             <p class="text-base">Don't have an account? <a href="{{ route('register') }}"
                                     class="hover:underline font-semibold text-blue-500">Sign Up</a></p>
                         </div>
+
+                        <div class="mt-4 text-center">
+                            <a href="{{ route('password.request') }}" class="hover:underline font-semibold text-blue-500">Forgot Your Password?</a>
+                        </div>
                     </div>
                 </div>
             </div>

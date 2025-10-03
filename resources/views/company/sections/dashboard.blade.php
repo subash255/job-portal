@@ -174,17 +174,26 @@
                             <p class="text-sm text-gray-600">{{ $work->applicants->count() }} applications</p>
                         </div>
                     </div>
-                    @if($work->status == 'active')
+                    @php
+                        $isExpired = $work->end_date && \Carbon\Carbon::parse($work->end_date)->isPast();
+                        $currentStatus = $isExpired ? 'expired' : $work->status;
+                    @endphp
+                    
+                    @if ($currentStatus == 'active')
                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                            Active
+                            <i class="ri-pulse-line mr-1"></i> Active
                         </span>
-                    @elseif($work->status == 'closed')
+                    @elseif($currentStatus == 'expired')
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
+                            <i class="ri-time-line mr-1"></i> Expired
+                        </span>
+                    @elseif($currentStatus == 'closed')
                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
-                            Closed
+                            <i class="ri-close-circle-line mr-1"></i> Closed
                         </span>
                     @else
                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
-                            Draft
+                            <i class="ri-file-text-line mr-1"></i> Draft
                         </span>
                     @endif
                 </div>

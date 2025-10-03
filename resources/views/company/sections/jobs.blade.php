@@ -55,27 +55,47 @@
                     <div class="flex-1">
                         <div class="flex items-center gap-3 mb-2">
                             <h4 class="text-lg font-semibold text-gray-800">{{ $work->title }}</h4>
-                            @if ($work->status == 'active')
+                            @php
+                                $isExpired = $work->end_date && \Carbon\Carbon::parse($work->end_date)->isPast();
+                                $currentStatus = $isExpired ? 'expired' : $work->status;
+                            @endphp
+                            
+                            @if ($currentStatus == 'active')
                                 <span
                                     class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
                                     <i class="ri-pulse-line mr-1"></i> Active
                                 </span>
-                            @elseif($work->status == 'closed')
+                            @elseif($currentStatus == 'expired')
+                                <span
+                                    class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
+                                    <i class="ri-time-line mr-1"></i> Expired
+                                </span>
+                            @elseif($currentStatus == 'closed')
                                 <span
                                     class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
                                     <i class="ri-close-circle-line mr-1"></i> Closed
                                 </span>
-                            @elseif($work->status == 'draft')
+                            @elseif($currentStatus == 'draft')
                                 <span
                                     class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
-                                    <i class="ri-time-line mr-1"></i> Draft
+                                    <i class="ri-file-text-line mr-1"></i> Draft
                                 </span>
                             @endif
                         </div>
                         <div class="flex items-center gap-4 text-sm text-gray-600 mb-3">
                             <span><i class="ri-map-pin-line mr-1"></i> {{ $work->location }}</span>
                             <span><i class="ri-money-dollar-circle-line mr-1"></i> {{ $work->salary }}</span>
-                            <span><i class="ri-calendar-line mr-1"></i> {{ $work->created_at->diffForHumans() }}</span>
+                            <span><i class="ri-calendar-line mr-1"></i> Posted {{ $work->created_at->diffForHumans() }}</span>
+                            @if($work->end_date)
+                                @php
+                                    $endDate = \Carbon\Carbon::parse($work->end_date);
+                                    $isExpired = $endDate->isPast();
+                                @endphp
+                                <span class="{{ $isExpired ? 'text-red-600' : 'text-blue-600' }}">
+                                    <i class="ri-timer-line mr-1"></i>
+                                    {{ $isExpired ? 'Expired' : 'Expires' }} {{ $endDate->diffForHumans() }}
+                                </span>
+                            @endif
                         </div>
                         <p class="text-gray-600 text-sm line-clamp-2">{{ $work->description }}</p>
                     </div>

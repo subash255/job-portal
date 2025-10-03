@@ -75,33 +75,82 @@
 
                     <!-- Apply Button -->
                     <div class="mb-8">
-                        @auth
-                            @if(auth()->user()->role == 'user')
-                                @php
-                                    $hasApplied = \App\Models\Applicant::where('work_id', $work->id)
-                                        ->where('applicant_id', auth()->id())
-                                        ->exists();
-                                @endphp
-                                
-                                @if($hasApplied)
-                                    <div class="inline-flex items-center bg-green-100 text-green-800 px-6 py-3 rounded-lg font-semibold">
-                                        <i class="ri-check-circle-line mr-2"></i>
-                                        Already Applied
+                        @php
+                            $isExpired = $work->end_date && \Carbon\Carbon::parse($work->end_date)->isPast();
+                            $isJobClosed = in_array($work->status, ['closed', 'draft']);
+                            $canApply = !$isExpired && !$isJobClosed;
+                        @endphp
+
+                        @if($isExpired)
+                            <!-- Job Expired -->
+                            <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <i class="ri-time-line text-orange-600"></i>
                                     </div>
-                                    <p class="text-sm text-gray-600 mt-2">You have already applied to this position. Check your applications for status updates.</p>
+                                    <div>
+                                        <h4 class="font-semibold text-orange-800">Application Deadline Passed</h4>
+                                        <p class="text-orange-700 text-sm mt-1">
+                                            This job expired on {{ \Carbon\Carbon::parse($work->end_date)->format('F d, Y') }}
+                                            ({{ \Carbon\Carbon::parse($work->end_date)->diffForHumans() }}).
+                                        </p>
+                                        <div class="mt-3">
+                                            <a href="{{ route('job') }}" class="inline-flex items-center text-orange-600 hover:text-orange-700 font-medium text-sm">
+                                                <i class="ri-search-line mr-1"></i>Browse Other Jobs
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @elseif($isJobClosed)
+                            <!-- Job Closed -->
+                            <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <i class="ri-close-circle-line text-red-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-red-800">Job Application Closed</h4>
+                                        <p class="text-red-700 text-sm mt-1">
+                                            This job is currently {{ $work->status }} and not accepting applications.
+                                        </p>
+                                        <div class="mt-3">
+                                            <a href="{{ route('job') }}" class="inline-flex items-center text-red-600 hover:text-red-700 font-medium text-sm">
+                                                <i class="ri-search-line mr-1"></i>Browse Other Jobs
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            @auth
+                                @if(auth()->user()->role == 'user')
+                                    @php
+                                        $hasApplied = \App\Models\Applicant::where('work_id', $work->id)
+                                            ->where('applicant_id', auth()->id())
+                                            ->exists();
+                                    @endphp
+                                    
+                                    @if($hasApplied)
+                                        <div class="inline-flex items-center bg-green-100 text-green-800 px-6 py-3 rounded-lg font-semibold">
+                                            <i class="ri-check-circle-line mr-2"></i>
+                                            Already Applied
+                                        </div>
+                                        <p class="text-sm text-gray-600 mt-2">You have already applied to this position. Check your applications for status updates.</p>
+                                    @else
+                                        <a href="{{ route('work.apply.form', $work->id) }}" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                                            <i class="ri-send-plane-line mr-2"></i>Apply Now
+                                        </a>
+                                    @endif
                                 @else
-                                    <a href="{{ route('work.apply.form', $work->id) }}" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
-                                        <i class="ri-send-plane-line mr-2"></i>Apply Now
-                                    </a>
+                                    <p class="text-gray-500 italic">Only job seekers can apply for positions.</p>
                                 @endif
                             @else
-                                <p class="text-gray-500 italic">Only job seekers can apply for positions.</p>
-                            @endif
-                        @else
-                            <a href="{{ route('login') }}" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
-                                <i class="ri-login-circle-line mr-2"></i>Login to Apply
-                            </a>
-                        @endauth
+                                <a href="{{ route('login') }}" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                                    <i class="ri-login-circle-line mr-2"></i>Login to Apply
+                                </a>
+                            @endauth
+                        @endif
                     </div>
 
                     <!-- Job Description -->
