@@ -110,7 +110,7 @@
                                 <span class="font-medium">Dashboard</span>
                             </a>
 
-                            <a href="{{ route('company.jobs') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 {{ request()->routeIs('company.jobs') ? 'bg-indigo-50 text-indigo-600 border-r-2 border-indigo-600' : '' }}">
+                            <a href="{{ route('company.jobs') }}" class="flex items-center gap-3 px-4 py-3 text-gray-700 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200 {{ request()->routeIs('company.jobs*') ? 'bg-indigo-50 text-indigo-600 border-r-2 border-indigo-600' : '' }}">
                                 <i class="ri-briefcase-line text-lg"></i>
                                 <span class="font-medium">Jobs</span>
                             </a>

@@ -153,12 +153,241 @@
                         @endif
                     </div>
 
-                    <!-- Job Description -->
-                    <div class="border-t pt-6">
-                        <h3 class="text-xl font-bold text-gray-800 mb-4">Job Description</h3>
-                        <div class="text-gray-700 leading-relaxed">
-                            {{ $work->description }}
-                        </div>
+                    <!-- Job Details Sections -->
+                    <div class="border-t pt-6 space-y-8">
+                        
+                        @php
+                            // Check if we have structured data or just description
+                            $hasStructuredData = $work->responsibility || $work->expected_requirement || $work->benefits;
+                        @endphp
+
+                        @if($hasStructuredData)
+                            <!-- Structured Job Information -->
+                            
+                            <!-- Job Description -->
+                            @if($work->description)
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                    <i class="ri-file-text-line text-blue-600 mr-2"></i>
+                                    Job Description
+                                </h3>
+                                <div class="text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-lg">
+                                    {!! nl2br(e($work->description)) !!}
+                                </div>
+                            </div>
+                            @endif
+
+                            <!-- Responsibilities -->
+                            @if($work->responsibility)
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                    <i class="ri-task-line text-green-600 mr-2"></i>
+                                    Responsibilities
+                                </h3>
+                                <div class="text-gray-700 leading-relaxed bg-green-50 p-4 rounded-lg">
+                                    @php
+                                        $responsibilities = explode("\n", $work->responsibility);
+                                        $hasBullets = false;
+                                        
+                                        foreach($responsibilities as $line) {
+                                            $trimmed = trim($line);
+                                            
+                                            if($trimmed && (
+                                                substr($trimmed, 0, 1) === '•' || 
+                                                substr($trimmed, 0, 1) === '-' || 
+                                                substr($trimmed, 0, 1) === '*' ||
+                                                substr($trimmed, 0, 2) === '• ' ||
+                                                substr($trimmed, 0, 2) === '- ' ||
+                                                substr($trimmed, 0, 2) === '* ' ||
+                                                preg_match('/^[\s]*[•\-\*]\s*/', $trimmed)
+                                            )) {
+                                                $hasBullets = true;
+                                                break;
+                                            }
+                                        }
+                                        
+                                        // Force bullet display for multi-line content
+                                        if (!$hasBullets && count(array_filter($responsibilities, function($line) { return trim($line) != ''; })) > 1) {
+                                            $hasBullets = true;
+                                        }
+                                    @endphp
+                                    
+                                    @if($hasBullets)
+                                        <ul class="list-none space-y-2">
+                                            @foreach($responsibilities as $responsibility)
+                                                @php
+                                                    $trimmed = trim($responsibility);
+                                                    // Clean the text by removing bullet characters and extra spaces
+                                                    $cleanText = preg_replace('/^[\s]*[•\-\*]\s*/', '', $trimmed);
+                                                    $cleanText = trim($cleanText);
+                                                @endphp
+                                                @if($cleanText)
+                                                    <li class="flex items-start">
+                                                        <span class="text-green-600 mr-3 mt-1 flex-shrink-0">•</span>
+                                                        <span class="flex-1">{{ $cleanText }}</span>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        {!! nl2br(e($work->responsibility)) !!}
+                                    @endif
+                                </div>
+                            </div>
+                            @endif
+
+                            <!-- Requirements -->
+                            @if($work->expected_requirement)
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                    <i class="ri-checkbox-multiple-line text-purple-600 mr-2"></i>
+                                    Requirements
+                                </h3>
+                                <div class="text-gray-700 leading-relaxed bg-purple-50 p-4 rounded-lg">
+                                    @php
+                                        $requirements = explode("\n", $work->expected_requirement);
+                                        $hasBullets = false;
+                                        
+                                        foreach($requirements as $line) {
+                                            $trimmed = trim($line);
+                                            if($trimmed && (
+                                                substr($trimmed, 0, 1) === '•' || 
+                                                substr($trimmed, 0, 1) === '-' || 
+                                                substr($trimmed, 0, 1) === '*' ||
+                                                substr($trimmed, 0, 2) === '• ' ||
+                                                substr($trimmed, 0, 2) === '- ' ||
+                                                substr($trimmed, 0, 2) === '* ' ||
+                                                preg_match('/^[\s]*[•\-\*]\s*/', $trimmed)
+                                            )) {
+                                                $hasBullets = true;
+                                                break;
+                                            }
+                                        }
+                                        
+                                        // Force bullet display for multi-line content
+                                        if (!$hasBullets && count(array_filter($requirements, function($line) { return trim($line) != ''; })) > 1) {
+                                            $hasBullets = true;
+                                        }
+                                    @endphp
+                                    
+                                    @if($hasBullets)
+                                        <ul class="list-none space-y-2">
+                                            @foreach($requirements as $requirement)
+                                                @php
+                                                    $trimmed = trim($requirement);
+                                                    $cleanText = preg_replace('/^[\s]*[•\-\*]\s*/', '', $trimmed);
+                                                    $cleanText = trim($cleanText);
+                                                @endphp
+                                                @if($cleanText)
+                                                    <li class="flex items-start">
+                                                        <span class="text-purple-600 mr-3 mt-1 flex-shrink-0">•</span>
+                                                        <span class="flex-1">{{ $cleanText }}</span>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        {!! nl2br(e($work->expected_requirement)) !!}
+                                    @endif
+                                </div>
+                            </div>
+                            @endif
+
+                            <!-- Benefits -->
+                            @if($work->benefits)
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                    <i class="ri-gift-line text-orange-600 mr-2"></i>
+                                    Benefits & Perks
+                                </h3>
+                                <div class="text-gray-700 leading-relaxed bg-orange-50 p-4 rounded-lg">
+                                    @php
+                                        $benefits = explode("\n", $work->benefits);
+                                        $hasBullets = false;
+                                        
+                                        foreach($benefits as $line) {
+                                            $trimmed = trim($line);
+                                            if($trimmed && (
+                                                substr($trimmed, 0, 1) === '•' || 
+                                                substr($trimmed, 0, 1) === '-' || 
+                                                substr($trimmed, 0, 1) === '*' ||
+                                                substr($trimmed, 0, 2) === '• ' ||
+                                                substr($trimmed, 0, 2) === '- ' ||
+                                                substr($trimmed, 0, 2) === '* ' ||
+                                                preg_match('/^[\s]*[•\-\*]\s*/', $trimmed)
+                                            )) {
+                                                $hasBullets = true;
+                                                break;
+                                            }
+                                        }
+                                        
+                                        // Force bullet display for multi-line content
+                                        if (!$hasBullets && count(array_filter($benefits, function($line) { return trim($line) != ''; })) > 1) {
+                                            $hasBullets = true;
+                                        }
+                                    @endphp
+                                    
+                                    @if($hasBullets)
+                                        <ul class="list-none space-y-2">
+                                            @foreach($benefits as $benefit)
+                                                @php
+                                                    $trimmed = trim($benefit);
+                                                    $cleanText = preg_replace('/^[\s]*[•\-\*]\s*/', '', $trimmed);
+                                                    $cleanText = trim($cleanText);
+                                                @endphp
+                                                @if($cleanText)
+                                                    <li class="flex items-start">
+                                                        <span class="text-orange-600 mr-3 mt-1 flex-shrink-0">•</span>
+                                                        <span class="flex-1">{{ $cleanText }}</span>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        {!! nl2br(e($work->benefits)) !!}
+                                    @endif
+                                </div>
+                            </div>
+                            @endif
+
+                        @else
+                            <!-- Fallback for jobs with only description -->
+                            @if($work->description)
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                    <i class="ri-file-text-line text-blue-600 mr-2"></i>
+                                    Job Information
+                                </h3>
+                                <div class="text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-lg">
+                                    {!! nl2br(e($work->description)) !!}
+                                </div>
+                                
+                                <!-- Encourage updating the job post -->
+                                @auth
+                                    @if(auth()->user()->id === $work->user_id)
+                                    <div class="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                        <div class="flex items-start space-x-3">
+                                            <i class="ri-information-line text-blue-600 mt-0.5"></i>
+                                            <div>
+                                                <h4 class="font-medium text-blue-800">Improve Your Job Posting</h4>
+                                                <p class="text-blue-700 text-sm mt-1">
+                                                    Add separate sections for responsibilities, requirements, and benefits to make your job posting more attractive.
+                                                </p>
+                                                <a href="{{ route('company.jobs.edit', $work->id) }}" 
+                                                   class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm mt-2">
+                                                    <i class="ri-edit-line mr-1"></i>Edit Job Posting
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                @endauth
+                            </div>
+                            @endif
+                        @endif
+
+                      
+
                     </div>
 
                     

@@ -64,7 +64,7 @@ class CompanyController extends Controller
 
     public function jobs()
     {
-        $works = Work::where('user_id', Auth::id())->with('category')->get();
+        $works = Work::where('user_id', Auth::id())->with('category')->orderBy('created_at', 'desc')->get();
         // Logic to display company jobs
         return view('company.index',compact('works') ,['section' => 'jobs']);
     }
@@ -101,7 +101,6 @@ class CompanyController extends Controller
     }
 
     public function store(Request $request)
-
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -113,6 +112,9 @@ class CompanyController extends Controller
             'end_date' => 'required|date|after:today',
             'status' => 'required|in:active,closed',
             'description' => 'required|string',
+            'responsibility' => 'nullable|string',
+            'expected_requirement' => 'nullable|string',
+            'benefits' => 'nullable|string',
         ]);
 
         Work::create([
@@ -126,7 +128,9 @@ class CompanyController extends Controller
             'end_date' => $request->end_date,
             'status' => $request->status,
             'description' => $request->description,
-            
+            'responsibility' => $request->responsibility,
+            'expected_requirement' => $request->expected_requirement,
+            'benefits' => $request->benefits,
         ]);
 
         return redirect()->route('company.index')->with('success', 'Job posted successfully!');
@@ -198,6 +202,9 @@ public function edit($id)
             'end_date' => 'required|date|after:today',
             'status' => 'required|in:active,closed',
             'description' => 'required|string',
+            'responsibility' => 'nullable|string',
+            'expected_requirement' => 'nullable|string',
+            'benefits' => 'nullable|string',
         ]);
 
         $work->update([
@@ -210,6 +217,9 @@ public function edit($id)
             'end_date' => $request->end_date,
             'status' => $request->status,
             'description' => $request->description,
+            'responsibility' => $request->responsibility,
+            'expected_requirement' => $request->expected_requirement,
+            'benefits' => $request->benefits,
         ]);
 
         return redirect()->route('company.jobs')->with('success', 'Job updated successfully!');

@@ -80,10 +80,10 @@
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" 
                             required>
                         <option value="">Select job type</option>
-                        <option value="Full-time" {{ old('type', $work->type) == 'Full-time' ? 'selected' : '' }}>Full-time</option>
-                        <option value="Part-time" {{ old('type', $work->type) == 'Part-time' ? 'selected' : '' }}>Part-time</option>
-                        <option value="Contract" {{ old('type', $work->type) == 'Contract' ? 'selected' : '' }}>Contract</option>
-                        <option value="Internship" {{ old('type', $work->type) == 'Internship' ? 'selected' : '' }}>Internship</option>
+                        <option value="full-time" {{ old('type', $work->type) == 'full-time' ? 'selected' : '' }}>Full-time</option>
+                        <option value="part-time" {{ old('type', $work->type) == 'part-time' ? 'selected' : '' }}>Part-time</option>
+                        <option value="contract" {{ old('type', $work->type) == 'contract' ? 'selected' : '' }}>Contract</option>
+                        <option value="internship" {{ old('type', $work->type) == 'internship' ? 'selected' : '' }}>Internship</option>
                     </select>
                     @error('type')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -125,15 +125,57 @@
                 </div>
             </div>
 
-            <div class="mb-6">
-                <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Job Description</label>
-                <textarea id="description" name="description" rows="6" 
-                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" 
-                          placeholder="Describe the job responsibilities, requirements, and qualifications..." 
-                          required>{{ old('description', $work->description) }}</textarea>
-                @error('description')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
+            <!-- Job Content Sections -->
+            <div class="space-y-6">
+                <div>
+                    <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="ri-file-text-line mr-2"></i>Job Overview & Description
+                    </label>
+                    <textarea id="description" name="description" rows="4" 
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" 
+                              placeholder="Provide an overview of the job position, company culture, and what makes this role exciting..."
+                              required>{{ old('description', $work->description) }}</textarea>
+                    <p class="text-sm text-gray-500 mt-1">Give candidates an engaging introduction to the role and your company</p>
+                    @error('description')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label for="responsibility" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="ri-clipboard-line mr-2"></i>Key Responsibilities
+                    </label>
+                    <textarea id="responsibility" name="responsibility" rows="4" 
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">{{ old('responsibility', $work->responsibility) }}</textarea>
+                    <p class="text-sm text-gray-500 mt-1">List the main duties and responsibilities (use bullet points for clarity)</p>
+                    @error('responsibility')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label for="expected_requirement" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="ri-checkbox-line mr-2"></i>Requirements & Qualifications
+                    </label>
+                    <textarea id="expected_requirement" name="expected_requirement" rows="4" 
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">{{ old('expected_requirement', $work->expected_requirement) }}</textarea>
+                    <p class="text-sm text-gray-500 mt-1">Specify the required skills, experience, and qualifications</p>
+                    @error('expected_requirement')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label for="benefits" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class="ri-gift-line mr-2"></i>Benefits & Perks
+                    </label>
+                    <textarea id="benefits" name="benefits" rows="4" 
+                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">{{ old('benefits', $work->benefits) }}</textarea>
+                    <p class="text-sm text-gray-500 mt-1">Highlight what makes your company a great place to work</p>
+                    @error('benefits')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
 
             <div class="flex items-center justify-end space-x-4">

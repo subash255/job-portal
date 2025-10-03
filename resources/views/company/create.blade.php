@@ -90,8 +90,32 @@
             <!-- Job Description (full width) -->
             <div class="mt-6">
                 <label for="description" class="block text-gray-700 font-semibold mb-1">Job Description</label>
-                <textarea id="description" name="description" rows="5" placeholder="Describe the job responsibilities..."
+                <textarea id="description" name="description" rows="4" placeholder="Provide a brief overview of the job..."
                     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+            </div>
+
+            <!-- Job Responsibilities -->
+            <div class="mt-6">
+                <label for="responsibility" class="block text-gray-700 font-semibold mb-1">Responsibilities</label>
+                <textarea id="responsibility" name="responsibility" rows="5" 
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+                <p class="text-sm text-gray-500 mt-1">List the main duties and responsibilities for this position</p>
+            </div>
+
+            <!-- Requirements -->
+            <div class="mt-6">
+                <label for="expected_requirement" class="block text-gray-700 font-semibold mb-1">Requirements</label>
+                <textarea id="expected_requirement" name="expected_requirement" rows="5"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+                <p class="text-sm text-gray-500 mt-1">Specify the qualifications and skills required for this role</p>
+            </div>
+
+            <!-- Benefits -->
+            <div class="mt-6">
+                <label for="benefits" class="block text-gray-700 font-semibold mb-1">Benefits</label>
+                <textarea id="benefits" name="benefits" rows="4"
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+                <p class="text-sm text-gray-500 mt-1">Highlight the benefits and perks offered to employees</p>
             </div>
 
             <!-- Submit Button -->
