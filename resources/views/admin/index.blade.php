@@ -99,6 +99,50 @@
                         </div>
                         <span class="text-xl font-bold text-purple-600">+{{ $weeklyEmployers }}</span>
                     </div>
+
+                    @php
+                        $weeklyVisitors = \App\Models\Visitor::where('visit_date', '>=', now()->subWeek())->count();
+                    @endphp
+                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center mr-3">
+                                <i class="ri-eye-line text-white"></i>
+                            </div>
+                            <span class="text-sm font-medium text-gray-700">Visitors</span>
+                        </div>
+                        <span class="text-xl font-bold text-indigo-600">+{{ $weeklyVisitors }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visitor Analytics Section -->
+        <div class="mb-8">
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Website Visitor Analytics</h3>
+                        <p class="text-gray-600">Track your website traffic over the last 30 days</p>
+                    </div>
+                    <div class="grid grid-cols-2 lg:grid-cols-3 gap-6 mt-4 lg:mt-0">
+                        <div class="text-center">
+                            <p class="text-3xl font-bold text-indigo-600">{{ number_format($totalVisitors) }}</p>
+                            <p class="text-sm text-gray-500 font-medium">Total Visits</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-3xl font-bold text-teal-600">{{ number_format($todayVisitors) }}</p>
+                            <p class="text-sm text-gray-500 font-medium">Today's Visits</p>
+                        </div>
+                        <div class="text-center">
+                            @php $avgDaily = $totalVisitors > 0 ? round($totalVisitors / 30, 1) : 0; @endphp
+                            <p class="text-3xl font-bold text-green-600">{{ $avgDaily }}</p>
+                            <p class="text-sm text-gray-500 font-medium">Daily Average</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full" style="height: 400px;">
+                    <canvas id="visitorChart"></canvas>
                 </div>
             </div>
         </div>
@@ -212,6 +256,109 @@
                     padding: {
                         top: 10,
                         bottom: 10
+                    }
+                }
+            }
+        });
+
+        // Visitor Traffic Chart
+        @php
+            $visitorLabels = [];
+            $visitorData = [];
+            
+            // Create a lookup array for faster searching
+            $visitorLookup = [];
+            foreach ($visitsLast30Days as $visit) {
+                // Handle the datetime format properly
+                if (is_string($visit->visit_date)) {
+                    $dateStr = \Carbon\Carbon::parse($visit->visit_date)->format('Y-m-d');
+                } else {
+                    $dateStr = $visit->visit_date->format('Y-m-d');
+                }
+                $visitorLookup[$dateStr] = $visit->visits;
+            }
+            
+            // Generate last 30 days data
+            for ($i = 29; $i >= 0; $i--) {
+                $date = now()->subDays($i);
+                $dateStr = $date->format('Y-m-d');
+                $visitorLabels[] = $date->format('M d');
+                $visitorData[] = $visitorLookup[$dateStr] ?? 0;
+            }
+        @endphp
+
+        var visitorCtx = document.getElementById('visitorChart').getContext('2d');
+        var visitorChart = new Chart(visitorCtx, {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($visitorLabels) !!},
+                datasets: [{
+                    label: 'Daily Visitors',
+                    data: {!! json_encode($visitorData) !!},
+                    borderColor: 'rgba(99, 102, 241, 1)',
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: 'rgba(99, 102, 241, 1)',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            },
+                            color: '#6B7280'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            font: {
+                                size: 11
+                            },
+                            color: '#6B7280',
+                            maxTicksLimit: 15
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleFont: {
+                            size: 12,
+                            weight: 'bold'
+                        },
+                        bodyFont: {
+                            size: 11
+                        },
+                        callbacks: {
+                            label: function(context) {
+                                return 'Visitors: ' + context.parsed.y;
+                            }
+                        }
+                    }
+                },
+                elements: {
+                    point: {
+                        hoverBackgroundColor: 'rgba(99, 102, 241, 1)'
                     }
                 }
             }

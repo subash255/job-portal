@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Work;
 use App\Models\Applicant;
 use App\Models\Category;
+use App\Models\Visitor;
 
 class AdminController extends Controller
 {
@@ -25,6 +26,13 @@ class AdminController extends Controller
         
         // Recent applications (last 7 days)
         $recentApplications = Applicant::where('created_at', '>=', now()->subDays(7))->count();
+        
+        // Visitor statistics
+        $totalVisitors = Visitor::getTotalVisits();
+        $totalUniqueVisitors = Visitor::getTotalUniqueVisitors();
+        $todayVisitors = Visitor::getTodayVisits();
+        $todayUniqueVisitors = Visitor::getTodayUniqueVisitors();
+        $visitsLast30Days = Visitor::getVisitsLast30Days();
         
         // Get recent jobs for activity feed
         $recentJobs = Work::with('user')
@@ -48,6 +56,11 @@ class AdminController extends Controller
             'totalApplications',
             'totalCategories',
             'recentApplications',
+            'totalVisitors',
+            'totalUniqueVisitors',
+            'todayVisitors',
+            'todayUniqueVisitors',
+            'visitsLast30Days',
             'recentJobs',
             'recentApplicationsList'
         ), [

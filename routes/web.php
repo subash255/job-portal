@@ -13,9 +13,10 @@ use Illuminate\Contracts\Queue\Job;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', [HomepageController::class, 'index'])->name('welcome');
+Route::get('/', [HomepageController::class, 'index'])->name('welcome')->middleware('track.visitor');
 Route::get('/about',[HomepageController::class, 'about'])->name('about');
 Route::get('/contact',[HomepageController::class, 'contact'])->name('contact');
+
 Route::get('/searchjob',[HomepageController::class, 'job'])->name('job');
 Route::get('/job/{id}', [HomepageController::class, 'jobDetail'])->name('job.detail');
 Route::post('/apply/{work}', [ApplicantController::class, 'store'])->name('work.apply');
