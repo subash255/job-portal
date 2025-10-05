@@ -5,7 +5,8 @@
     <!-- Stats Cards Section -->
     <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-3 mx-4 z-20 rounded-lg">
         <!-- Total Jobs Card -->
-        <div class="bg-white p-6 text-left hover:shadow-2xl flex flex-row items-center justify-between w-full h-20 rounded-lg transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg z-[5]">
+        <div
+            class="bg-white p-6 text-left hover:shadow-2xl flex flex-row items-center justify-between w-full h-20 rounded-lg transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg z-[5]">
             <div>
                 <h2 class="text-gray-700 font-medium">Total Jobs</h2>
                 <p class="text-gray-700 font-medium">{{ $totalJobs }}</p>
@@ -16,7 +17,8 @@
         </div>
 
         <!-- Total Applications Card -->
-        <div class="bg-white p-6 rounded-lg text-left hover:shadow-2xl transition-shadow duration-300 flex flex-row items-center justify-between w-full h-20 transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg">
+        <div
+            class="bg-white p-6 rounded-lg text-left hover:shadow-2xl transition-shadow duration-300 flex flex-row items-center justify-between w-full h-20 transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg">
             <div>
                 <h2 class="text-gray-700 font-medium mb-2">Total Applications</h2>
                 <p class="text-gray-700 font-medium">{{ $totalApplications }}</p>
@@ -27,7 +29,8 @@
         </div>
 
         <!-- Total Employers Card -->
-        <div class="bg-white p-6 rounded-lg text-left hover:shadow-2xl transition-shadow duration-300 flex flex-row items-center justify-between w-full h-20 transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg">
+        <div
+            class="bg-white p-6 rounded-lg text-left hover:shadow-2xl transition-shadow duration-300 flex flex-row items-center justify-between w-full h-20 transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg">
             <div>
                 <h2 class="text-gray-700 font-medium mb-2">Total Employers</h2>
                 <p class="text-gray-700 font-medium">{{ $totalEmployers }}</p>
@@ -38,7 +41,8 @@
         </div>
 
         <!-- Total Job Seekers Card -->
-        <div class="bg-white p-6 rounded-lg text-left hover:shadow-2xl transition-shadow duration-300 flex flex-row items-center justify-between w-full h-20 transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg">
+        <div
+            class="bg-white p-6 rounded-lg text-left hover:shadow-2xl transition-shadow duration-300 flex flex-row items-center justify-between w-full h-20 transform sm:-translate-y-8 lg:-translate-y-12 shadow-lg">
             <div>
                 <h2 class="text-gray-700 font-medium mb-2">Job Seekers</h2>
                 <p class="text-gray-700 font-medium">{{ $totalJobSeekers }}</p>
@@ -66,11 +70,18 @@
                 <div class="space-y-4">
                     @php
                         $weeklyJobs = \App\Models\Work::where('created_at', '>=', now()->subWeek())->count();
-                        $weeklyApplications = \App\Models\Applicant::where('created_at', '>=', now()->subWeek())->count();
-                        $weeklyEmployers = \App\Models\User::where('role', 'company')->where('created_at', '>=', now()->subWeek())->count();
+                        $weeklyApplications = \App\Models\Applicant::where(
+                            'created_at',
+                            '>=',
+                            now()->subWeek(),
+                        )->count();
+                        $weeklyEmployers = \App\Models\User::where('role', 'company')
+                            ->where('created_at', '>=', now()->subWeek())
+                            ->count();
                     @endphp
-                    
-                    <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+
+                    <div
+                        class="flex items-center justify-between p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
                         <div class="flex items-center">
                             <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-3">
                                 <i class="ri-briefcase-line text-white"></i>
@@ -79,8 +90,9 @@
                         </div>
                         <span class="text-xl font-bold text-blue-600">+{{ $weeklyJobs }}</span>
                     </div>
-                    
-                    <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+
+                    <div
+                        class="flex items-center justify-between p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
                         <div class="flex items-center">
                             <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mr-3">
                                 <i class="ri-file-text-line text-white"></i>
@@ -89,8 +101,9 @@
                         </div>
                         <span class="text-xl font-bold text-green-600">+{{ $weeklyApplications }}</span>
                     </div>
-                    
-                    <div class="flex items-center justify-between p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+
+                    <div
+                        class="flex items-center justify-between p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
                         <div class="flex items-center">
                             <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center mr-3">
                                 <i class="ri-building-line text-white"></i>
@@ -103,7 +116,8 @@
                     @php
                         $weeklyVisitors = \App\Models\Visitor::where('visit_date', '>=', now()->subWeek())->count();
                     @endphp
-                    <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors">
+                    <div
+                        class="flex items-center justify-between p-4 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors">
                         <div class="flex items-center">
                             <div class="w-10 h-10 bg-indigo-500 rounded-full flex items-center justify-center mr-3">
                                 <i class="ri-eye-line text-white"></i>
@@ -140,7 +154,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="w-full" style="height: 400px;">
                     <canvas id="visitorChart"></canvas>
                 </div>
@@ -151,10 +165,15 @@
     <script>
         // Category Pie Chart
         @php
-            $allCategories = \App\Models\Category::withCount(['works' => function($query) {
-                $query->where('status', 'active');
-            }])->having('works_count', '>', 0)->orderBy('works_count', 'desc')->get();
-            
+            $allCategories = \App\Models\Category::withCount([
+                'works' => function ($query) {
+                    $query->where('status', 'active');
+                },
+            ])
+                ->having('works_count', '>', 0)
+                ->orderBy('works_count', 'desc')
+                ->get();
+
             $categoryLabels = $allCategories->pluck('name')->toArray();
             $categoryData = $allCategories->pluck('works_count')->toArray();
         @endphp
@@ -168,18 +187,18 @@
                     label: 'Jobs by Category',
                     data: {!! json_encode($categoryData) !!},
                     backgroundColor: [
-                        'rgba(59, 130, 246, 0.8)',   // Blue
-                        'rgba(16, 185, 129, 0.8)',   // Green
-                        'rgba(139, 69, 199, 0.8)',   // Purple
-                        'rgba(245, 158, 11, 0.8)',   // Orange
-                        'rgba(239, 68, 68, 0.8)',    // Red
-                        'rgba(236, 72, 153, 0.8)',   // Pink
-                        'rgba(14, 165, 233, 0.8)',   // Light Blue
-                        'rgba(168, 85, 247, 0.8)',   // Violet
-                        'rgba(34, 197, 94, 0.8)',    // Emerald
-                        'rgba(251, 146, 60, 0.8)',   // Amber
-                        'rgba(99, 102, 241, 0.8)',   // Indigo
-                        'rgba(244, 63, 94, 0.8)',    // Rose
+                        'rgba(59, 130, 246, 0.8)', // Blue
+                        'rgba(16, 185, 129, 0.8)', // Green
+                        'rgba(139, 69, 199, 0.8)', // Purple
+                        'rgba(245, 158, 11, 0.8)', // Orange
+                        'rgba(239, 68, 68, 0.8)', // Red
+                        'rgba(236, 72, 153, 0.8)', // Pink
+                        'rgba(14, 165, 233, 0.8)', // Light Blue
+                        'rgba(168, 85, 247, 0.8)', // Violet
+                        'rgba(34, 197, 94, 0.8)', // Emerald
+                        'rgba(251, 146, 60, 0.8)', // Amber
+                        'rgba(99, 102, 241, 0.8)', // Indigo
+                        'rgba(244, 63, 94, 0.8)', // Rose
                     ],
                     borderColor: [
                         'rgba(59, 130, 246, 1)',
@@ -219,7 +238,8 @@
                                     return data.labels.map((label, i) => {
                                         const value = data.datasets[0].data[i];
                                         const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
-                                        const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                                        const percentage = total > 0 ? Math.round((value / total) *
+                                            100) : 0;
                                         return {
                                             text: `${label} (${percentage}%)`,
                                             fillStyle: data.datasets[0].backgroundColor[i],
@@ -247,7 +267,8 @@
                                     return a + b;
                                 }, 0);
                                 var percentage = Math.round((tooltipItem.raw / total) * 100);
-                                return tooltipItem.label + ': ' + tooltipItem.raw + ' jobs (' + percentage + '%)';
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' jobs (' + percentage +
+                                    '%)';
                             }
                         }
                     }
@@ -265,7 +286,7 @@
         @php
             $visitorLabels = [];
             $visitorData = [];
-            
+
             // Create a lookup array for faster searching
             $visitorLookup = [];
             foreach ($visitsLast30Days as $visit) {
@@ -277,7 +298,7 @@
                 }
                 $visitorLookup[$dateStr] = $visit->visits;
             }
-            
+
             // Generate last 30 days data
             for ($i = 29; $i >= 0; $i--) {
                 $date = now()->subDays($i);
@@ -364,5 +385,4 @@
             }
         });
     </script>
-
 @endsection
