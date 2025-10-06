@@ -124,7 +124,7 @@ class WorkController extends Controller
         $work->delete();
 
         // Redirect to the works index page with a success message
-        return redirect()->route('works.index')->with('success', 'Work deleted successfully.');
+        return redirect()->route('admin.jobs.index')->with('success', 'Job deleted successfully.');
     }
     public function changeStatus($id)
     {

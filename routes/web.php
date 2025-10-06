@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkController;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', [HomepageController::class, 'index'])->name('welcome')->middleware('track.visitor');
@@ -25,6 +26,8 @@ Route::get('/apply/{work}', [ApplicantController::class, 'create'])->name('work.
 
 Route::get('/google/auth', [GoogleController::class, 'redirectToGoogle'])->name('google.auth');
 Route::get('/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/interview/form', [GoogleController::class, 'showForm'])->name('interview.form');
@@ -69,7 +72,7 @@ Route::get('/jobs',[WorkController::class,'index'])->name('admin.jobs.index');
    
     Route::get('/admin/jobs/edit/{id}', [WorkController::class, 'edit'])->name('admin.works.edit');
     Route::post('/admin/jobs/update/{id}', [WorkController::class, 'update'])->name('admin.works.update');
-    Route::get('/admin/jobs/delete/{id}', [WorkController::class, 'destroy'])->name('admin.works.delete');
+    Route::delete('/admin/jobs/delete/{id}', [WorkController::class, 'destroy'])->name('admin.works.delete');
     Route::post('/admin/jobs/toggle-featured/{id}', [AdminController::class, 'toggleFeatured'])->name('admin.jobs.toggle-featured');
 
 });

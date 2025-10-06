@@ -27,21 +27,21 @@
                     @endif
 
                     <div class="flex justify-center gap-4 mb-6 border-b border-gray-200">
-                        <button id="companyBtn"
-                            class="tab-btn active border-b-4 border-blue-600 text-blue-600 font-semibold px-6 py-2 text-lg focus:outline-none transition-all duration-200">
-                            For Employers
-                        </button>
                         <button id="userBtn"
-                            class="tab-btn border-b-4 border-transparent text-gray-600 font-semibold px-6 py-2 text-lg hover:text-blue-600 focus:outline-none transition-all duration-200">
+                            class="tab-btn active border-b-4 border-blue-600 text-blue-600 font-semibold px-6 py-2 text-lg focus:outline-none transition-all duration-200">
                             For Job Seekers
+                        </button>
+                        <button id="companyBtn"
+                            class="tab-btn border-b-4 border-transparent text-gray-600 font-semibold px-6 py-2 text-lg hover:text-blue-600 focus:outline-none transition-all duration-200">
+                            For Employers
                         </button>
                     </div>
 
-                    <!-- Company Form -->
-                    <form id="companyForm" action="{{route('register.companystore')}}" method="POST" class="space-y-4">
+                    <!-- User Form (Job Seekers) -->
+                    <form id="userForm" action="{{route('register.userstore')}}" method="POST" class="space-y-4">
                         @csrf
                         <div>
-                            <label class="block text-gray-700" id="cname">Company Name</label>
+                            <label class="block text-gray-700" id="uname">Full Name</label>
                             <input type="text" name="name" value="{{ old('name') }}"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }}" />
                             @error('name')
@@ -52,7 +52,7 @@
                             @enderror
                         </div>
                         <div>
-                            <label class="block text-gray-700" id="cemail">Email Address</label>
+                            <label class="block text-gray-700" id="uemail">Email Address</label>
                             <input type="email" name="email" value="{{ old('email') }}"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }}" />
                             @error('email')
@@ -63,7 +63,7 @@
                             @enderror
                         </div>
                         <div>
-                            <label class="block text-gray-700" id="cnumber">Contact Number</label>
+                            <label class="block text-gray-700" id="unumber">Contact Number</label>
                             <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="e.g., +1234567890 or 123-456-7890"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 {{ $errors->has('phone') ? 'border-red-500' : 'border-gray-300' }}" />
                             @error('phone')
@@ -77,9 +77,9 @@
                         <div>
                             <label class="block text-gray-700">Password</label>
                             <div class="relative">
-                                <input type="password" id="password" name="password"
+                                <input type="password" id="user-password" name="password"
                                     class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10 {{ $errors->has('password') ? 'border-red-500' : 'border-gray-300' }}" />
-                                <button type="button" onclick="togglePassword('password', this)"
+                                <button type="button" onclick="togglePassword('user-password', this)"
                                     class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600">
                                     <i class="ri-eye-fill"></i>
                                 </button>
@@ -96,9 +96,9 @@
                         <div class="mt-4">
                             <label class="block text-gray-700">Confirm Password</label>
                             <div class="relative">
-                                <input type="password" id="confirm-password" name="password_confirmation"
-                                    class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10 {{ $errors->has('password_confirmation') ? 'border-red-500' : 'border-gray-300' }}" />
-                                <button type="button" onclick="togglePassword('confirm-password', this)"
+                                <input type="password" id="user-confirm-password" name="password_confirmation"
+                                    class="w-full border px-4 py-2 rounded-lg focus:outline-one focus:ring-2 focus:ring-blue-500 pr-10 {{ $errors->has('password_confirmation') ? 'border-red-500' : 'border-gray-300' }}" />
+                                <button type="button" onclick="togglePassword('user-confirm-password', this)"
                                     class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600">
                                     <i class="ri-eye-fill"></i>
                                 </button>
@@ -110,12 +110,12 @@
                                 </p>
                             @enderror
                         </div>
-                        <input type="hidden" name="role" value="company">
+                        <input type="hidden" name="role" value="user">
 
                         <!-- Terms and Conditions -->
                         <div class="flex items-start space-x-2">
-                            <input type="checkbox"  class="mt-1">
-                            <label for="terms" class="text-gray-700 text-sm">
+                            <input type="checkbox" id="user-terms" class="mt-1">
+                            <label for="user-terms" class="text-gray-700 text-sm">
                                 I agree to the <a href="#" class="text-blue-600 hover:underline">Terms and
                                     Conditions</a> and <a href="#" class="text-blue-600 hover:underline">Privacy
                                     Policy</a>.
@@ -126,11 +126,11 @@
                             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Register</button>
                     </form>
 
-                    <!-- User Form -->
-                    <form id="userForm" action="{{route('register.userstore')}}" method="POST" class="space-y-4 hidden">
+                    <!-- Company Form (Employers) -->
+                    <form id="companyForm" action="{{route('register.companystore')}}" method="POST" class="space-y-4 hidden">
                         @csrf
                         <div>
-                            <label class="block text-gray-700" id="uname">Full Name</label>
+                            <label class="block text-gray-700" id="cname">Company Name</label>
                             <input type="text" name="name" value="{{ old('name') }}"
                                 class="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }}" />
                             @error('name')
@@ -199,11 +199,11 @@
                             @enderror
                         </div>
 
-                        <input type="hidden" name="role" value="user">
+                        <input type="hidden" name="role" value="company">
 
                         <!-- Terms and Conditions -->
                         <div class="flex items-start space-x-2">
-                            <input type="checkbox" id="terms" class="mt-1">
+                            <input type="checkbox" id="company-terms" class="mt-1">
                             <label for="terms" class="text-gray-700 text-sm">
                                 I agree to the <a href="#" class="text-blue-600 hover:underline">Terms and
                                     Conditions</a> and <a href="#" class="text-blue-600 hover:underline">Privacy
