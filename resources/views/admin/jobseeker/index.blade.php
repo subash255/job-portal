@@ -43,11 +43,11 @@
                         <td class="border px-4 py-2">{{ $jobseeker->phone }}</td>
                         <td class="border px-4 py-2">{{ $jobseeker->skills }}</td>
                         <td class="border px-4 py-2">{{ $jobseeker->experience }} yrs</td>
-                        <td class="px-2 py-2 flex justify-center space-x-2 border">
+                        <td class="border px-4 py-2 text-center">
                             <button type="button"
                                 onclick="openDeleteModal({{ $jobseeker->id }})"
-                                class="bg-red-500 hover:bg-red-700 p-2 w-8 h-8 rounded-full flex items-center justify-center">
-                                <i class="ri-delete-bin-line text-white"></i>
+                                class="bg-red-500 hover:bg-red-700 text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 mx-auto">
+                                <i class="ri-delete-bin-line"></i>
                             </button>
                         </td>
                     </tr>

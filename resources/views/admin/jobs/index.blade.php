@@ -30,7 +30,6 @@
                     <th class="border px-4 py-2">Category</th>
                     <th class="border px-4 py-2">Company</th>
                     <th class="border px-4 py-2">Location</th>
-                    <th class="border px-4 py-2">Type</th>
                     <th class="border px-4 py-2">Status</th>
                     <th class="border px-4 py-2">Featured</th>
                     <th class="border px-4 py-2">Actions</th>
@@ -49,27 +48,25 @@
                             @endif
                         <td class="border px-4 py-2">{{ $work->user->name }}</td>
                         <td class="border px-4 py-2">{{ $work->location }}</td>
-                        <td class="border px-4 py-2">{{ ucfirst($work->type) }}</td>
                         <td class="border px-4 py-2">
-                            <span class="inline-block px-2 py-1 text-xs rounded-full
-                                {{ $work->status == 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                {{ ucfirst($work->status) }}
+                            <span class="inline-block px-2 py-1 text-xs rounded-full {{ $work->getStatusColorClass() }}">
+                                {{ ucfirst($work->getDisplayStatus()) }}
                             </span>
                         </td>
                         <td class="border px-4 py-2 text-center">
                             <form action="{{ route('admin.jobs.toggle-featured', $work->id) }}" method="POST" style="display: inline;">
                                 @csrf
                                 <button type="submit" class="px-3 py-1 text-xs rounded-full transition-colors
-                                    {{ $work->featured ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                                    {{ $work->featured ? 'bg-green-200 font-semibold text-green-700 hover:bg-green-300' : 'bg-gray-200 font-medium text-gray-700 hover:bg-gray-300' }}">
                                     {{ $work->featured ? 'Featured' : 'Not Featured' }}
                                 </button>
                             </form>
                         </td>
-                        <td class="px-2 py-2 flex justify-center space-x-2 border">
+                        <td class="border px-4 py-2 text-center">
                             <button type="button"
                                 onclick="openDeleteModal({{ $work->id }})"
-                                class="bg-red-500 hover:bg-red-700 p-2 w-8 h-8 rounded-full flex items-center justify-center">
-                                <i class="ri-delete-bin-line text-white"></i>
+                                class="bg-red-500 hover:bg-red-700 text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 mx-auto">
+                                <i class="ri-delete-bin-line text-sm"></i>
                             </button>
                         </td>
                     </tr>
