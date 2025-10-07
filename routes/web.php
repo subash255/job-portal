@@ -20,8 +20,12 @@ Route::get('/contact',[HomepageController::class, 'contact'])->name('contact');
 
 Route::get('/searchjob',[HomepageController::class, 'job'])->name('job');
 Route::get('/job/{id}', [HomepageController::class, 'jobDetail'])->name('job.detail');
-Route::post('/apply/{work}', [ApplicantController::class, 'store'])->name('work.apply');
-Route::get('/apply/{work}', [ApplicantController::class, 'create'])->name('work.apply.form');
+
+// Job application routes require authentication and email verification
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/apply/{work}', [ApplicantController::class, 'store'])->name('work.apply');
+    Route::get('/apply/{work}', [ApplicantController::class, 'create'])->name('work.apply.form');
+});
 
 
 Route::get('/google/auth', [GoogleController::class, 'redirectToGoogle'])->name('google.auth');
@@ -29,7 +33,7 @@ Route::get('/google/callback', [GoogleController::class, 'handleGoogleCallback']
 
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/interview/form', [GoogleController::class, 'showForm'])->name('interview.form');
     Route::post('/interview/schedule', [GoogleController::class, 'scheduleInterview'])->name('interview.schedule');
     Route::get('/interviews', [GoogleController::class, 'listInterviews'])->name('interviews.list');
@@ -112,7 +116,7 @@ Route::middleware('role:company')->group(function () {
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

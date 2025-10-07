@@ -17,6 +17,11 @@ class roleMiddleware
             return redirect('/')->with('error', 'Please login to access this page.');
         }
 
+        // Check if email is verified
+        if (is_null(Auth::user()->email_verified_at)) {
+            return redirect()->route('verification.notice')->with('warning', 'Please verify your email address to continue.');
+        }
+
         $userRole = Auth::user()->role;
 
         if (in_array($userRole, $roles)) {
