@@ -72,9 +72,7 @@
                 <div class="space-y-6">
                     <div class="flex items-start space-x-4">
                         <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v.5M8 6V4m0 2v.5m0 0V21l4-3 4 3V6.5"/>
-                            </svg>
+                            <i class="ri-briefcase-line w-6 h-6 text-indigo-600 flex items-center justify-center" style="font-size: 24px;"></i>
                         </div>
                         <div>
                             <h3 class="text-xl font-semibold text-gray-800 mb-2">Job Matching</h3>
@@ -84,9 +82,7 @@
                     
                     <div class="flex items-start space-x-4">
                         <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                            </svg>
+                            <i class="ri-group-line w-6 h-6 text-indigo-600 flex items-center justify-center" style="font-size: 24px;"></i>
                         </div>
                         <div>
                             <h3 class="text-xl font-semibold text-gray-800 mb-2">Employer Services</h3>
@@ -96,9 +92,7 @@
                     
                     <div class="flex items-start space-x-4">
                         <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
+                            <i class="ri-user-star-line w-6 h-6 text-indigo-600 flex items-center justify-center" style="font-size: 24px;"></i>
                         </div>
                         <div>
                             <h3 class="text-xl font-semibold text-gray-800 mb-2">Career Guidance</h3>
@@ -113,50 +107,152 @@
 
 
 <!-- Team Section -->
-<section class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Meet Our Team</h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Our dedicated team of professionals working to make your job search and hiring experience exceptional
+<section class="py-10 bg-gradient-to-br from-gray-50 to-blue-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Meet Our Leadership Team</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Visionary leaders driving innovation and excellence in Nepal's job market, 
+                committed to connecting talent with opportunity.
             </p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Team Member 1 -->
-            <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
-                <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-                         alt="Sohan Kafle" 
-                         class="w-20 h-20 rounded-full object-cover">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <!-- Team Member 1 - Sohan Kafle -->
+            <div class="group h-full">
+                <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col">
+                    <!-- Background Pattern -->
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full -translate-y-20 translate-x-20 opacity-50"></div>
+                    <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full translate-y-16 -translate-x-16 opacity-30"></div>
+                    
+                    <div class="relative p-10 flex-1 flex flex-col">
+                        <!-- Profile Image -->
+                        <div class="relative mx-auto mb-8 w-fit">
+                            <div class="w-32 h-32 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 p-1">
+                                <img src="https://sohankafle.com.np/image/sohann.jpg" 
+                                     alt="Sohan Kafle" 
+                                     class="w-full h-full rounded-full object-cover">
+                            </div>
+                            <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
+                                <i class="ri-verified-badge-fill text-white" style="font-size: 20px;"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="text-center flex-1 flex flex-col">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Sohan Kafle</h3>
+                            <div class="flex justify-center mb-6">
+                                <div class="inline-flex items-center px-2 py-1 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full">
+                                    <i class="ri-code-line text-indigo-600 mr-1" style="font-size: 12px;"></i>
+                                    <span class="text-indigo-700 font-semibold text-xs">Full-Stack Developer</span>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-gray-600 leading-relaxed mb-6 min-h-[4rem]">
+                                    Experienced full-stack developer with expertise in modern web technologies. 
+                                    Passionate about creating scalable applications and innovative solutions for job portal platforms.
+                                </p>
+                            </div>
+                            
+                            <!-- Skills/Expertise -->
+                            <div class="flex flex-wrap gap-2 justify-center mb-6">
+                                <span class="px-3 py-1 bg-indigo-100 text-indigo-600 text-xs rounded-full font-medium">JavaScript</span>
+                                <span class="px-3 py-1 bg-purple-100 text-purple-600 text-xs rounded-full font-medium">React</span>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 text-xs rounded-full font-medium">Laravel</span>
+                                <span class="px-3 py-1 bg-green-100 text-green-600 text-xs rounded-full font-medium">PHP</span>
+                            </div>
+                            
+                            <!-- Social Links -->
+                            <div class="flex justify-center space-x-3">
+                                <!-- Facebook -->
+                                <a href="#" class="w-10 h-10 bg-gray-100 hover:bg-blue-100 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <i class="ri-facebook-fill text-gray-600 hover:text-blue-600" style="font-size: 20px;"></i>
+                                </a>
+                                <!-- LinkedIn -->
+                                <a href="#" class="w-10 h-10 bg-gray-100 hover:bg-blue-100 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <i class="ri-linkedin-fill text-gray-600 hover:text-blue-600" style="font-size: 20px;"></i>
+                                </a>
+                                <!-- Website -->
+                                <a href="https://sohankafle.com.np" class="w-10 h-10 bg-gray-100 hover:bg-green-100 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <i class="ri-global-line text-gray-600 hover:text-green-600" style="font-size: 20px;"></i>
+                                </a>
+                                <!-- GitHub -->
+                                <a href="#" class="w-10 h-10 bg-gray-100 hover:bg-gray-800 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <i class="ri-github-fill text-gray-600 hover:text-gray-800" style="font-size: 20px;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Sohan Kafle</h3>
-                <p class="text-indigo-600 font-medium mb-3">CEO & Founder</p>
-                <p class="text-gray-600 text-sm">Leading the company with over 15 years of experience in recruitment and technology innovation.</p>
             </div>
             
-            <!-- Team Member 2 -->
-            <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
-                <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-                         alt="Elon Musk" 
-                         class="w-20 h-20 rounded-full object-cover">
+            <!-- Team Member 2 - Subash Adhikari -->
+            <div class="group h-full">
+                <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col">
+                    <!-- Background Pattern -->
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-purple-100 to-blue-100 rounded-full -translate-y-20 translate-x-20 opacity-50"></div>
+                    <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full translate-y-16 -translate-x-16 opacity-30"></div>
+                    
+                    <div class="relative p-10 flex-1 flex flex-col">
+                        <!-- Profile Image -->
+                        <div class="relative mx-auto mb-8 w-fit">
+                            <div class="w-32 h-32 rounded-full bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 p-1">
+                                <img src="https://adhikarisubash.info.np/image/subash.jpg" 
+                                     alt="Subash Adhikari" 
+                                     class="w-full h-full rounded-full object-cover">
+                            </div>
+                            <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                                <i class="ri-verified-badge-fill text-white" style="font-size: 20px;"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="text-center flex-1 flex flex-col">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-2">Subash Adhikari</h3>
+                            <div class="flex justify-center mb-6">
+                                <div class="inline-flex items-center px-2 py-1 bg-gradient-to-r from-purple-100 to-blue-100 rounded-full">
+                                    <i class="ri-code-line text-purple-600 mr-1" style="font-size: 12px;"></i>
+                                    <span class="text-purple-700 font-semibold text-xs">Full-Stack Developer</span>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-gray-600 leading-relaxed mb-6 min-h-[4rem]">
+                                    Skilled full-stack developer specializing in modern web frameworks and cloud technologies. 
+                                    Expert in building robust backend systems and intuitive user interfaces for complex applications.
+                                </p>
+                            </div>
+                            
+                            <!-- Skills/Expertise -->
+                            <div class="flex flex-wrap gap-2 justify-center mb-6">
+                                <span class="px-3 py-1 bg-purple-100 text-purple-600 text-xs rounded-full font-medium">Laravel</span>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-600 text-xs rounded-full font-medium">PHP</span>
+                                <span class="px-3 py-1 bg-indigo-100 text-indigo-600 text-xs rounded-full font-medium">MySQL</span>
+                                <span class="px-3 py-1 bg-green-100 text-green-600 text-xs rounded-full font-medium">AWS</span>
+                            </div>
+                            
+                            <!-- Social Links -->
+                            <div class="flex justify-center space-x-3">
+                                <!-- Facebook -->
+                                <a href="#" class="w-10 h-10 bg-gray-100 hover:bg-blue-100 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <i class="ri-facebook-fill text-gray-600 hover:text-blue-600" style="font-size: 20px;"></i>
+                                </a>
+                                <!-- LinkedIn -->
+                                <a href="#" class="w-10 h-10 bg-gray-100 hover:bg-blue-100 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <i class="ri-linkedin-fill text-gray-600 hover:text-blue-600" style="font-size: 20px;"></i>
+                                </a>
+                                <!-- Website -->
+                                <a href="https://adhikarisubash.info.np" class="w-10 h-10 bg-gray-100 hover:bg-green-100 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <i class="ri-global-line text-gray-600 hover:text-green-600" style="font-size: 20px;"></i>
+                                </a>
+                                <!-- GitHub -->
+                                <a href="#" class="w-10 h-10 bg-gray-100 hover:bg-gray-800 rounded-full flex items-center justify-center transition-colors duration-200">
+                                    <i class="ri-github-fill text-gray-600 hover:text-gray-800" style="font-size: 20px;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Elon Musk</h3>
-                <p class="text-indigo-600 font-medium mb-3">Head of Operations</p>
-                <p class="text-gray-600 text-sm">Ensuring smooth operations and exceptional service delivery across all our platform features.</p>
-            </div>
-            
-            <!-- Team Member 3 -->
-            <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow duration-300">
-                <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" 
-                         alt="Subash Adhikari" 
-                         class="w-20 h-20 rounded-full object-cover">
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Subash Adhikari</h3>
-                <p class="text-indigo-600 font-medium mb-3">Managing Director</p>
-                <p class="text-gray-600 text-sm">Overseeing the company's strategic direction and ensuring alignment with our mission and values.</p>
             </div>
         </div>
     </div>

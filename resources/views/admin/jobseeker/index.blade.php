@@ -42,7 +42,7 @@
                         <td class="border px-4 py-2">{{ $jobseeker->email }}</td>
                         <td class="border px-4 py-2">{{ $jobseeker->phone }}</td>
                         <td class="border px-4 py-2">{{ $jobseeker->skills }}</td>
-                        <td class="border px-4 py-2">{{ $jobseeker->experience }} yrs</td>
+                        <td class="border px-4 py-2">{{ $jobseeker->experience }} </td>
                         <td class="border px-4 py-2 text-center">
                             <button type="button"
                                 onclick="openDeleteModal({{ $jobseeker->id }})"
