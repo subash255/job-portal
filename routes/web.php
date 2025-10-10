@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', [HomepageController::class, 'index'])->name('welcome')->middleware('track.visitor');
-Route::get('/about',[HomepageController::class, 'about'])->name('about');
-Route::get('/contact',[HomepageController::class, 'contact'])->name('contact');
+Route::get('/about', [HomepageController::class, 'about'])->name('about');
+Route::get('/contact', [HomepageController::class, 'contact'])->name('contact');
 
-Route::get('/searchjob',[HomepageController::class, 'job'])->name('job');
+Route::get('/searchjob', [HomepageController::class, 'job'])->name('job');
 Route::get('/job/{id}', [HomepageController::class, 'jobDetail'])->name('job.detail');
 
 // Job application routes require authentication and email verification
@@ -63,22 +63,21 @@ Route::middleware('role:admin')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-// Category Routes
-Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
-Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
-Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
-Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
-Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
-Route::post('/category/status-toggle/{categoryId}', [CategoryController::class, 'updateToggle'])->name('category.status-toggle');
+    // Category Routes
+    Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::get('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+    Route::post('/category/status-toggle/{categoryId}', [CategoryController::class, 'updateToggle'])->name('category.status-toggle');
 
-Route::get('/jobs',[WorkController::class,'index'])->name('admin.jobs.index');
-   
+    Route::get('/jobs', [WorkController::class, 'index'])->name('admin.jobs.index');
+
     Route::get('/admin/jobs/edit/{id}', [WorkController::class, 'edit'])->name('admin.works.edit');
     Route::post('/admin/jobs/update/{id}', [WorkController::class, 'update'])->name('admin.works.update');
     Route::delete('/admin/jobs/delete/{id}', [WorkController::class, 'destroy'])->name('admin.works.delete');
     Route::post('/admin/jobs/toggle-featured/{id}', [AdminController::class, 'toggleFeatured'])->name('admin.jobs.toggle-featured');
-
 });
 
 Route::middleware('role:user')->group(function () {
@@ -93,7 +92,6 @@ Route::middleware('role:user')->group(function () {
     Route::post('/user/change-password', [UserController::class, 'changePassword'])->name('user.change-password');
     Route::post('/user/update-notification-settings', [UserController::class, 'updateNotificationSettings'])->name('user.update-notification-settings');
     Route::post('/user/update-privacy-settings', [UserController::class, 'updatePrivacySettings'])->name('user.update-privacy-settings');
-    
 });
 
 Route::middleware('role:company')->group(function () {
@@ -122,4 +120,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
