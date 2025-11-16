@@ -77,7 +77,7 @@ class UserController extends Controller
 {
     $user = Auth::user();
 
-    $query = Applicant::with('work') // eager load related work data
+    $query = Applicant::with(['work', 'interview']) // eager load related work data and interview
         ->where('applicant_id', $user->id); // fetch only current user's jobs
 
     // Search filter on related Work model
