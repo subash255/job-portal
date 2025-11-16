@@ -30,16 +30,9 @@
         .job-card {
             padding: 1rem !important;
         }
-        .job-details {
+        .job-card > div {
             flex-direction: column;
             align-items: flex-start !important;
-        }
-        .job-meta {
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        .job-meta span {
-            font-size: 0.75rem;
         }
         .search-filters {
             flex-direction: column;
@@ -106,6 +99,7 @@
                         <option value="applied" {{ request('status') == 'applied' ? 'selected' : '' }}>Applied</option>
                         <option value="under_review" {{ request('status') == 'under_review' ? 'selected' : '' }}>Under Review</option>
                         <option value="interview" {{ request('status') == 'interview' ? 'selected' : '' }}>Interview</option>
+                        <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
                         <option value="hired" {{ request('status') == 'hired' ? 'selected' : '' }}>Hired</option>
                         <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
                     </select>
@@ -166,6 +160,7 @@
                                         'applied' => 'bg-blue-100 text-blue-800',
                                         'under_review' => 'bg-yellow-100 text-yellow-800',
                                         'interview' => 'bg-purple-100 text-purple-800',
+                                        'approved' => 'bg-green-100 text-green-800',
                                         'hired' => 'bg-green-100 text-green-800',
                                         'rejected' => 'bg-red-100 text-red-800',
                                     ];
@@ -173,6 +168,7 @@
                                         'applied' => 'ri-send-plane-line',
                                         'under_review' => 'ri-time-line',
                                         'interview' => 'ri-user-voice-line',
+                                        'approved' => 'ri-checkbox-circle-line',
                                         'hired' => 'ri-check-circle-line',
                                         'rejected' => 'ri-close-circle-line',
                                     ];
@@ -192,65 +188,44 @@
                 </div>
             </div>
                 
-                <!-- Application Status & Actions -->
-                <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
-                            <div class="text-xs sm:text-sm text-gray-600">
-                                <span class="font-medium">Status:</span>
-                                @php
-                                    $statusColors = [
-                                        'applied' => 'bg-blue-100 text-blue-800',
-                                        'under_review' => 'bg-yellow-100 text-yellow-800',
-                                        'interview' => 'bg-purple-100 text-purple-800',
-                                        'hired' => 'bg-green-100 text-green-800',
-                                        'rejected' => 'bg-red-100 text-red-800',
-                                    ];
-                                    $currentStatus = $job->status ?? 'applied';
-                                    $statusClass = $statusColors[$currentStatus] ?? 'bg-gray-100 text-gray-800';
-                                @endphp
-                                <span class="ml-1 px-2 py-1 rounded text-xs {{ $statusClass }}">
-                                    {{ ucfirst(str_replace('_', ' ', $currentStatus)) }}
-                                </span>
-                            </div>
-                            <div class="text-xs sm:text-sm text-gray-600">
-                                <span class="font-medium">Applied:</span>
-                                <span class="ml-1">{{ ($job->applied_at ?? $job->created_at)->format('M d, Y') }}</span>
-                            </div>
-                            @if($job->work->end_date)
-                            <div class="text-xs sm:text-sm text-gray-600">
-                                <span class="font-medium">Deadline:</span>
-                                <span class="ml-1">{{ $job->work->end_date->format('M d, Y') }}</span>
-                            </div>
-                            @endif
+            <!-- Application Status & Actions -->
+            <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
+                        <div class="text-xs sm:text-sm text-gray-600">
+                            <span class="font-medium">Applied:</span>
+                            <span class="ml-1">{{ ($job->applied_at ?? $job->created_at)->format('M d, Y') }}</span>
                         </div>
-                        <div class="flex items-center gap-2 justify-start sm:justify-end">
-                            <button type="button" 
-                                    onclick="viewApplicationDetails({{ $job->id }})"
-                                    class="inline-flex items-center px-3 py-1.5 sm:py-1 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 text-xs sm:text-sm font-medium transition-colors">
-                                <i class="ri-eye-line mr-1"></i>
-                                View Details
-                            </button>
-                            @if($job->status === 'applied' || $job->status === 'interview')
-                            <button type="button" 
-                                    onclick="confirmWithdraw({{ $job->id }}, '{{ $job->work->title }}', '{{ $job->work->user->name }}')"
-                                    class="inline-flex items-center px-3 py-1.5 sm:py-1 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 text-xs sm:text-sm font-medium transition-colors">
-                                <i class="ri-close-circle-line mr-1"></i>
-                                Withdraw
-                            </button>
-                            @else
-                            <div class="text-xs sm:text-sm text-gray-500 italic">
-                                Application {{ $job->status === 'rejected' ? 'was rejected' : 'is finalized' }}
-                            </div>
-                            @endif
+                        @if($job->work->end_date)
+                        <div class="text-xs sm:text-sm text-gray-600">
+                            <span class="font-medium">Deadline:</span>
+                            <span class="ml-1">{{ $job->work->end_date->format('M d, Y') }}</span>
                         </div>
+                        @endif
+                    </div>
+                    <div class="flex items-center gap-2 justify-start sm:justify-end">
+                        <button type="button" 
+                                onclick="viewApplicationDetails({{ $job->id }})"
+                                class="inline-flex items-center px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-xs sm:text-sm font-medium transition-colors">
+                            <i class="ri-eye-line mr-1"></i>
+                            View Details
+                        </button>
+                        @if($job->status === 'applied' || $job->status === 'interview')
+                        <button type="button" 
+                                onclick="confirmWithdraw({{ $job->id }}, '{{ $job->work->title }}', '{{ $job->work->user->name }}')"
+                                class="inline-flex items-center px-3 py-1.5 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 text-xs sm:text-sm font-medium transition-colors">
+                            <i class="ri-close-circle-line mr-1"></i>
+                            Withdraw
+                        </button>
+                        @endif
                     </div>
                 </div>
+            </div>
                 
-                <!-- Hidden data for modal (JSON) -->
-                <div class="hidden" id="job-data-{{ $job->id }}" 
-                     data-job-title="{{ $job->work->title }}"
-                     data-company-name="{{ $job->work->user->name }}"
+            <!-- Hidden data for modal (JSON) -->
+            <div class="hidden" id="job-data-{{ $job->id }}" 
+                 data-job-title="{{ $job->work->title }}"
+                 data-company-name="{{ $job->work->user->name }}"
                      data-company-email="{{ $job->work->user->email ?? 'N/A' }}"
                      data-location="{{ $job->work->location }}"
                      data-salary="{{ $job->work->salary ?: 'Negotiable' }}"
@@ -273,10 +248,9 @@
                      data-portfolio="{{ $job->portfolio_url ?? '' }}"
                      data-expected-salary="{{ $job->expected_salary ?? 'N/A' }}"
                      data-availability="{{ $job->availability_date ? \Carbon\Carbon::parse($job->availability_date)->format('M d, Y') : 'N/A' }}"
-                     data-interview-type="{{ $job->interview && $job->interview->meet_link ? 'online' : 'walk-in' }}"
-                     data-interview-link="{{ $job->interview && $job->interview->meet_link ? $job->interview->meet_link : '' }}"
-                     data-interview-date="{{ $job->interview && $job->interview->scheduled_at ? \Carbon\Carbon::parse($job->interview->scheduled_at)->format('M d, Y h:i A') : '' }}">
-                </div>
+                 data-interview-type="{{ $job->interview && $job->interview->meet_link ? 'online' : 'walk-in' }}"
+                 data-interview-link="{{ $job->interview && $job->interview->meet_link ? $job->interview->meet_link : '' }}"
+                 data-interview-date="{{ $job->interview && $job->interview->scheduled_at ? \Carbon\Carbon::parse($job->interview->scheduled_at)->format('M d, Y h:i A') : '' }}">
             </div>
         </div>
         @empty

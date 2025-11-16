@@ -70,18 +70,18 @@
         @foreach ($applications as $application)
         <!-- Application Item -->
         <div class="p-6 hover:bg-gray-50 transition-colors duration-200">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+            <div class="flex flex-col lg:flex-row lg:items-center gap-4">
+                <div class="flex items-center space-x-4 flex-1">
+                    <div class="w-12 h-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0">
                         {{ strtoupper(substr($application->user->name ?? 'U', 0, 1)) }}{{ strtoupper(substr(explode(' ', $application->user->name ?? 'User')[1] ?? '', 0, 1)) }}
                     </div>
-                    <div>
+                    <div class="flex-1 min-w-0">
                         <h4 class="font-semibold text-gray-800">{{ $application->user->name ?? 'Unknown User' }}</h4>
                         <p class="text-sm text-gray-600">Applied for {{ $application->work->title }}</p>
-                        <div class="flex items-center gap-4 mt-1">
+                        <div class="flex items-center gap-4 mt-1 flex-wrap">
                             <span class="text-xs text-gray-500">{{ $application->created_at->diffForHumans() }}</span>
                             <span class="text-xs text-gray-500">•</span>
-                            <span class="text-xs text-gray-500">{{ $application->user->email ?? 'No email' }}</span>
+                            <span class="text-xs text-gray-500 truncate">{{ $application->user->email ?? 'No email' }}</span>
                             @if($application->phone)
                                 <span class="text-xs text-gray-500">•</span>
                                 <span class="text-xs text-gray-500">{{ $application->phone }}</span>
@@ -89,11 +89,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
+                <div class="flex items-center gap-3 lg:flex-shrink-0">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap
                         @if($application->status == 'applied') bg-blue-100 text-blue-700
                         @elseif($application->status == 'interview') bg-purple-100 text-purple-700
                         @elseif($application->status == 'rejected') bg-red-100 text-red-700
+                        @elseif($application->status == 'approved') bg-green-100 text-green-700
                         @else bg-gray-100 text-gray-700 @endif">
                         {{ ucfirst($application->status ?? 'Applied') }}
                     </span>
@@ -109,7 +110,7 @@
                             <i class="ri-calendar-line"></i>
                         </button>
                         @endif
-                        @if($application->status !== 'rejected')
+                        @if($application->status !== 'rejected' && $application->status !== 'approved')
                         <button type="button" 
                                 onclick="confirmRejectApplication({{ $application->id }}, '{{ $application->user->name ?? 'Unknown User' }}', '{{ $application->work->title }}')"
                                 class="p-2 text-gray-400 hover:text-red-600 transition-colors rounded-lg hover:bg-red-50" 
@@ -317,6 +318,71 @@ function closeRejectApplicationModal() {
     }
 }
 
+// Approve application modal functions
+let currentApproveApplicationId = null;
+const approveApplicationBaseUrl = '{{ route("company.application.update-status", ":id") }}';
+
+function confirmApproveApplication(applicationId, applicantName, jobTitle) {
+    try {
+        currentApproveApplicationId = applicationId;
+        const modal = document.getElementById('approveApplicationModal');
+        const applicantNameSpan = document.getElementById('approveApplicantName');
+        const jobTitleSpan = document.getElementById('approveJobTitle');
+        const approveForm = document.getElementById('approveApplicationForm');
+        
+        if (modal && applicantNameSpan && jobTitleSpan && approveForm) {
+            // Set applicant details in modal
+            applicantNameSpan.textContent = applicantName;
+            jobTitleSpan.textContent = jobTitle;
+            
+            // Set form action
+            approveForm.action = approveApplicationBaseUrl.replace(':id', applicationId);
+            
+            // Show modal
+            modal.classList.remove('modal-hidden');
+            modal.classList.add('modal-visible');
+            document.body.style.overflow = 'hidden';
+        }
+    } catch (error) {
+        console.error('Error opening approve application modal:', error);
+        // Fallback to browser confirm
+        if (confirm(`Are you sure you want to approve ${applicantName} for ${jobTitle}?`)) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = approveApplicationBaseUrl.replace(':id', applicationId);
+            
+            const csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = '{{ csrf_token() }}';
+            
+            const statusField = document.createElement('input');
+            statusField.type = 'hidden';
+            statusField.name = 'status';
+            statusField.value = 'approved';
+            
+            form.appendChild(csrfToken);
+            form.appendChild(statusField);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+}
+
+function closeApproveApplicationModal() {
+    try {
+        const modal = document.getElementById('approveApplicationModal');
+        if (modal) {
+            modal.classList.add('modal-hidden');
+            modal.classList.remove('modal-visible');
+            document.body.style.overflow = '';
+            currentApproveApplicationId = null;
+        }
+    } catch (error) {
+        console.error('Error closing approve application modal:', error);
+    }
+}
+
 // Event listeners for reject modal
 document.addEventListener('DOMContentLoaded', function() {
     // Close reject modal when clicking outside
@@ -339,11 +405,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Close approve modal when clicking outside
+    const approveApplicationModal = document.getElementById('approveApplicationModal');
+    if (approveApplicationModal) {
+        approveApplicationModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeApproveApplicationModal();
+            }
+        });
+    }
+
     // Close modals with Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             const rejectModal = document.getElementById('rejectApplicationModal');
             const interviewModal = document.getElementById('scheduleInterviewModal');
+            const approveModal = document.getElementById('approveApplicationModal');
             
             if (rejectModal && rejectModal.classList.contains('modal-visible')) {
                 closeRejectApplicationModal();
@@ -351,9 +428,31 @@ document.addEventListener('DOMContentLoaded', function() {
             if (interviewModal && interviewModal.classList.contains('modal-visible')) {
                 closeScheduleInterviewModal();
             }
+            if (approveModal && approveModal.classList.contains('modal-visible')) {
+                closeApproveApplicationModal();
+            }
         }
     });
 });
+
+// Copy to clipboard function
+function copyToClipboard(text, button) {
+    navigator.clipboard.writeText(text).then(() => {
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="ri-check-line mr-1"></i>Copied!';
+        button.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+        button.classList.add('bg-green-100', 'text-green-700');
+        
+        setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.classList.remove('bg-green-100', 'text-green-700');
+            button.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Failed to copy to clipboard');
+    });
+}
 </script>
 
 <!-- Modal CSS -->
@@ -604,6 +703,77 @@ document.addEventListener('DOMContentLoaded', function() {
                             class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium">
                         <i class="ri-close-circle-line mr-1"></i>
                         Reject Application
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Approve Application Confirmation Modal -->
+<div id="approveApplicationModal" class="fixed inset-0 bg-black bg-opacity-50 modal-hidden items-center justify-center z-50">
+    <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+        <div class="p-6">
+            <!-- Modal Header -->
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                    <i class="ri-check-double-line text-green-600 text-2xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Approve Applicant</h3>
+                    <p class="text-sm text-gray-500">Confirm hiring decision</p>
+                </div>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="mb-6">
+                <p class="text-gray-700 mb-4">
+                    Are you sure you want to approve <span id="approveApplicantName" class="font-semibold"></span> for "<span id="approveJobTitle" class="font-semibold"></span>"?
+                </p>
+                
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="ri-check-double-line text-green-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Congratulations!</h4>
+                            <p class="text-sm text-gray-600">The applicant will be notified of their selection</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="flex items-start space-x-2">
+                        <i class="ri-information-line text-blue-600 mt-0.5"></i>
+                        <div class="text-sm text-blue-800">
+                            <p class="font-medium">What happens when you approve:</p>
+                            <ul class="mt-1 space-y-1 text-xs">
+                                <li>• The application status will be changed to "Approved"</li>
+                                <li>• The applicant will receive a congratulatory notification</li>
+                                <li>• Other applicants for this position will see it's filled</li>
+                                <li>• You can proceed with onboarding process</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Actions -->
+            <div class="flex space-x-3 justify-end">
+                <button type="button" 
+                        onclick="closeApproveApplicationModal()"
+                        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium">
+                    <i class="ri-arrow-left-line mr-1"></i>
+                    Cancel
+                </button>
+                <form id="approveApplicationForm" method="POST" class="inline">
+                    @csrf
+                    <input type="hidden" name="status" value="approved">
+                    <button type="submit" 
+                            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
+                        <i class="ri-check-circle-line mr-1"></i>
+                        Approve Applicant
                     </button>
                 </form>
             </div>

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\Category;
+use App\Models\Interview;
 use App\Models\User;
 use App\Models\Work;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
@@ -241,7 +243,7 @@ public function edit($id)
     public function updateApplicationStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:applied,interview,rejected'
+            'status' => 'required|in:applied,interview,rejected,approved'
         ]);
         
         $application = Applicant::with('work')
@@ -253,11 +255,38 @@ public function edit($id)
         $application->update([
             'status' => $request->status
         ]);
+
+        // If scheduling an interview, create Interview record
+        if ($request->status === 'interview' && $request->has('interview_date') && $request->has('interview_time')) {
+            // Combine date and time
+            $scheduledAt = $request->interview_date . ' ' . $request->interview_time;
+            
+            // Generate meet link if online interview
+            $meetLink = null;
+            if ($request->interview_type === 'online') {
+                // Generate a simple meet link (in production, integrate with Google Calendar API)
+                $meetLink = 'https://meet.google.com/' . strtolower(substr(md5(uniqid()), 0, 10));
+            }
+            
+            // Create or update interview record
+            $interview = Interview::updateOrCreate(
+                [
+                    'user_id' => $application->applicant_id,
+                    'company_id' => Auth::id()
+                ],
+                [
+                    'scheduled_at' => $scheduledAt,
+                    'meet_link' => $meetLink,
+                    'status' => 'pending'
+                ]
+            );
+        }
         
         $statusMessages = [
             'applied' => 'Application status updated to Applied',
             'interview' => 'Interview scheduled for applicant',
-            'rejected' => 'Application rejected'
+            'rejected' => 'Application rejected',
+            'approved' => 'Applicant approved successfully!'
         ];
         
         return redirect()->route('company.applications')
@@ -266,7 +295,7 @@ public function edit($id)
 
     public function showApplication($id)
     {
-        $application = Applicant::with(['user', 'work'])
+        $application = Applicant::with(['user', 'work', 'interview'])
             ->whereHas('work', function($q) {
                 $q->where('user_id', Auth::id());
             })

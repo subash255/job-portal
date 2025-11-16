@@ -51,9 +51,7 @@ class Applicant extends Model
 
     public function interview()
     {
-        return $this->hasOne(Interview::class, 'user_id', 'applicant_id')
-                    ->where('company_id', $this->company_id)
-                    ->latest();
+        return $this->hasOne(Interview::class, 'user_id', 'applicant_id')->latest();
     }
 
     // Optional accessor for resume URL
