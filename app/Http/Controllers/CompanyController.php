@@ -7,9 +7,11 @@ use App\Models\Category;
 use App\Models\Interview;
 use App\Models\User;
 use App\Models\Work;
+use App\Mail\InterviewScheduled;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
@@ -280,6 +282,28 @@ public function edit($id)
                     'status' => 'pending'
                 ]
             );
+            
+            // Send email notification to applicant
+            try {
+                Mail::to($application->user->email)->send(
+                    new InterviewScheduled(
+                        $application,
+                        $interview,
+                        $application->work->title,
+                        Auth::user()->name
+                    )
+                );
+                
+                Log::info('Interview notification email sent', [
+                    'applicant_email' => $application->user->email,
+                    'interview_id' => $interview->id
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Failed to send interview email', [
+                    'error' => $e->getMessage(),
+                    'applicant_email' => $application->user->email
+                ]);
+            }
         }
         
         $statusMessages = [

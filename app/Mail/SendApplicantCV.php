@@ -55,7 +55,7 @@ class SendApplicantCV extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.jobapplicant',
+            markdown: 'emails.jobapplicant',
             with: [
                 'user' => $this->user,
                 'work' => $this->work,
@@ -77,7 +77,7 @@ class SendApplicantCV extends Mailable
         $path = storage_path('app/public/' . $this->applicant->resume);
 
         if (!file_exists($path)) {
-            \Log::error("Resume file not found: " . $path);
+            Log::error("Resume file not found: " . $path);
             return [];
         }
 
@@ -87,7 +87,7 @@ class SendApplicantCV extends Mailable
                 ->withMime(\Illuminate\Support\Facades\File::mimeType($path)),
         ];
     } catch (\Throwable $e) {
-        \Log::error("Attachment error: " . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+        Log::error("Attachment error: " . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
         return [];
     }
 }

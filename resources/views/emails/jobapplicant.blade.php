@@ -1,42 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>New Job Application</title>
-</head>
-<body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; color: #333;">
-  <div style="max-width: 600px; margin: auto; background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-    <h2 style="color: #2c3e50;">New Job Application: {{ $work->title }}</h2>
+@component('mail::message')
+# New Job Application Received
 
-    <p><strong>Applicant Name:</strong> {{ $user->name }}</p>
-    <p><strong>Email:</strong> {{ $user->email }}</p>
-    <p><strong>Phone:</strong> {{ $applicant->phone ?? 'N/A' }}</p>
-    <p><strong>Address:</strong> {{ $applicant->address ?? 'N/A' }}</p>
-    <p><strong>Experience:</strong> {{ $applicant->experience ?? 'N/A' }}</p>
-    <p><strong>Education:</strong> {{ $applicant->education ?? 'N/A' }}</p>
-    <p><strong>Skills:</strong> {{ $applicant->skills ?? 'N/A' }}</p>
+Dear Hiring Manager,
 
-    <p><strong>Cover Letter:</strong></p>
-    <div style="background: #f4f4f4; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px;">
-      {{ $applicant->cover_letter ?? 'N/A' }}
-    </div>
+You have received a new application for the position of **{{ $work->title }}**.
 
-    <p><strong>Portfolio:</strong> 
-      @if($applicant->portfolio_url)
-        <a href="{{ $applicant->portfolio_url }}" style="color: #2980b9;" target="_blank">{{ $applicant->portfolio_url }}</a>
-      @else
-        N/A
-      @endif
-    </p>
+## Applicant Information
 
+**Name:** {{ $user->name }}  
+**Email:** {{ $user->email }}  
+**Phone:** {{ $applicant->phone ?? 'Not provided' }}  
+**Location:** {{ $applicant->address ?? 'Not provided' }}
 
+## Professional Background
 
-    <hr style="margin: 30px 0;">
+**Experience:** {{ $applicant->experience ?? 'Not specified' }}  
+**Education:** {{ $applicant->education ?? 'Not specified' }}  
+**Key Skills:** {{ $applicant->skills ?? 'Not specified' }}
 
-    <p><strong>Resume:</strong> Attached with this email.</p>
-    <p>If you’re unable to view the attachment, you can also access it <a href="{{ asset('storage/' . $applicant->resume) }}" target="_blank" style="color: #27ae60;">here</a>.</p>
+@if($applicant->cover_letter)
+## Cover Letter
 
-    <p style="margin-top: 40px; font-size: 0.9em; color: #888;">This email was generated automatically by the job portal system.</p>
-  </div>
-</body>
-</html>
+@component('mail::panel')
+{{ $applicant->cover_letter }}
+@endcomponent
+@endif
+
+@if($applicant->portfolio_url)
+## Portfolio
+
+@component('mail::button', ['url' => $applicant->portfolio_url, 'color' => 'primary'])
+View Portfolio
+@endcomponent
+@endif
+
+## Resume/CV
+
+The applicant's resume has been attached to this email for your review.
+
+@component('mail::button', ['url' => asset('storage/' . $applicant->resume), 'color' => 'success'])
+Download Resume
+@endcomponent
+
+---
+
+**Next Steps:**
+- Review the application materials
+- Shortlist candidates for interview
+- Schedule interviews through your dashboard
+
+Thank you,  
+{{ config('app.name') }} Team
+
+@component('mail::subcopy')
+This is an automated notification from {{ config('app.name') }}. Please do not reply to this email.
+@endcomponent
+@endcomponent
