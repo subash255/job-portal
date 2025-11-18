@@ -191,13 +191,13 @@
                                 <!-- Social Links -->
                                 <div class="flex justify-center space-x-3">
                                     <!-- Facebook -->
-                                    <a href="#"
+                                    <a href="https://www.facebook.com/sohanmessi10"
                                         class="w-10 h-10 bg-gray-100 hover:bg-blue-100 rounded-full flex items-center justify-center transition-colors duration-200">
                                         <i class="ri-facebook-fill text-gray-600 hover:text-blue-600"
                                             style="font-size: 20px;"></i>
                                     </a>
                                     <!-- LinkedIn -->
-                                    <a href="#"
+                                    <a href="https://www.linkedin.com/in/sohan-kafle/"
                                         class="w-10 h-10 bg-gray-100 hover:bg-blue-100 rounded-full flex items-center justify-center transition-colors duration-200">
                                         <i class="ri-linkedin-fill text-gray-600 hover:text-blue-600"
                                             style="font-size: 20px;"></i>
@@ -209,7 +209,7 @@
                                             style="font-size: 20px;"></i>
                                     </a>
                                     <!-- GitHub -->
-                                    <a href="#"
+                                    <a href="https://github.com/SohanKafle"
                                         class="w-10 h-10 bg-gray-100 hover:bg-gray-800 rounded-full flex items-center justify-center transition-colors duration-200">
                                         <i class="ri-github-fill text-gray-600 hover:text-gray-800"
                                             style="font-size: 20px;"></i>

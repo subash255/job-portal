@@ -199,10 +199,24 @@
               <i class="ri-briefcase-line text-indigo-500 w-4 h-4 mr-2"></i> {{$work->position }}
             </div>
             @php
-            $end = \Carbon\Carbon::parse($work->end_date); // Parse the end date
+            $end = \Carbon\Carbon::parse($work->end_date);
+            $now = \Carbon\Carbon::now();
+            $isExpired = $end->isPast();
+            $daysRemaining = (int) $now->diffInDays($end, false);
             @endphp
-            <span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-medium">{{ $end->diffForHumans() }}
+            @if($isExpired)
+            <span class="bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full font-medium">
+              <i class="ri-close-circle-line"></i> Expired
             </span>
+            @elseif($daysRemaining == 0)
+            <span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full font-medium">
+              <i class="ri-time-line"></i> Expires today
+            </span>
+            @else
+            <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-medium">
+              <i class="ri-time-line"></i> Expires in {{ $daysRemaining }} {{ $daysRemaining == 1 ? 'day' : 'days' }}
+            </span>
+            @endif
           </div>
           <div class="flex items-center text-gray-600 text-sm">
             <i class="ri-map-pin-line text-indigo-500 w-4 h-4 mr-2"></i> {{ $work->location }}
