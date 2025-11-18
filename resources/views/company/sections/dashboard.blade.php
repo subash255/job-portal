@@ -96,11 +96,11 @@
     <div class="bg-gradient-to-r from-orange-500 to-orange-600 p-6 rounded-2xl text-white shadow-lg">
         <div class="flex items-center justify-between mb-4">
             <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-                <i class="ri-calendar-line text-xl"></i>
+                <i class="ri-calendar-close-line text-xl"></i>
             </div>
-            <span class="text-2xl font-bold">{{ $closedJobs }}</span>
+            <span class="text-2xl font-bold">{{ $expiredJobs }}</span>
         </div>
-        <p class="text-orange-100 text-sm font-medium">Closed Jobs</p>
+        <p class="text-orange-100 text-sm font-medium">Expired Jobs</p>
     </div>
 </div>
 

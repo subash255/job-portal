@@ -35,8 +35,8 @@ class CompanyController extends Controller
         // Calculate dynamic stats
         $totalJobs = $works->count();
         $totalApplications = $totalapplicant;
-        $activeJobs = $works->where('status', 'active')->count();
-        $closedJobs = $works->where('status', 'closed')->count();
+        $activeJobs = $works->where('status', 'active')->where('end_date', '>=', now())->count();
+        $expiredJobs = $works->where('end_date', '<', now())->count();
         $recentJobs = $works->take(5); // Get 5 most recent jobs
         $recentApplications = $applications->take(5); // Get 5 most recent applications
         
@@ -51,7 +51,7 @@ class CompanyController extends Controller
             'totalJobs',
             'totalApplications',
             'activeJobs',
-            'closedJobs',
+            'expiredJobs',
             'recentJobs',
             'recentApplications',
             'interviews'
@@ -137,7 +137,7 @@ class CompanyController extends Controller
             'benefits' => $request->benefits,
         ]);
 
-        return redirect()->route('company.index')->with('success', 'Job posted successfully!');
+        return redirect()->route('company.jobs')->with('success', 'Job posted successfully!');
     }
 
    
