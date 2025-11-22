@@ -102,12 +102,27 @@ class HomepageController extends Controller
             ->withCount(['works' => fn($q) => $q->where('status', 'active')])
             ->get();
 
-        $jobTypeCounts = Work::query()
+        // Initialize all job types with 0 count
+        $jobTypeCounts = [
+            'Full-Time' => 0,
+            'Part-Time' => 0,
+            'Contract' => 0,
+            'Internship' => 0,
+            'Freelance' => 0,
+        ];
+
+        // Get actual counts (case-insensitive)
+        $actualCounts = Work::query()
             ->where('status', 'active')
-            ->selectRaw('type, count(*) as count')
-            ->groupBy('type')
-            ->pluck('count', 'type')
+            ->get()
+            ->groupBy(function($work) {
+                // Normalize to match filter format
+                return ucwords(strtolower($work->type), '-');
+            })
+            ->map(fn($group) => $group->count())
             ->toArray();
+
+        $jobTypeCounts = array_merge($jobTypeCounts, $actualCounts);
 
         return view('job', compact('works', 'categories', 'jobTypeCounts'));
     }
